@@ -1,0 +1,26 @@
+rui;register unsigned int
+rus;register unsigned short
+ruc;register unsigned char
+
+ui;unsigned int
+us;unsigned short
+uc;unsigned char
+uc16;unsigned char $s[16]
+
+rvp;register void*
+ruip;register unsigned int*
+rusp;register unsigned short*
+rucp;register unsigned char*
+
+vp;void*
+uip;unsigned int*
+usp;unsigned short*
+ucp;unsigned char*
+
+ii;immediateInt
+it;immediateText
+iv;immediateVar -- for global variables like pre calculated tables in aes
+
+sizeof(char);1
+sizeof(short);2
+sizeof(int);4

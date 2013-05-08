@@ -1,0 +1,174 @@
+inst: $r = $n
+in: int32 r, ii n
+tr: $r = $n;---$r:rui
+
+inst: $r = $s
+in: int32 r, stack32 s
+tr: $r = $s;---$r:rui;$s:ui
+tr: $r = $s;---$r:ruip;$s:uip
+tr: $r = $s;---$r:rusp;$s:usp
+tr: $r = $s;---$r:rucp;$s:ucp
+
+inst: $r = *(uint8 *)($s + $n)
+in: int32 r, int32 s, ii n
+tr: $r = $s[$n];---$r:rui;$s:rucp;
+
+inst: $r = *(uint8 *)($s + $t)
+in: int32 r, int32 s, int32 t
+tr: $r = $s[$t];---$r:rui;$s:rucp;$t:rui
+
+inst: $r = *(uint32 *)($s + $n)
+in: int32 r, int32 s, ii n
+tr: $r = $s[$p0];---$r:rui;$s:ruip;---let $p0=$n/sizeof(int)
+tr: $r = READ_CHAR_AS_INT($s,$n);---$r:rui;$s:rucp
+tr: $r = READ_SHORT_AS_INT($s,$n);---$r:rui;$s:rusp
+
+inst: $r = *(uint32 *)($s + $t)
+in: int32 r, int32 s, int32 t
+tr: $r = $s[$t>>2];---$r:rui;$s:ruip;$t:rui
+tr: $r = READ_CHAR_AS_INT($s,$t);---$r:rui;$s:rucp;$t:rui
+tr: $r = READ_SHORT_AS_INT($s,$t);---$r:rui;$s:rusp;$t:rui
+
+inst: $r = *(uint8 *)(&$n + $s * 8)
+in: int32 r, iv n, int32 s
+tr: $r = $n[$s * 8];---$r:rui;$n:ucp;$s:rui
+
+inst: $r = *(uint16 *)(&$n + $s * 8)
+in: int32 r, iv n, int32 s
+tr: $r = $n[$s * $p0];---$r:rui;$n:usp;$s:rui---let $p0=8/sizeof(short)
+tr: $r = READ_CHAR_AS_SHORT($n,$s * 8);---$r:rui;$n:ucp;$s:rui
+
+inst: $r = *(uint32 *)(&$n + $s * 8)
+in: int32 r, iv n, int32 s
+tr: $r = $n[$s * $p0];---$r:rui;$n:uip;$s:rui---let $p0=8/sizeof(int)
+tr: $r = READ_SHORT_AS_INT($n,$s * 8);---$r:rui;$n:usp;$s:rui
+tr: $r = READ_CHAR_AS_INT($n,$s * 8);---$r:rui;$n:ucp;$s:rui
+
+inst: $r ^= $s
+in: int32 r, stack32 s
+tr: $r ^= $s;---$r:rui;$s:ui
+
+inst: $r ^= *(uint32 *)($s + $n)
+in: int32 r, int32 s, ii n
+tr: $r ^= $s[$p0];---$r:rui;$s:ruip;---let $p0=$n/sizeof(int)
+tr: $r ^= READ_SHORT_AS_INT($s,$n);---$r:rui;$s:rusp;
+tr: $r ^= READ_CHAR_AS_INT($s,$n);---$r:rui;$s:rucp;
+
+inst: $r ^= *(uint32 *)(&$n + $s * 8)
+in: int32 r, iv n, int32 s
+tr: $r ^= $n[$s * $p0];---$r:rui;$n:uip;$s:rui---let $p0=8/sizeof(int)
+tr: $r ^= READ_SHORT_AS_INT($n,$s * 8);---$r:rui;$n:usp;$s:rui
+tr: $r ^= READ_CHAR_AS_INT($n,$s * 8);---$r:rui;$n:ucp;$s:rui
+
+inst: $r = $s
+in: stack32 r, int32 s
+tr: $r = $s;---$r:ui;$s:rui
+tr: $r = $s;---$r:uip;$s:ruip
+tr: $r = $s;---$r:usp;$s:rusp
+tr: $r = $s;---$r:ucp;$s:rucp
+
+inst: *(uint8 *)($s + $n) = $r
+in: int32 s, ii n, int32 r
+tr: $s[$n] = $r;---$s:rucp;$r:rui
+
+inst: *(uint8 *)($s + $t) = $r
+in: int32 s, int32 t, int32 r
+tr: $s[$t] = $r & 0xff;---$s:rucp;$t:rui;$r:rui
+
+inst: *(uint32 *)($s + $n) = $r
+in: int32 s, ii n, int32 r
+tr: $s[$p0] = $r;---$s:ruip;$r:rui---let $p0=$n/sizeof(int)
+tr: SAVE_CHAR_AS_INT($s,$n,$r);---$s:rucp;$r:rui
+
+inst: $r = $s
+in: int32 r, int32 s
+tr: $r = $s;---$r:rui;$s:rui
+tr: $r = $s;---$r:ruip;$s:ruip
+tr: $r = $s;---$r:rusp;$s:rusp
+tr: $r = $s;---$r:rucp;$s:rucp
+
+inst: $r = $s
+in: int32 r, int3232 s
+tr: $r = $s;---$r:rui;$s:rui
+tr: $r = $s;---$r:ruip;$s:ruip
+tr: $r = $s;---$r:rusp;$s:rusp
+tr: $r = $s;---$r:rucp;$s:rucp
+
+inst: $r = $s
+in: int3232 r, int32 s
+tr: $r = $s;---$r:rui;$s:rui
+tr: $r = $s;---$r:ruip;$s:ruip
+tr: $r = $s;---$r:rusp;$s:rusp
+tr: $r = $s;---$r:rucp;$s:rucp
+
+inst: $r = $s & 255
+in: int32 r, int32 s
+tr: $r = $s & 255;---$r:rui;$s:rui
+
+inst: $r = ($s >> 8) & 255
+in: int32 r, int32 s
+tr: $r = ($s >> 8) & 255;---$r:rui;$s:rui
+
+inst: $r &= $n
+in: int32 r, ii n
+tr: $r &= $n;---$r:rui;
+
+inst: $r += $s
+in: int32 r, int32 s
+tr: $r += $s;---$r:rui;$s:rui
+tr: $r += $s;---$r:rucp;$s:rui
+tr: $r += ($s>>1);---$r:rusp;$s:rui
+tr: $r += ($s>>2);---$r:ruip;$s:rui
+
+inst: $r += $n
+in: int32 r, ii n
+tr: $r += $n;---$r:rui
+tr: $r += $p0;---$r:rucp;---let $p0=$n/sizeof(char)
+tr: $r += $p0;---$r:rusp;---let $p0=$n/sizeof(short)
+tr: $r += $p0;---$r:ruip;---let $p0=$n/sizeof(int)
+
+inst: $r -= $n
+in: int32 r, ii n
+tr: $r -= $n;---$r:rui
+
+inst: $r <<<= $n
+in: int32 r, ii n
+tr: $r = ROTATE($r,$n);---$r:rui
+
+inst: (uint32) $r >>= $n
+in: int32 r, ii n
+tr: $r >>= $n;---$r:rui;
+
+inst: $r ^= $s
+in: int32 r, int32 s
+tr: $r ^= $s;---$r:rui;$s:rui
+
+inst: $r ^= $n
+in: int32 r, ii n
+tr: $r ^= $n;---$r:rui;
+
+inst: $c? $r-$n
+in: tflg c, int32 r, ii n
+tr: //$c? $r-$n;---$r:rui
+ps: test;$c;$r;$n
+
+inst: $c? $r-$s
+in: tflg c, int32 r, int32 s
+tr: //$c? $r-$s;---$r:rui;$s:rui
+ps: test;$c;$r;$s
+
+inst: goto $f if $t
+in: it f, flg t
+tr: if($w $cnd $z){goto $f;}
+ps: gotoif;$f;$t
+
+inst: goto $f
+in: it f
+tr: goto $f;
+ps: goto;$f
+
+inst: $f:
+in: it f
+tr: $f:
+ps: label;$f
+
