@@ -142,7 +142,7 @@ sub break_it_all
 				elsif($stack_ref->[$_]->{type} eq "gotoif")
 				{
 					my $trans = $trans_ref->[$stack_ref->[$_]->{line}]->[0];
-					if($trans =~ m/if\((.+)\){/){$trans_ref->[$stack_ref->[$_]->{line}]->[0] = "if($1){break;}"}
+					if($trans =~ m/if\((.+)\)\{/){$trans_ref->[$stack_ref->[$_]->{line}]->[0] = "if($1){break;}"}
 				}
 			}
 		}
@@ -159,7 +159,7 @@ sub update_do_while
 
 	my $trans = $trans_ref->[$stack_ref->[$info->{end}+2]->{line}]->[0]; 
 
-	if( $trans =~ m/if\((.+)\){/)
+	if( $trans =~ m/if\((.+)\)\{/)
 	{
 		my $c = negate_condition($1);
 
@@ -185,7 +185,7 @@ sub update_while
 	my ($info, $stack_ref, $trans_ref, $g_i_ref) = @_;
 
 	my $trans = $trans_ref->[$stack_ref->[$info->{begin}-2]->{line}]->[0]; 
-	if( $trans =~ m/if\((.+)\){/)
+	if( $trans =~ m/if\((.+)\)\{/)
 	{
 		my $c = negate_condition($1);
 
@@ -213,7 +213,7 @@ sub update_if
 	my ($info, $stack_ref, $trans_ref) = @_;
 	
 	my $trans = $trans_ref->[$stack_ref->[$info->{begin}-1]->{line}]->[0]; 
-	if( $trans =~ m/if\((.+)\){/)
+	if( $trans =~ m/if\((.+)\)\{/)
 	{
 		my $c = negate_condition($1);
 		# GOTO IF
@@ -234,7 +234,7 @@ sub update_if_else
 	my ($info, $stack_ref, $trans_ref) = @_;
 	
 	my $trans = $trans_ref->[$stack_ref->[$info->{begin}-1]->{line}]->[0]; 
-	if( $trans =~ m/if\((.+)\){/)
+	if( $trans =~ m/if\((.+)\)\{/)
 	{
 		my $c = negate_condition($1);
 		# BEGIN
