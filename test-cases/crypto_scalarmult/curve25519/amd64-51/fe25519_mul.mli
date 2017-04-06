@@ -1,26 +1,26 @@
 extern
-crypto_scalarmult_curve25519_amd64_51_fe25519_mul( reg rp : u64,  reg xp : u64,  reg yp : u64)
+crypto_scalarmult_curve25519_amd64_51_fe25519_mul(rp, xp, yp)
 {
-     param : crypto_scalarmult_curve25519_amd64_51_REDMASK51 : u64;
-     reg cf : bool;
+    reg             cf : bool;
+  param :  crypto_scalarmult_curve25519_amd64_51_REDMASK51 : u64;
 
-     reg mulr01 : u64;
-     reg mulr11 : u64;
-     reg mulr21 : u64;
-     reg mulr31 : u64;
-     reg mulr41 : u64;
-     reg mulrax : u64;
-     reg mulrdx : u64;
-     reg mulredmask : u64;
-     reg mult : u64;
-     reg mulx319_stack : u64;
-     reg mulx419_stack : u64;
-     reg r0 : u64;
-     reg r1 : u64;
-     reg r2 : u64;
-     reg r3 : u64;
-     reg r4 : u64;
-     stack rp_stack : u64;
+    reg             mulr01 : u64;
+    reg             mulr11 : u64;
+    reg             mulr21 : u64;
+    reg             mulr31 : u64;
+    reg             mulr41 : u64;
+    reg             mulrax : u64;
+    reg             mulrdx : u64;
+    reg             mulredmask : u64;
+    reg             mult : u64;
+    stack           mulx319_stack : u64;
+    stack           mulx419_stack : u64;
+    reg             r0 : u64;
+    reg             r1 : u64;
+    reg             r2 : u64;
+    reg             r3 : u64;
+    reg             r4 : u64;
+    stack           rp_stack : u64;
 
     rp_stack = rp;
     yp = yp;

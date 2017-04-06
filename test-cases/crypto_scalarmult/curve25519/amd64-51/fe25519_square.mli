@@ -1,23 +1,23 @@
 extern
-crypto_scalarmult_curve25519_amd64_51_fe25519_square( reg rp : u64,  reg xp : u64)
+crypto_scalarmult_curve25519_amd64_51_fe25519_square(rp, xp)
 {
-     param : crypto_scalarmult_curve25519_amd64_51_REDMASK51 : u64;
-     reg cf : bool;
+    reg             cf : bool;
+  param :  crypto_scalarmult_curve25519_amd64_51_REDMASK51 : u64;
 
-     reg r0 : u64;
-     reg r1 : u64;
-     reg r2 : u64;
-     reg r3 : u64;
-     reg r4 : u64;
-     reg squarer01 : u64;
-     reg squarer11 : u64;
-     reg squarer21 : u64;
-     reg squarer31 : u64;
-     reg squarer41 : u64;
-     reg squarerax : u64;
-     reg squarerdx : u64;
-     reg squareredmask : u64;
-     reg squaret : u64;
+    reg             r0 : u64;
+    reg             r1 : u64;
+    reg             r2 : u64;
+    reg             r3 : u64;
+    reg             r4 : u64;
+    reg             squarer01 : u64;
+    reg             squarer11 : u64;
+    reg             squarer21 : u64;
+    reg             squarer31 : u64;
+    reg             squarer41 : u64;
+    reg             squarerax : u64;
+    reg             squarerdx : u64;
+    reg             squareredmask : u64;
+    reg             squaret : u64;
 
     squarerax = xp[0];
     squarerdx, squarerax = squarerax * xp[0];

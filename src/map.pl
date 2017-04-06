@@ -14,7 +14,7 @@ my %FLAGS     = ('=' => '==', '!=' => '!=', 'unsigned>' => '>', 'unsigned<' =>  
 
 sub translate_function
 {
-  my ($map_ref, $func, $args_ref, $decs_ref, $ext_mtypes_ref, $in_mtypes_ref, $outfile) = @_;
+  my ($map_ref, $func, $args_ref, $decs_ref, $ext_mtypes_ref, $in_mtypes_ref, $outfile, $mli) = @_;
 
   my %alltypes                    = (%$args_ref, %$decs_ref);  # Merge the two hashes and build a hash that contains all types
   my %variabletypes              = (%$ext_mtypes_ref, %$in_mtypes_ref);
@@ -75,13 +75,13 @@ sub translate_function
   #  for (reverse @stack){print "\t$ii ", $_->{type}." ".$_->{arg1}."\t\t ".$_->{line}, "\n"; $ii--;}
 
   search_flow_control(\@stack,\@translations);
-  print_function($func, $args_ref, \%variabletypes, $ext_mtypes_ref, \@translations, $outfile);
+  print_function($func, $args_ref, \%variabletypes, $ext_mtypes_ref, \@translations, $outfile, $mli);
 }
 
 
 sub print_function
 {
-  my ($f, $args_r, $vt_r, $mt_r, $tr_r, $of) = @_;
+  my ($f, $args_r, $vt_r, $mt_r, $tr_r, $of, $mli) = @_;
   my %ty = get_types_info($INC[$#INC] . "../config/types");
   open OUT, ">>".$of or die "Couldn't open the file: $of\n $! \n";
 
@@ -102,15 +102,30 @@ sub print_function
   if($#comment_stack > -1){print OUT "/*@\n   @".(join "\n   @ ", @comment_stack)."\n   @*/\n";}
 
   # f. signature
-  print OUT "void ",$f->{name},"(", (join ', ', map { defined $vt_r->{$_} ? $ty{$vt_r->{$_}}." ".$_ : "void* ".$_ } (sort keys %$args_r)), "){\n"; 
+  if($mli)
+  { print OUT "extern ",$f->{name},"(", (join ', ', (sort keys %$args_r)), "){\n";  
+  }
+  else
+  { print OUT "void ",$f->{name},"(", (join ', ', map { defined $vt_r->{$_} ? $ty{$vt_r->{$_}}." ".$_ : "void* ".$_ } (sort keys %$args_r)), "){\n"; 
+  }
   
   # delete unnecessary keys
   for (keys %$args_r){delete $vt_r->{$_};}
-  for (keys %$mt_r){delete $vt_r->{$_};}  
+  for (keys %$mt_r){delete $vt_r->{$_};}
  
   # var. declarations
-  print OUT "\n",(join "\n", map {"\t $ty{$vt_r->{$_}} $_;"} (sort keys %$vt_r)), "\n";
+  # check if carry flag is used (only if mli)
+  print OUT "reg cf : bool;\n" if ($mli and (grep (defined $_->[0] and $_->[0] =~ m/cf\?/), @$tr_r));
+  print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "\t $p $_ : $n;" } (keys %$mt_r)))."\n\n";
 
+  if($mli)
+  { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $_ : $n;"} (sort keys %$vt_r)), "\n";
+  }
+  else
+  { print OUT "\n",(join "\n", map {"\t $ty{$vt_r->{$_}} $_;"} (sort keys %$vt_r)), "\n";
+  }
+
+  # instructions 
   for my $tr (@$tr_r)
   {
     if(defined $tr->[0])

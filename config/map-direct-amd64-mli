@@ -2,6 +2,7 @@
 inst: $r = *(uint64 *) &$n
 in: int64 r, iv n
 tr: $r = &$n; ---$r:rui64mli;
+# global var type ? pui64pmli
 
 inst: $r = $n
 in: int64 r, ii n

@@ -2,28 +2,29 @@ rui;register unsigned int
 rus;register unsigned short
 ruc;register unsigned char
 rui64;uint64_t
-rui64mli;reg
+rui64mli;reg---u64
 
 ui;unsigned int
 us;unsigned short
 uc;unsigned char
 uc16;unsigned char $s[16]
 ui64;uint64_t
-ui64mli;reg
+ui64mli;stack---u64
 
 rvp;register void*
 ruip;register unsigned int*
 rusp;register unsigned short*
 rucp;register unsigned char*
 rui64p;uint64_t*
-rui64pmli;reg
+rui64pmli;reg---u64
 
 vp;void*
 uip;unsigned int*
 usp;unsigned short*
 ucp;unsigned char*
 ui64p;uint64_t*
-ui64pmli;stack
+ui64pmli;stack---u64
+pui64pmli;param :---u64
 
 ii;immediateInt
 it;immediateText
