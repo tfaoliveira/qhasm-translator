@@ -252,9 +252,9 @@ sub actualize_translations
         push @final, "//Check the map file: there are no possible translations for this: ".
                  $trans_ref->[0]."\n";
       }else{
-        push @final, "//Sorry about this (actualize_translations): var name ($name); var type: (".
+        push @final, "//Not enough possible translations to meet the resolved types : var name ($name); var type: (".
                  $variabletypes_ref->{$name}."); line ($line); ".
-                 "\n//1st: check map file in config folder.\n"; 
+                 "\n//  edit the map file in config folder.\n"; 
       }
       $translations_ref->[$line] = \@final;
     }
