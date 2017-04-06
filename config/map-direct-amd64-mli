@@ -95,6 +95,11 @@ inst: (uint64) $r >>= $n
 in: int64 r, ii n
 tr: $r >>= $n;---$r:rui64mli;
 
+#(uint64) var1 <<= shift
+inst: $r <<= $n
+in: int64 r, ii n
+tr: $r <<= $n;---$r:rui64mli;
+
 inst: $r *= $n
 in: int64 r, ii n
 tr: $r *= $n;---$r:rui64mli
