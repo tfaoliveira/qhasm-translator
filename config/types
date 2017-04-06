@@ -1,7 +1,7 @@
 rui;register unsigned int
 rus;register unsigned short
 ruc;register unsigned char
-rui64;register uint64_t
+rui64;uint64_t
 
 ui;unsigned int
 us;unsigned short
@@ -13,7 +13,7 @@ rvp;register void*
 ruip;register unsigned int*
 rusp;register unsigned short*
 rucp;register unsigned char*
-rui64p;register uint64_t*
+rui64p;uint64_t*
 
 vp;void*
 uip;unsigned int*

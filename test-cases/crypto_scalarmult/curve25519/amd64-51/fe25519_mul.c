@@ -1,23 +1,23 @@
 void
-crypto_scalarmult_curve25519_amd64_51_fe25519_mul(register uint64_t * rp, register uint64_t * xp, register uint64_t * yp)
+crypto_scalarmult_curve25519_amd64_51_fe25519_mul(uint64_t * rp, uint64_t * xp, uint64_t * yp)
 {
 
-    register uint64_t mulr01;
-    register uint64_t mulr11;
-    register uint64_t mulr21;
-    register uint64_t mulr31;
-    register uint64_t mulr41;
-    register uint64_t mulrax;
-    register uint64_t mulrdx;
-    register uint64_t mulredmask;
-    register uint64_t mult;
+    uint64_t        mulr01;
+    uint64_t        mulr11;
+    uint64_t        mulr21;
+    uint64_t        mulr31;
+    uint64_t        mulr41;
+    uint64_t        mulrax;
+    uint64_t        mulrdx;
+    uint64_t        mulredmask;
+    uint64_t        mult;
     uint64_t        mulx319_stack;
     uint64_t        mulx419_stack;
-    register uint64_t r0;
-    register uint64_t r1;
-    register uint64_t r2;
-    register uint64_t r3;
-    register uint64_t r4;
+    uint64_t        r0;
+    uint64_t        r1;
+    uint64_t        r2;
+    uint64_t        r3;
+    uint64_t        r4;
     uint64_t       *rp_stack;
 
     rp_stack = rp;
