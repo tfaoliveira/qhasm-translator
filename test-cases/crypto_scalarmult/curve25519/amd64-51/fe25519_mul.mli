@@ -1,6 +1,7 @@
 extern
 crypto_scalarmult_curve25519_amd64_51_fe25519_mul( reg rp : u64,  reg xp : u64,  reg yp : u64)
 {
+     param : crypto_scalarmult_curve25519_amd64_51_REDMASK51 : u64;
      reg cf : bool;
 
      reg mulr01 : u64;
@@ -130,7 +131,7 @@ crypto_scalarmult_curve25519_amd64_51_fe25519_mul( reg rp : u64,  reg xp : u64, 
     mulrdx, mulrax = mulrax * yp[4];
     cf ? r3 += mulrax;
     mulr31 += mulrdx + cf;
-    mulredmask = *(uint64_t *) crypto_scalarmult_curve25519_amd64_51_REDMASK51; // handle me 
+    mulredmask = &crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     mulr01 = rotate128(mulr01, r0, 13);
     r0 &= mulredmask;
     mulr11 = rotate128(mulr11, r1, 13);

@@ -1,7 +1,7 @@
 # var1 = *(uint64 *) &global_var
 inst: $r = *(uint64 *) &$n
 in: int64 r, iv n
-tr: $r = *(uint64_t *) $n; // handle me ---$r:rui64mli;
+tr: $r = &$n; ---$r:rui64mli;
 
 inst: $r = $n
 in: int64 r, ii n
