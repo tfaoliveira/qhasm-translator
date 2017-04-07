@@ -101,9 +101,20 @@ sub print_function
   }
   if($#comment_stack > -1){print OUT "/*@\n   @".(join "\n   @ ", @comment_stack)."\n   @*/\n";}
 
+  # global params
+  print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "/*CHECKME*/\n$p $_ : $n = 0;" } (keys %$mt_r)))."\n\n";
+
   # f. signature
   if($mli)
-  { print OUT "extern ",$f->{name},"(", (join ', ', (sort keys %$args_r)), "){\n";  
+  { print OUT "fn ",$f->{name},"(";  
+    my @args_str = ();
+    foreach my $arg (sort keys %$args_r)
+    { my @grp = sort ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );
+      my ($p, $n) = split '---', $ty{$vt_r->{$arg}};
+      push @args_str, "$arg : $p $n"."[".($grp[$#grp]+1)."]" if(@grp);
+      push @args_str, "$arg : $p $n" if(!@grp);
+    }
+    print OUT join(', ',@args_str)."){\n";
   }
   else
   { print OUT "void ",$f->{name},"(", (join ', ', map { defined $vt_r->{$_} ? $ty{$vt_r->{$_}}." ".$_ : "void* ".$_ } (sort keys %$args_r)), "){\n"; 
@@ -115,11 +126,10 @@ sub print_function
  
   # var. declarations
   # check if carry flag is used (only if mli)
-  print OUT "reg cf : bool;\n" if ($mli and (grep (defined $_->[0] and $_->[0] =~ m/cf\?/), @$tr_r));
-  print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "\t $p $_ : $n;" } (keys %$mt_r)))."\n\n";
+  print OUT "  reg bool cf;\n" if ($mli and (grep (defined $_->[0] and $_->[0] =~ m/cf\?/), @$tr_r));
 
   if($mli)
-  { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $_ : $n;"} (sort keys %$vt_r)), "\n";
+  { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $n $_;"} (sort keys %$vt_r)), "\n";
   }
   else
   { print OUT "\n",(join "\n", map {"\t $ty{$vt_r->{$_}} $_;"} (sort keys %$vt_r)), "\n";

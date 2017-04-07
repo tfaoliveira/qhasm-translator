@@ -1,7 +1,7 @@
-# var1 = *(uint64 *) &global_var
+# var1 = *(uint64 *) $global_var
 inst: $r = *(uint64 *) &$n
 in: int64 r, iv n
-tr: $r = &$n; ---$r:rui64mli;
+tr: $r = $$n; ---$r:rui64mli;
 # global var type ? pui64pmli
 
 inst: $r = $n
@@ -59,7 +59,7 @@ tr: $r, $s = $t * $x[$p0];---$r:rui64mli;$s:rui64mli;$t:rui64mli;$x:rui64pmli;--
 # var1 = (var2.var3) << shift
 inst: $r = ($s.$t) << $n
 in: int64 r, int64 s, int64 t, ii n
-tr: $r = rotate128($s,$t,$n);---$r:rui64mli;$s:rui64mli;$t:rui64mli;
+tr: $r = double_precision_shift_left($s,$t,$n);---$r:rui64mli;$s:rui64mli;$t:rui64mli;
 
 # carry? var1 += var2
 inst: carry? $r += $s
@@ -69,7 +69,7 @@ tr: cf? $r += $s;---$r:rui64mli;$s:rui64mli;
 # var1 += var2 + carry
 inst: $r += $s + carry
 in: int64 r, int64 s
-tr: $r += $s + cf; ---$r:rui64mli;$s:rui64mli;
+tr: $r, $s += cf; ---$r:rui64mli;$s:rui64mli;
 
 inst: *(uint64 *)($s + $n) = $r
 in: int64 s, ii n, int64 r
