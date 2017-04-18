@@ -8,13 +8,35 @@ require 'gotos.pl'; # search_flow_control
 
 # Constants
 my $RX_NAMES  = '([a-zA-Z_][a-zA-Z0-9_]*)';
-my %FLAGS_NEG = ('=' => '!=', '!=' => '==', 'unsigned>' => '<=', 'unsigned<' => '>=', '!unsigned>' => '>',  '!unsigned<'  => '<');
-my %FLAGS     = ('=' => '==', '!=' => '!=', 'unsigned>' => '>', 'unsigned<' =>  '<', '!unsigned>' => '<=', '!unsigned<' => '>=');
+
+my %FLAGS_NEG = ('='          => '!=',
+                 '!='         => '==',
+                 'unsigned>'  => '<=',
+                 'unsigned<'  => '>=',
+                 '!unsigned>' =>  '>',
+                 '!unsigned<' =>  '<',
+                 'signed>'    => '<=',
+                 'signed<'    => '>=',
+                 '!signed>'   =>  '>',
+                 '!signed<'   => '<'
+                );
+
+my %FLAGS     = ('='          => '==',
+                 '!='         => '!=',
+                 'unsigned>'  =>  '>',
+                 'unsigned<'  =>  '<',
+                 '!unsigned>' => '<=',
+                 '!unsigned<' => '>=',
+                 'signed>'    =>  '>',
+                 'signed<'    =>  '<',
+                 '!signed>'   => '<=',
+                 '!signed<'   => '>='
+                );
 
 
 sub translate_function
 {
-  my ($map_ref, $func, $args_ref, $decs_ref, $ext_mtypes_ref, $in_mtypes_ref, $outfile, $mli) = @_;
+  my ($map_ref, $func, $args_ref, $args_sorted_ref, $decs_ref, $ext_mtypes_ref, $in_mtypes_ref, $outfile, $mli) = @_;
 
   my %alltypes                    = (%$args_ref, %$decs_ref);  # Merge the two hashes and build a hash that contains all types
   my %variabletypes              = (%$ext_mtypes_ref, %$in_mtypes_ref);
@@ -75,7 +97,7 @@ sub translate_function
   #  for (reverse @stack){print "\t$ii ", $_->{type}." ".$_->{arg1}."\t\t ".$_->{line}, "\n"; $ii--;}
 
   search_flow_control(\@stack,\@translations);
-  print_function($func, $args_ref, \%variabletypes, $ext_mtypes_ref, \@translations, $outfile, $mli);
+  print_function($func, $args_sorted_ref, \%variabletypes, $ext_mtypes_ref, \@translations, $outfile, $mli);
 }
 
 
@@ -101,14 +123,21 @@ sub print_function
   }
   if($#comment_stack > -1){print OUT "/*@\n   @".(join "\n   @ ", @comment_stack)."\n   @*/\n";}
 
+  # include clause if not mli
+  print OUT "#include \"qhasm-translator.h\"\n\n" if(!$mli);
+
   # global params
-  print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "/*CHECKME*/\n$p $_ : $n = 0;" } (keys %$mt_r)))."\n\n";
+  if($mli)
+  { print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "/*CHECKME*/\n$p $_ : $n = 0;" } (keys %$mt_r)))."\n\n";
+  }else
+  { print OUT join(' ', (map { "/*CHECKME*/\nextern $ty{$mt_r->{$_}} $_;" } (keys %$mt_r)))."\n\n";
+  }
 
   # f. signature
   if($mli)
   { print OUT "fn ",$f->{name},"(";  
     my @args_str = ();
-    foreach my $arg (sort keys %$args_r)
+    foreach my $arg (@$args_r)
     { my @grp = sort ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );
       my ($p, $n) = split '---', $ty{$vt_r->{$arg}};
       push @args_str, "$arg : $p $n"."[".($grp[$#grp]+1)."]" if(@grp);
@@ -117,23 +146,22 @@ sub print_function
     print OUT join(', ',@args_str)."){\n";
   }
   else
-  { print OUT "void ",$f->{name},"(", (join ', ', map { defined $vt_r->{$_} ? $ty{$vt_r->{$_}}." ".$_ : "void* ".$_ } (sort keys %$args_r)), "){\n"; 
+  { print OUT "void ",$f->{name},"(", (join ', ', map { defined $vt_r->{$_} ? $ty{$vt_r->{$_}}." ".$_ : "void* ".$_ } (@$args_r)), "){\n"; 
   }
   
   # delete unnecessary keys
-  for (keys %$args_r){delete $vt_r->{$_};}
+  for (@$args_r){delete $vt_r->{$_};}
   for (keys %$mt_r){delete $vt_r->{$_};}
  
   # var. declarations
   # check if carry flag is used (only if mli)
-  print OUT "  reg bool cf;\n" if ($mli and (grep (defined $_->[0] and $_->[0] =~ m/cf\?/), @$tr_r));
+  print OUT "  reg bool cf;\n" if ($mli and (grep {defined $_->[0] and $_->[0] =~ m/cf\?/} @$tr_r));
+  print OUT "  uint64_t carry;\n" if (!$mli and (grep {defined $_->[0] and $_->[0] =~ m/carry/} @$tr_r));
 
   if($mli)
-  { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $n $_;"} (sort keys %$vt_r)), "\n";
-  }
+  { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $n $_;"} (sort keys %$vt_r)), "\n"; }
   else
-  { print OUT "\n",(join "\n", map {"\t $ty{$vt_r->{$_}} $_;"} (sort keys %$vt_r)), "\n";
-  }
+  { print OUT "\n",(join "\n", map {"\t $ty{$vt_r->{$_}} $_;"} (sort keys %$vt_r)), "\n"; }
 
   # instructions 
   for my $tr (@$tr_r)
@@ -334,11 +362,11 @@ sub actualize_used_vars_types
 
   for my $name (keys %$usedvars_ref)
   {
-    if(defined $usedvarstypes_ref->{$name})                     # Already defined
+    if(defined $usedvarstypes_ref->{$name}) # already defined
     {
       build_variable_types_intersection($name, \%delete, $usedvars_ref, $usedvarstypes_ref);
     }
-    else                                             # Is new
+    else # is new
     {
       for ( keys %{$usedvars_ref->{$name}} )
       { 
@@ -441,7 +469,7 @@ sub find_mapping
 
         my @temp      = @{$m->{trans}};    # Create a copy of possible translations
         $alltrans_ref = \@temp;
-        my $ps       = $m->{ps};
+        my $ps        = $m->{ps};
 
         for (@inp)
         {
@@ -469,10 +497,15 @@ sub find_mapping
             my $r = {type => $type, arg1 => $arg1, arg2 => $arg2, arg3 => $arg3, line => $linenumber};
             unshift @$stack_ref, $r;
 
-            if($type eq "gotoif") #WARN: DEPENDENT
+            if($type eq "gotoif" or $type eq "attr") #WARN: DEPENDENT
             {
-              my $w   = $stack_ref->[1]->{arg2};
-              my $z   = $stack_ref->[1]->{arg3};
+              # same flag can be used more than once
+              # - search first stack entry that has $type eq to test
+              my $test_index = 1;
+              $test_index++ while($test_index <= $#$stack_ref && $stack_ref->[$test_index]->{type} ne "test");
+
+              my $w   = $stack_ref->[$test_index]->{arg2};
+              my $z   = $stack_ref->[$test_index]->{arg3};
               my $cnd = $FLAGS{$arg2};
               $alltrans_ref->[0] =~ s/\$w/$w/g;
               $alltrans_ref->[0] =~ s/\$z/$z/g;
@@ -492,10 +525,8 @@ sub find_mapping
 sub process_translations
 {
   my $alltrans_ref = shift;
-
   my $alltrans_copy = calculate_lets($alltrans_ref);
   my $usedvars_ref  = get_used_vars($alltrans_ref);
-
   return ($usedvars_ref,$alltrans_copy);
 }
 

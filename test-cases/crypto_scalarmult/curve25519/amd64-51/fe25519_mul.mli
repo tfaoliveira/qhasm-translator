@@ -1,4 +1,4 @@
- /*CHECKME*/ param: crypto_scalarmult_curve25519_amd64_51_REDMASK51:u64 = 0;
+ /*CHECKME*/ stack crypto_scalarmult_curve25519_amd64_51_REDMASK51:u64 = 0;
 
 fn
 crypto_scalarmult_curve25519_amd64_51_fe25519_mul(rp:reg u64[5], xp:reg u64[5], yp:reg u64[5])
@@ -133,18 +133,18 @@ crypto_scalarmult_curve25519_amd64_51_fe25519_mul(rp:reg u64[5], xp:reg u64[5], 
     cf ? r3 += mulrax;
     mulr31, mulrdx += cf;
     mulredmask = $crypto_scalarmult_curve25519_amd64_51_REDMASK51;
-    mulr01 = double_precision_shift_left(mulr01, r0, 13);
+    mulr01 = (mulr01, r0) << 13;
     r0 &= mulredmask;
-    mulr11 = double_precision_shift_left(mulr11, r1, 13);
+    mulr11 = (mulr11, r1) << 13;
     r1 &= mulredmask;
     r1 += mulr01;
-    mulr21 = double_precision_shift_left(mulr21, r2, 13);
+    mulr21 = (mulr21, r2) << 13;
     r2 &= mulredmask;
     r2 += mulr11;
-    mulr31 = double_precision_shift_left(mulr31, r3, 13);
+    mulr31 = (mulr31, r3) << 13;
     r3 &= mulredmask;
     r3 += mulr21;
-    mulr41 = double_precision_shift_left(mulr41, r4, 13);
+    mulr41 = (mulr41, r4) << 13;
     r4 &= mulredmask;
     r4 += mulr31;
     mulr41 = mulr41 * 19;

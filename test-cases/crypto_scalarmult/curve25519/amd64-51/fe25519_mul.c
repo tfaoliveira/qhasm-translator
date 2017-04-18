@@ -1,6 +1,11 @@
+#include "qhasm-translator.h"
+
+ /*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+
 void
 crypto_scalarmult_curve25519_amd64_51_fe25519_mul(uint64_t * rp, uint64_t * xp, uint64_t * yp)
 {
+    uint64_t        carry;
 
     uint64_t        mulr01;
     uint64_t        mulr11;
@@ -32,12 +37,12 @@ crypto_scalarmult_curve25519_amd64_51_fe25519_mul(uint64_t * rp, uint64_t * xp, 
     mulrax *= 19;
     mulx419_stack = mulrax;
     multiply128(mulrdx, mulrax, mulrax, yp[1]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r0 = add64_and_set_carry(r0, mulrax); // cf? r0 += mulrax
-    mulr01 = add64_with_carry(mulr01, mulrdx); // mulr01 += mulrdx + cf; 
+    add64_and_set_carry(r0, r0, mulrax); // cf? r0 += mulrax
+    add64_with_carry(mulr01, mulr01, mulrdx); // mulr01 += mulrdx + cf; 
     mulrax = xp[0];
     multiply128(mulrdx, mulrax, mulrax, yp[0]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r0 = add64_and_set_carry(r0, mulrax); // cf? r0 += mulrax
-    mulr01 = add64_with_carry(mulr01, mulrdx); // mulr01 += mulrdx + cf; 
+    add64_and_set_carry(r0, r0, mulrax); // cf? r0 += mulrax
+    add64_with_carry(mulr01, mulr01, mulrdx); // mulr01 += mulrdx + cf; 
     mulrax = xp[0];
     multiply128(mulrdx, mulrax, mulrax, yp[1]); // mulrdx, mulrax = mulrax * yp[$p0];
     r1 = mulrax;
@@ -56,92 +61,92 @@ crypto_scalarmult_curve25519_amd64_51_fe25519_mul(uint64_t * rp, uint64_t * xp, 
     mulr41 = mulrdx;
     mulrax = xp[1];
     multiply128(mulrdx, mulrax, mulrax, yp[0]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r1 = add64_and_set_carry(r1, mulrax); // cf? r1 += mulrax
-    mulr11 = add64_with_carry(mulr11, mulrdx); // mulr11 += mulrdx + cf; 
+    add64_and_set_carry(r1, r1, mulrax); // cf? r1 += mulrax
+    add64_with_carry(mulr11, mulr11, mulrdx); // mulr11 += mulrdx + cf; 
     mulrax = xp[1];
     multiply128(mulrdx, mulrax, mulrax, yp[1]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r2 = add64_and_set_carry(r2, mulrax); // cf? r2 += mulrax
-    mulr21 = add64_with_carry(mulr21, mulrdx); // mulr21 += mulrdx + cf; 
+    add64_and_set_carry(r2, r2, mulrax); // cf? r2 += mulrax
+    add64_with_carry(mulr21, mulr21, mulrdx); // mulr21 += mulrdx + cf; 
     mulrax = xp[1];
     multiply128(mulrdx, mulrax, mulrax, yp[2]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r3 = add64_and_set_carry(r3, mulrax); // cf? r3 += mulrax
-    mulr31 = add64_with_carry(mulr31, mulrdx); // mulr31 += mulrdx + cf; 
+    add64_and_set_carry(r3, r3, mulrax); // cf? r3 += mulrax
+    add64_with_carry(mulr31, mulr31, mulrdx); // mulr31 += mulrdx + cf; 
     mulrax = xp[1];
     multiply128(mulrdx, mulrax, mulrax, yp[3]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r4 = add64_and_set_carry(r4, mulrax); // cf? r4 += mulrax
-    mulr41 = add64_with_carry(mulr41, mulrdx); // mulr41 += mulrdx + cf; 
+    add64_and_set_carry(r4, r4, mulrax); // cf? r4 += mulrax
+    add64_with_carry(mulr41, mulr41, mulrdx); // mulr41 += mulrdx + cf; 
     mulrax = xp[1];
     mulrax *= 19;
     multiply128(mulrdx, mulrax, mulrax, yp[4]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r0 = add64_and_set_carry(r0, mulrax); // cf? r0 += mulrax
-    mulr01 = add64_with_carry(mulr01, mulrdx); // mulr01 += mulrdx + cf; 
+    add64_and_set_carry(r0, r0, mulrax); // cf? r0 += mulrax
+    add64_with_carry(mulr01, mulr01, mulrdx); // mulr01 += mulrdx + cf; 
     mulrax = xp[2];
     multiply128(mulrdx, mulrax, mulrax, yp[0]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r2 = add64_and_set_carry(r2, mulrax); // cf? r2 += mulrax
-    mulr21 = add64_with_carry(mulr21, mulrdx); // mulr21 += mulrdx + cf; 
+    add64_and_set_carry(r2, r2, mulrax); // cf? r2 += mulrax
+    add64_with_carry(mulr21, mulr21, mulrdx); // mulr21 += mulrdx + cf; 
     mulrax = xp[2];
     multiply128(mulrdx, mulrax, mulrax, yp[1]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r3 = add64_and_set_carry(r3, mulrax); // cf? r3 += mulrax
-    mulr31 = add64_with_carry(mulr31, mulrdx); // mulr31 += mulrdx + cf; 
+    add64_and_set_carry(r3, r3, mulrax); // cf? r3 += mulrax
+    add64_with_carry(mulr31, mulr31, mulrdx); // mulr31 += mulrdx + cf; 
     mulrax = xp[2];
     multiply128(mulrdx, mulrax, mulrax, yp[2]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r4 = add64_and_set_carry(r4, mulrax); // cf? r4 += mulrax
-    mulr41 = add64_with_carry(mulr41, mulrdx); // mulr41 += mulrdx + cf; 
+    add64_and_set_carry(r4, r4, mulrax); // cf? r4 += mulrax
+    add64_with_carry(mulr41, mulr41, mulrdx); // mulr41 += mulrdx + cf; 
     mulrax = xp[2];
     mulrax *= 19;
     multiply128(mulrdx, mulrax, mulrax, yp[3]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r0 = add64_and_set_carry(r0, mulrax); // cf? r0 += mulrax
-    mulr01 = add64_with_carry(mulr01, mulrdx); // mulr01 += mulrdx + cf; 
+    add64_and_set_carry(r0, r0, mulrax); // cf? r0 += mulrax
+    add64_with_carry(mulr01, mulr01, mulrdx); // mulr01 += mulrdx + cf; 
     mulrax = xp[2];
     mulrax *= 19;
     multiply128(mulrdx, mulrax, mulrax, yp[4]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r1 = add64_and_set_carry(r1, mulrax); // cf? r1 += mulrax
-    mulr11 = add64_with_carry(mulr11, mulrdx); // mulr11 += mulrdx + cf; 
+    add64_and_set_carry(r1, r1, mulrax); // cf? r1 += mulrax
+    add64_with_carry(mulr11, mulr11, mulrdx); // mulr11 += mulrdx + cf; 
     mulrax = xp[3];
     multiply128(mulrdx, mulrax, mulrax, yp[0]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r3 = add64_and_set_carry(r3, mulrax); // cf? r3 += mulrax
-    mulr31 = add64_with_carry(mulr31, mulrdx); // mulr31 += mulrdx + cf; 
+    add64_and_set_carry(r3, r3, mulrax); // cf? r3 += mulrax
+    add64_with_carry(mulr31, mulr31, mulrdx); // mulr31 += mulrdx + cf; 
     mulrax = xp[3];
     multiply128(mulrdx, mulrax, mulrax, yp[1]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r4 = add64_and_set_carry(r4, mulrax); // cf? r4 += mulrax
-    mulr41 = add64_with_carry(mulr41, mulrdx); // mulr41 += mulrdx + cf; 
+    add64_and_set_carry(r4, r4, mulrax); // cf? r4 += mulrax
+    add64_with_carry(mulr41, mulr41, mulrdx); // mulr41 += mulrdx + cf; 
     mulrax = mulx319_stack;
     multiply128(mulrdx, mulrax, mulrax, yp[3]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r1 = add64_and_set_carry(r1, mulrax); // cf? r1 += mulrax
-    mulr11 = add64_with_carry(mulr11, mulrdx); // mulr11 += mulrdx + cf; 
+    add64_and_set_carry(r1, r1, mulrax); // cf? r1 += mulrax
+    add64_with_carry(mulr11, mulr11, mulrdx); // mulr11 += mulrdx + cf; 
     mulrax = mulx319_stack;
     multiply128(mulrdx, mulrax, mulrax, yp[4]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r2 = add64_and_set_carry(r2, mulrax); // cf? r2 += mulrax
-    mulr21 = add64_with_carry(mulr21, mulrdx); // mulr21 += mulrdx + cf; 
+    add64_and_set_carry(r2, r2, mulrax); // cf? r2 += mulrax
+    add64_with_carry(mulr21, mulr21, mulrdx); // mulr21 += mulrdx + cf; 
     mulrax = xp[4];
     multiply128(mulrdx, mulrax, mulrax, yp[0]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r4 = add64_and_set_carry(r4, mulrax); // cf? r4 += mulrax
-    mulr41 = add64_with_carry(mulr41, mulrdx); // mulr41 += mulrdx + cf; 
+    add64_and_set_carry(r4, r4, mulrax); // cf? r4 += mulrax
+    add64_with_carry(mulr41, mulr41, mulrdx); // mulr41 += mulrdx + cf; 
     mulrax = mulx419_stack;
     multiply128(mulrdx, mulrax, mulrax, yp[2]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r1 = add64_and_set_carry(r1, mulrax); // cf? r1 += mulrax
-    mulr11 = add64_with_carry(mulr11, mulrdx); // mulr11 += mulrdx + cf; 
+    add64_and_set_carry(r1, r1, mulrax); // cf? r1 += mulrax
+    add64_with_carry(mulr11, mulr11, mulrdx); // mulr11 += mulrdx + cf; 
     mulrax = mulx419_stack;
     multiply128(mulrdx, mulrax, mulrax, yp[3]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r2 = add64_and_set_carry(r2, mulrax); // cf? r2 += mulrax
-    mulr21 = add64_with_carry(mulr21, mulrdx); // mulr21 += mulrdx + cf; 
+    add64_and_set_carry(r2, r2, mulrax); // cf? r2 += mulrax
+    add64_with_carry(mulr21, mulr21, mulrdx); // mulr21 += mulrdx + cf; 
     mulrax = mulx419_stack;
     multiply128(mulrdx, mulrax, mulrax, yp[4]); // mulrdx, mulrax = mulrax * yp[$p0];
-    r3 = add64_and_set_carry(r3, mulrax); // cf? r3 += mulrax
-    mulr31 = add64_with_carry(mulr31, mulrdx); // mulr31 += mulrdx + cf; 
-    mulredmask = *(uint64_t *) crypto_scalarmult_curve25519_amd64_51_REDMASK51;
-    mulr01 = rotate128(mulr01, r0, 13);
+    add64_and_set_carry(r3, r3, mulrax); // cf? r3 += mulrax
+    add64_with_carry(mulr31, mulr31, mulrdx); // mulr31 += mulrdx + cf; 
+    mulredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    shift_left128(mulr01, mulr01, r0, 13);
     r0 &= mulredmask;
-    mulr11 = rotate128(mulr11, r1, 13);
+    shift_left128(mulr11, mulr11, r1, 13);
     r1 &= mulredmask;
     r1 += mulr01;
-    mulr21 = rotate128(mulr21, r2, 13);
+    shift_left128(mulr21, mulr21, r2, 13);
     r2 &= mulredmask;
     r2 += mulr11;
-    mulr31 = rotate128(mulr31, r3, 13);
+    shift_left128(mulr31, mulr31, r3, 13);
     r3 &= mulredmask;
     r3 += mulr21;
-    mulr41 = rotate128(mulr41, r4, 13);
+    shift_left128(mulr41, mulr41, r4, 13);
     r4 &= mulredmask;
     r4 += mulr31;
     mulr41 = mulr41 * 19;

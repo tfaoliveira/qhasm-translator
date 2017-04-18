@@ -1,8 +1,10 @@
-# var1 = *(uint64 *) $global_var
 inst: $r = *(uint64 *) &$n
 in: int64 r, iv n
-tr: $r = $$n; ---$r:rui64mli;
-# global var type ? pui64pmli
+tr: $r = $$n; ---$r:rui64mli;$n:ui64mli
+
+inst: $r += *(uint64 *) &$n
+in: int64 r, iv n
+tr: $r += $$n;---$r:rui64mli;$n:ui64mli
 
 inst: $r = $n
 in: int64 r, ii n
@@ -17,15 +19,25 @@ tr: $r = $s;---$r:rusp;$s:usp
 tr: $r = $s;---$r:rucp;$s:ucp
 tr: $r = $s;---$r:rvp;$s:vp
 
-inst: $r = *(uint8 *)($s + $n)
+inst: $r = *(uint8 *) ($s + $n)
 in: int64 r, int64 s, ii n
 tr: $r = $s[$p0];---$r:rui64mli;$s:rucp;---let $p0=$n/sizeof(char)
 tr: $r = *(unsigned char *)($s + $n);---$r:rui64mli;$s:rvp;
 
-inst: $r = *(uint64 *)($s + $n)
+inst: $r = *(uint64 *) ($s + $n)
 in: int64 r, int64 s, ii n
-tr: $r = $s[$p0];---$r:rui64mli;$s:rui64pmli;---let $p0=$n/sizeof(uint64)
-tr: $r = *(uint64_t *)($s + $n);---$r:rui;$s:rvp;
+tr: $r = $s[$p0];---$r:rui64mli;$s:rui64pmli---let $p0=$n/sizeof(uint64)
+#tr: $r = *(uint64_t *)($s + $n);---$r:rui;$s:rvp;
+
+inst: $r += *(uint64 *) ($s + $n)
+in: int64 r, int64 s, ii n
+tr: $r += $s[$p0];---$r:rui64mli;$s:rui64pmli;---let $p0=$n/sizeof(uint64)
+#tr: $r += *(uint64_t *) ($s + $n);---$r:rui;$s:rvp;
+
+inst: $r -= *(uint64 *) ($s + $n)
+in: int64 r, int64 s, ii n
+tr: $r -= $s[$p0];---$r:rui64mli;$s:rui64pmli;---let $p0=$n/sizeof(uint64)
+#tr: $r -= *(uint64_t *)($s + $n);---$r:rui;$s:rvp;
 
 inst: $r = $s
 in: stack64 r, int64 s
@@ -45,28 +57,34 @@ tr: $r = $s;---$r:rusp;$s:rusp
 tr: $r = $s;---$r:rucp;$s:rucp
 tr: $r = $s;---$r:rvp;$s:rvp
  
-# typedef unsigned __int128 uint128; // this should be included : gcc specific
-# (uint128) var1 var2 = var3 * *(uint64 *)(var4 + imm_offset)
-#
 inst: (uint128) $r $s = $t * *(uint64 *)($x + $n)
 in: int64 r, int64 s, int64 t, int64 x, ii n
 tr: $r, $s = $t * $x[$p0];---$r:rui64mli;$s:rui64mli;$t:rui64mli;$x:rui64pmli;---let $p0=$n/sizeof(uint64)
 
-#tr: multiply128($r, $s, $t, $x[$p0]);---$r:rui64;$s:rui64;$t:rui64;$x:rui64p;---let $p0=$n/sizeof(uint64)
-# tr: {uint128 _q_r_ = (uint128) $t * $x[$p0]; $r = _q_r_; $s = _q_r_ >> 64;}---$r:rui64;$s:rui64;$t:rui64;$x:rui64p;---let $p0=$n/sizeof(uint64)
-# tr: {uint128 _q_r_ = (uint128) $t * *(uint64_t*)($x + $n); $r = _q_r_; $s = _q_r_ >> 64;}---$r:rui64;$s:rui64;$t:rui64;$x:rui64p;
+inst: (uint128) $r $s = $t * $x
+in: int64 r, int64 s, int64 t, int64 x
+tr: $r, $s = $t * $x;---$r:rui64mli;$s:rui64mli;$t:rui64mli;$x:rui64mli;
 
-# var1 = (var2.var3) << shift
+inst: (uint128) $r $s = $t * $x
+in: int64 r, int64 s, int64 t, stack64 x
+tr: $r, $s = $t * $x;---$r:rui64mli;$s:rui64mli;$t:rui64mli;$x:ui64mli;
+
+inst: (uint128) $r $s = $t * *(uint64 *) &$n
+in: int64 r, int64 s, int64 t, iv n
+tr: $r, $s = $t * $$n;---$r:rui64mli;$s:rui64mli;$t:rui64mli;$n:ui64mli;
+
 inst: $r = ($s.$t) << $n
 in: int64 r, int64 s, int64 t, ii n
-tr: $r = double_precision_shift_left($s,$t,$n);---$r:rui64mli;$s:rui64mli;$t:rui64mli;
+tr: $r = ($s,$t) << $n;---$r:rui64mli;$s:rui64mli;$t:rui64mli;
 
-# carry? var1 += var2
+inst: $r <<= $n
+in: int64 r, ii n
+tr: $r <<= $n;---$r:rui64mli;
+
 inst: carry? $r += $s
 in: int64 r, int64 s
 tr: cf? $r += $s;---$r:rui64mli;$s:rui64mli;
 
-# var1 += var2 + carry
 inst: $r += $s + carry
 in: int64 r, int64 s
 tr: $r, $s += cf; ---$r:rui64mli;$s:rui64mli;
@@ -76,27 +94,42 @@ in: int64 s, ii n, int64 r
 tr: $s[$p0] = $r;---$s:rui64pmli;$r:rui64mli---let $p0=$n/sizeof(uint64)
 #tr: *(uint64_t *)($s + $n) = $r;---$s:rvp;$r:rui64mli
 
-# var1 &= var2
 inst: $r &= $s
 in: int64 r, int64 s
 tr: $r &= $s;---$r:rui64mli;$s:rui64mli;
 
-# var1 += var2
 inst: $r += $s
 in: int64 r, int64 s
 tr: $r += $s;---$r:rui64mli;$s:rui64mli;
 
-#var1 = var2 * imm
+inst: $r += $s
+in: int64 r, stack64 s
+tr: $r += $s;---$r:rui64mli;$s:ui64mli;
+
+inst: $r -= $n
+in: int64 r, ii n
+tr: $r -= $n;---$r:rui64mli
+
+inst: $r -= $s
+in: int64 r, int64 s
+tr: $r -= $s;---$r:rui64mli;$s:rui64mli;
+
+inst: $r -= $s
+in: int64 r, stack64 s
+tr: $r -= $s;---$r:rui64mli;$s:ui64mli;
+
+inst: $r = -$s
+in: int64 r, int64 s
+tr: $r = -$s;---$r:rui64mli;$s:rui64mli;
+
 inst: $r = $s * $n
 in: int64 r, int64 s, ii n
 tr: $r = $s * $n;---$r:rui64mli;$s:rui64mli;
 
-#(uint64) var1 >>= shift
 inst: (uint64) $r >>= $n
 in: int64 r, ii n
 tr: $r >>= $n;---$r:rui64mli;
 
-#(uint64) var1 <<= shift
 inst: $r <<= $n
 in: int64 r, ii n
 tr: $r <<= $n;---$r:rui64mli;
@@ -105,9 +138,48 @@ inst: $r *= $n
 in: int64 r, ii n
 tr: $r *= $n;---$r:rui64mli
 
-inst: $r -= $n
-in: int64 r, ii n
-tr: $r -= $n;---$r:rui64mli
+
+
+
+inst: signed<? $r - $s
+in: int64 r, int64 s
+tr: //signed<? $r - $s---$r:rui64mli;$s:rui64mli
+ps: test;signed<;((int64_t)$r);((int64_t)$s)/*CHECKME*/
+
+inst: $r = $s if signed<
+in: int64 r, int64 s
+tr: if($w $cnd $z){$r=$s;}---$r:rui64mli;$s:rui64mli
+ps: attr;($r = $s);signed<
+
+inst: $r = $s if $t
+in: int64 r, int64 s, flg t
+tr: if($w $cnd $z){$r=$s;}---$r:rui64mli;$s:rui64mli
+ps: attr;($r = $s);$t
+
+inst: goto $f if $t
+in: it f, flg t
+tr: if($w $cnd $z){goto $f;}
+ps: gotoif;$f;$t
+
+inst: $c? $r -= $n
+in: tflg c, int64 r, ii n
+tr: //$c? $r-=$n;---$r:rui64mli
+ps: test;$c;($r-=$n);0
+
+inst: $c? $r -= $s
+in: tflg c, int64 r, int64 s
+tr: //$c? $r-$s;---$r:rui64mli;$s:rui64mli
+ps: test;$c;$r;$s
+
+inst: $c? $r - $s
+in: tflg c, int64 r, int64 s
+tr: //$c? $r-$s---$r:rui64mli;$s:rui64mli
+ps: test;$c;$r;$s
+
+inst: $c? $r - $n
+in: tflg c, int64 r, ii n
+tr: //$c? $r-$n---$r:rui64mli
+ps: test;$c;$r;$n
 
 inst: goto $f if $t
 in: it f, flg t
@@ -123,4 +195,3 @@ inst: $f:
 in: it f
 tr: $f:
 ps: label;$f
-

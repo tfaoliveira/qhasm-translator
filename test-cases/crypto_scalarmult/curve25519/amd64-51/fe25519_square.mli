@@ -1,4 +1,4 @@
- /*CHECKME*/ param: crypto_scalarmult_curve25519_amd64_51_REDMASK51:u64 = 0;
+ /*CHECKME*/ stack crypto_scalarmult_curve25519_amd64_51_REDMASK51:u64 = 0;
 
 fn
 crypto_scalarmult_curve25519_amd64_51_fe25519_square(rp:reg u64[5], xp:reg u64[5])
@@ -93,18 +93,18 @@ crypto_scalarmult_curve25519_amd64_51_fe25519_square(rp:reg u64[5], xp:reg u64[5
     cf ? r3 += squarerax;
     squarer31, squarerdx += cf;
     squareredmask = $crypto_scalarmult_curve25519_amd64_51_REDMASK51;
-    squarer01 = double_precision_shift_left(squarer01, r0, 13);
+    squarer01 = (squarer01, r0) << 13;
     r0 &= squareredmask;
-    squarer11 = double_precision_shift_left(squarer11, r1, 13);
+    squarer11 = (squarer11, r1) << 13;
     r1 &= squareredmask;
     r1 += squarer01;
-    squarer21 = double_precision_shift_left(squarer21, r2, 13);
+    squarer21 = (squarer21, r2) << 13;
     r2 &= squareredmask;
     r2 += squarer11;
-    squarer31 = double_precision_shift_left(squarer31, r3, 13);
+    squarer31 = (squarer31, r3) << 13;
     r3 &= squareredmask;
     r3 += squarer21;
-    squarer41 = double_precision_shift_left(squarer41, r4, 13);
+    squarer41 = (squarer41, r4) << 13;
     r4 &= squareredmask;
     r4 += squarer31;
     squarer41 = squarer41 * 19;

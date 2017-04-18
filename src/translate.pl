@@ -93,7 +93,7 @@ if($print_parsed)
   # Print arguments
   print "Arguments:\n";
   print "\t".$parsed_file->{arguments}{$_}." ".$_."\n" for (sort keys %{$parsed_file->{arguments}});
-  #  print "\t$t $n\n" while( ($n, $t) = each %{$parsed_file->{arguments}}    );
+  #  print "\t$t $n\n" while( ($n, $t) = each %{$parsed_file->{arguments}} );
 
   # Print other declarations
   print "Variables:\n";
@@ -118,11 +118,12 @@ if($print_parsed)
 open OUT, ">".$out_file; 
 close OUT;
 
-
 # Translate all functions in qhasm file
 for my $f (@{$parsed_file->{functions}})
 {
-  translate_function(\@map_info, $f, \%{$parsed_file->{arguments}}, \%{$parsed_file->{declarations}}, \%ext_mandatory_types, \%in_mandatory_types, $out_file, $mli);
+  translate_function(\@map_info, $f, \%{$parsed_file->{arguments}}, \@{$parsed_file->{sorted_arguments}},  
+    \%{$parsed_file->{declarations}}, \%ext_mandatory_types, \%in_mandatory_types, $out_file, $mli);
+
 }
 
 1;

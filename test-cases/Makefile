@@ -1,18 +1,53 @@
-.PHONY : clean crypto_scalarmult/curve25519/amd64-51/fe25519*
+.PHONY : clean crypto_scalarmult/curve25519/amd64-51/*
 
-crypto_scalarmult/curve25519/amd64-51/fe25519_square.mli: crypto_scalarmult/curve25519/amd64-51/fe25519_square.q
-	../src/translate.pl -mli -in $< -out $@ -map-file "../config/map-direct-amd64-mli" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:pui64pmli;"
-	indent -orig -l150 -nut -ts0 -sob $@
-#	sed -i 's/:/ : /g' $@
+INDENT= indent -orig -l150 -nut -ts0 -sob $@
 
-crypto_scalarmult/curve25519/amd64-51/fe25519_mul.mli: crypto_scalarmult/curve25519/amd64-51/fe25519_mul.q
-	../src/translate.pl -mli -in $< -out $@ -map-file "../config/map-direct-amd64-mli" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:pui64pmli;"
-	indent -orig -l150 -nut -ts0 -sob $@
-#	sed -i 's/:/ : /g' $@
+################################################################################
+
+crypto_scalarmult/curve25519/amd64-51/: crypto_scalarmult/curve25519/amd64-51/*.c crypto_scalarmult/curve25519/amd64-51/*.mli
+
+crypto_scalarmult/curve25519/amd64-51/fe25519_freeze.c: crypto_scalarmult/curve25519/amd64-51/fe25519_freeze.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64;"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-51/ladderstep.c: crypto_scalarmult/curve25519/amd64-51/ladderstep.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_scalarmult_curve25519_amd64_51_121666_213:ui64;crypto_scalarmult_curve25519_amd64_51_2P0:ui64;crypto_scalarmult_curve25519_amd64_51_2P1234:ui64;crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64;"
+	$(INDENT)
 
 crypto_scalarmult/curve25519/amd64-51/fe25519_mul.c: crypto_scalarmult/curve25519/amd64-51/fe25519_mul.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ucp;"
-	indent -orig -l150 -nut -ts0 -sob $@
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64;"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-51/work_cswap.c: crypto_scalarmult/curve25519/amd64-51/work_cswap.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-51/fe25519_square.c: crypto_scalarmult/curve25519/amd64-51/fe25519_square.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64;"
+	$(INDENT)
+
+#####
+
+crypto_scalarmult/curve25519/amd64-51/fe25519_freeze.mli: crypto_scalarmult/curve25519/amd64-51/fe25519_freeze.q
+	../src/translate.pl -mli -in $< -out $@ -map-file "../config/map-direct-amd64-mli" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64mli;"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-51/ladderstep.mli: crypto_scalarmult/curve25519/amd64-51/ladderstep.q
+	../src/translate.pl -mli -in $< -out $@ -map-file "../config/map-direct-amd64-mli" -ext-variables "crypto_scalarmult_curve25519_amd64_51_121666_213:ui64mli;crypto_scalarmult_curve25519_amd64_51_2P0:ui64mli;crypto_scalarmult_curve25519_amd64_51_2P1234:ui64mli;crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64mli;"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-51/fe25519_mul.mli: crypto_scalarmult/curve25519/amd64-51/fe25519_mul.q
+	../src/translate.pl -mli -in $< -out $@ -map-file "../config/map-direct-amd64-mli" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64mli;"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-51/work_cswap.mli: crypto_scalarmult/curve25519/amd64-51/work_cswap.q
+	../src/translate.pl -mli -in $< -out $@ -map-file "../config/map-direct-amd64-mli"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-51/fe25519_square.mli: crypto_scalarmult/curve25519/amd64-51/fe25519_square.q
+	../src/translate.pl -mli -in $< -out $@ -map-file "../config/map-direct-amd64-mli" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64mli;"
+	$(INDENT)
+
 
 clean:
 	find . -name "*~" -exec rm {} \;
