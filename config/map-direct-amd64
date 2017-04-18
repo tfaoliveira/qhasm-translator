@@ -81,13 +81,95 @@ inst: $r <<= $n
 in: int64 r, ii n
 tr: $r <<= $n;---$r:rui64;
 
+# amd64-64 example
+inst: carry? $r += $n
+in: int64 r, ii n
+tr: add64_and_set_carry($r,$r,$n); // cf? $r += $n---$r:rui64;carry:rui64;
+
 inst: carry? $r += $s
 in: int64 r, int64 s
-tr: add64_and_set_carry($r,$r,$s); // cf? $r += $s---$r:rui64;$s:rui64;
+tr: add64_and_set_carry($r,$r,$s); // cf? $r += $s---$r:rui64;$s:rui64;carry:rui64;
+
+inst: carry? $r += $s
+in: int64 r, stack64 s
+tr: add64_and_set_carry($r,$r,$s); // cf? $r += $s---$r:rui64;$s:ui64;carry:rui64;
+
+
+# amd64-64 example
+inst: carry? $r += $n + carry
+in: int64 r, ii n
+tr: add64_with_carry_and_set_carry($r,$r,$n); // cf? $r += $n + cf; ---$r:rui64;carry:rui64;
+
+# amd64-64 example
+inst: carry? $r += $s + carry
+in: int64 r, int64 s
+tr: add64_with_carry_and_set_carry($r,$r,$s); // cf? $r += $s + cf; ---$r:rui64;$s:rui64;carry:rui64;
+
+# amd64-64 example
+inst: carry? $r += $s + carry
+in: int64 r, stack64 s
+tr: add64_with_carry_and_set_carry($r,$r,$s); // cf? $r += $s + cf; ---$r:rui64;$s:ui64;carry:rui64;
 
 inst: $r += $s + carry
 in: int64 r, int64 s
-tr: add64_with_carry($r,$r,$s); // $r += $s + cf; ---$r:rui64;$s:rui64;
+tr: add64_with_carry($r,$r,$s); // $r += $s + cf; ---$r:rui64;$s:rui64;carry:rui64;
+
+# amd64-64 example
+inst: $r += $n + carry
+in: int64 r, ii n
+tr: add64_with_carry($r,$r,$n); // $r += $n + cf; ---$r:rui64;carry:rui64;
+
+# amd64-64 example
+inst: $r = $s if carry
+in: int64 r, int64 s
+tr: if(carry){$r = $s;} // $r = $s if carry; ---$r:rui64;$s:rui64;carry:rui64;
+# TODO : ct
+
+# amd64-64 example
+inst: $r = $s if !carry
+in: int64 r, int64 s
+tr: if(!carry){$r = $s;} // $r = $s if !carry; ---$r:rui64;$s:rui64;carry:rui64;
+# TODO : ct
+
+# amd64-64 example
+inst: carry? $r += *(uint64 *) ($s + $n)
+in: int64 r, int64 s, ii n
+tr: add64_and_set_carry($r,$r,$s[$p0]); // cf? $r += *(uint64 *) ($s + $n)---$r:rui64;$s:rui64p;carry:rui64;---let $p0=$n/sizeof(uint64)
+
+# amd64-64 example
+inst: carry? $r += *(uint64 *) ($s + $n) + carry
+in: int64 r, int64 s, ii n
+tr: add64_with_carry_and_set_carry($r,$r,$s[$p0]); // cf? $r += *(uint64 *) ($s + $n) + cf;---$r:rui64;$s:rui64p;carry:rui64;---let $p0=$n/sizeof(uint64)
+
+# amd64-64 example
+inst: carry? $r -= *(uint64 *) ($s + $n)
+in: int64 r, int64 s, ii n
+tr: sub64_and_set_carry($r,$r,$s[$p0]); // cf? $r -= *(uint64 *) ($s + $n)---$r:rui64;$s:rui64p;carry:rui64;---let $p0=$n/sizeof(uint64)
+
+# amd64-64 example
+inst: carry? $r -= *(uint64 *) ($s + $n) - carry
+in: int64 r, int64 s, ii n
+tr: sub64_with_carry_and_set_carry($r,$r,$s[$p0]); // cf? $r -= *(uint64 *) ($s + $n) - cf; ---$r:rui64;$s:rui64p;carry:rui64;---let $p0=$n/sizeof(uint64)
+
+# amd64-64 example
+inst: carry? $r -= $s - carry
+in: int64 r, int64 s
+tr: sub64_with_carry_and_set_carry($r,$r,$s); // cf? $r -= $s - cf; ---$r:rui64;$s:rui64;carry:rui64;
+
+# amd64-64 example
+inst: carry? $r -= $s - carry
+in: int64 r, stack64 s
+tr: sub64_with_carry_and_set_carry($r,$r,$s); // cf? $r -= $s - cf; ---$r:rui64;$s:ui64;carry:rui64;
+
+# amd64-64 example
+inst: carry? $r -= $s
+in: int64 r, int64 s
+tr: sub64_and_set_carry($r,$r,$s); // cf? $r -= $s---$r:rui64;$s:rui64;carry:rui64;
+
+# amd64-64 example
+inst: carry? $r -= $s
+in: int64 r, stack64 s
+tr: sub64_and_set_carry($r,$r,$s); // cf? $r -= $s---$r:rui64;$s:ui64;carry:rui64;
 
 inst: *(uint64 *)($s + $n) = $r
 in: int64 s, ii n, int64 r

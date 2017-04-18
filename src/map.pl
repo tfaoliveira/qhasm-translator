@@ -156,7 +156,7 @@ sub print_function
   # var. declarations
   # check if carry flag is used (only if mli)
   print OUT "  reg bool cf;\n" if ($mli and (grep {defined $_->[0] and $_->[0] =~ m/cf\?/} @$tr_r));
-  print OUT "  uint64_t carry;\n" if (!$mli and (grep {defined $_->[0] and $_->[0] =~ m/carry/} @$tr_r));
+  # print OUT "  uint64_t carry;\n" if (!$mli and (grep {defined $_->[0] and $_->[0] =~ m/carry/} @$tr_r));
 
   if($mli)
   { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $n $_;"} (sort keys %$vt_r)), "\n"; }

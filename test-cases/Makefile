@@ -1,6 +1,17 @@
-.PHONY : clean crypto_scalarmult/curve25519/amd64-51/*
+.PHONY : clean crypto_scalarmult/curve25519/amd64-64/* crypto_scalarmult/curve25519/amd64-51/*
 
 INDENT= indent -orig -l150 -nut -ts0 -sob $@
+
+################################################################################
+crypto_scalarmult/curve25519/amd64-64/: crypto_scalarmult/curve25519/amd64-64/*.c crypto_scalarmult/curve25519/amd64-64/*.mli
+
+crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.c: crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-64/ladderstep.c: crypto_scalarmult/curve25519/amd64-64/ladderstep.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_scalarmult_curve25519_amd64_64_121666:ui64;crypto_scalarmult_curve25519_amd64_64_38:ui64;"
+	$(INDENT)
 
 ################################################################################
 
