@@ -87,7 +87,7 @@ tr: cf? $r += $s;---$r:rui64mli;$s:rui64mli;
 
 inst: $r += $s + carry
 in: int64 r, int64 s
-tr: $r, $s += cf; ---$r:rui64mli;$s:rui64mli;
+tr: $r += $s + cf; ---$r:rui64mli;$s:rui64mli;
 
 inst: *(uint64 *)($s + $n) = $r
 in: int64 s, ii n, int64 r
