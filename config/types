@@ -1,3 +1,5 @@
+rboolmli;reg---bool
+
 rui;register unsigned int
 rus;register unsigned short
 ruc;register unsigned char

@@ -5,8 +5,8 @@
 void
 crypto_scalarmult_curve25519_amd64_51_fe25519_square(uint64_t * rp, uint64_t * xp)
 {
-    uint64_t        carry;
 
+    uint64_t        carry;
     uint64_t        r0;
     uint64_t        r1;
     uint64_t        r2;

@@ -5,8 +5,8 @@
 void
 crypto_scalarmult_curve25519_amd64_51_fe25519_mul(uint64_t * rp, uint64_t * xp, uint64_t * yp)
 {
-    uint64_t        carry;
 
+    uint64_t        carry;
     uint64_t        mulr01;
     uint64_t        mulr11;
     uint64_t        mulr21;

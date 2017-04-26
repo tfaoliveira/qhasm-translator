@@ -124,13 +124,15 @@ sub print_function
   if($#comment_stack > -1){print OUT "/*@\n   @".(join "\n   @ ", @comment_stack)."\n   @*/\n";}
 
   # include clause if not mli
-  print OUT "#include \"qhasm-translator.h\"\n\n" if(!$mli);
+  if(!$mli)
+  { print OUT "#include \"qhasm-translator.h\"\n\n"; }
 
   # global params
   if($mli)
-  { print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "/*CHECKME*/\n$p $_ : $n = 0;" } (keys %$mt_r)))."\n\n";
+  #{ print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "/*CHECKME*/\n$p $_ : $n = 0;" } (keys %$mt_r)))."\n\n";
+  { print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "\nparam $n $_ = 0; //DEFINEME" } (keys %$mt_r)))."\n\n";
   }else
-  { print OUT join(' ', (map { "/*CHECKME*/\nextern $ty{$mt_r->{$_}} $_;" } (keys %$mt_r)))."\n\n";
+  { print OUT join(' ', (map { "\nextern $ty{$mt_r->{$_}} $_;" } (keys %$mt_r)))."\n\n";
   }
 
   # f. signature
@@ -140,8 +142,12 @@ sub print_function
     foreach my $arg (@$args_r)
     { my @grp = sort ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );
       my ($p, $n) = split '---', $ty{$vt_r->{$arg}};
-      push @args_str, "$arg : $p $n"."[".($grp[$#grp]+1)."]" if(@grp);
-      push @args_str, "$arg : $p $n" if(!@grp);
+      #push @args_str, "$arg : $p $n"."[".($grp[$#grp]+1)."]" if(@grp);
+      #push @args_str, "$arg : $p $n" if(!@grp);
+      if(@grp)
+      { push @args_str, "$p $n"."[".($grp[$#grp]+1)."] ".$arg; }
+      else
+      { push @args_str, "$p $n $arg"; }
     }
     print OUT join(', ',@args_str)."){\n";
   }
@@ -154,10 +160,6 @@ sub print_function
   for (keys %$mt_r){delete $vt_r->{$_};}
  
   # var. declarations
-  # check if carry flag is used (only if mli)
-  print OUT "  reg bool cf;\n" if ($mli and (grep {defined $_->[0] and $_->[0] =~ m/cf\?/} @$tr_r));
-  # print OUT "  uint64_t carry;\n" if (!$mli and (grep {defined $_->[0] and $_->[0] =~ m/carry/} @$tr_r));
-
   if($mli)
   { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $n $_;"} (sort keys %$vt_r)), "\n"; }
   else

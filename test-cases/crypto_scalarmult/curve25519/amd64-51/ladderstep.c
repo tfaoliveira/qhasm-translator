@@ -1,15 +1,15 @@
 #include "qhasm-translator.h"
 
  /*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_REDMASK51;
-/*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_2P0;
 /*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_2P1234;
 /*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_121666_213;
+/*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_2P0;
 
 void
 crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
 {
-    uint64_t        carry;
 
+    uint64_t        carry;
     uint64_t        mul121666rax;
     uint64_t        mul121666rdx;
     uint64_t        mulr01;
