@@ -2,7 +2,6 @@
 
 fn crypto_scalarmult_curve25519_amd64_51_work_cswap(reg u64[10] workp, reg u64 swap){
 
-	 reg bool eqf;
 	 reg u64 t0;
 	 reg u64 t1;
 	 reg u64 t2;
@@ -34,17 +33,17 @@ fn crypto_scalarmult_curve25519_amd64_51_work_cswap(reg u64[10] workp, reg u64 s
 	 reg u64 w8;
 	 reg u64 w9;
 
-	eqf = (swap == 1);
+	/*=? swap - 1*/
 	w0 = workp[0];
 	w10 = workp[10];
 	w1 = workp[1];
 	w11 = workp[11];
 	t0 = w0;
-	w0 = w10 if eqf;
-	w10 = t0 if eqf;
+	w0 = w10 if (swap == 1);/*w0 = w10 if =*/
+	w10 = t0 if (swap == 1);/*w10 = t0 if =*/
 	t1 = w1;
-	w1 = w11 if eqf;
-	w11 = t1 if eqf;
+	w1 = w11 if (swap == 1);/*w1 = w11 if =*/
+	w11 = t1 if (swap == 1);/*w11 = t1 if =*/
 	workp[0] = w0;
 	workp[10] = w10;
 	workp[1] = w1;
@@ -54,11 +53,11 @@ fn crypto_scalarmult_curve25519_amd64_51_work_cswap(reg u64[10] workp, reg u64 s
 	w3 = workp[3];
 	w13 = workp[13];
 	t2 = w2;
-	w2 = w12 if eqf;
-	w12 = t2 if eqf;
+	w2 = w12 if (swap == 1);/*w2 = w12 if =*/
+	w12 = t2 if (swap == 1);/*w12 = t2 if =*/
 	t3 = w3;
-	w3 = w13 if eqf;
-	w13 = t3 if eqf;
+	w3 = w13 if (swap == 1);/*w3 = w13 if =*/
+	w13 = t3 if (swap == 1);/*w13 = t3 if =*/
 	workp[2] = w2;
 	workp[12] = w12;
 	workp[3] = w3;
@@ -68,11 +67,11 @@ fn crypto_scalarmult_curve25519_amd64_51_work_cswap(reg u64[10] workp, reg u64 s
 	w5 = workp[5];
 	w15 = workp[15];
 	t4 = w4;
-	w4 = w14 if eqf;
-	w14 = t4 if eqf;
+	w4 = w14 if (swap == 1);/*w4 = w14 if =*/
+	w14 = t4 if (swap == 1);/*w14 = t4 if =*/
 	t5 = w5;
-	w5 = w15 if eqf;
-	w15 = t5 if eqf;
+	w5 = w15 if (swap == 1);/*w5 = w15 if =*/
+	w15 = t5 if (swap == 1);/*w15 = t5 if =*/
 	workp[4] = w4;
 	workp[14] = w14;
 	workp[5] = w5;
@@ -82,11 +81,11 @@ fn crypto_scalarmult_curve25519_amd64_51_work_cswap(reg u64[10] workp, reg u64 s
 	w7 = workp[7];
 	w17 = workp[17];
 	t6 = w6;
-	w6 = w16 if eqf;
-	w16 = t6 if eqf;
+	w6 = w16 if (swap == 1);/*w6 = w16 if =*/
+	w16 = t6 if (swap == 1);/*w16 = t6 if =*/
 	t7 = w7;
-	w7 = w17 if eqf;
-	w17 = t7 if eqf;
+	w7 = w17 if (swap == 1);/*w7 = w17 if =*/
+	w17 = t7 if (swap == 1);/*w17 = t7 if =*/
 	workp[6] = w6;
 	workp[16] = w16;
 	workp[7] = w7;
@@ -96,11 +95,11 @@ fn crypto_scalarmult_curve25519_amd64_51_work_cswap(reg u64[10] workp, reg u64 s
 	w9 = workp[9];
 	w19 = workp[19];
 	t8 = w8;
-	w8 = w18 if eqf;
-	w18 = t8 if eqf;
+	w8 = w18 if (swap == 1);/*w8 = w18 if =*/
+	w18 = t8 if (swap == 1);/*w18 = t8 if =*/
 	t9 = w9;
-	w9 = w19 if eqf;
-	w19 = t9 if eqf;
+	w9 = w19 if (swap == 1);/*w9 = w19 if =*/
+	w19 = t9 if (swap == 1);/*w19 = t9 if =*/
 	workp[8] = w8;
 	workp[18] = w18;
 	workp[9] = w9;

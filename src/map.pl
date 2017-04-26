@@ -9,6 +9,7 @@ require 'gotos.pl'; # search_flow_control
 # Constants
 my $RX_NAMES  = '([a-zA-Z_][a-zA-Z0-9_]*)';
 
+# TODO : Create flags file (as argument)
 my %FLAGS_NEG = ('='          => '!=',
                  '!='         => '==',
                  'unsigned>'  => '<=',
@@ -32,6 +33,30 @@ my %FLAGS     = ('='          => '==',
                  '!signed>'   => '<=',
                  '!signed<'   => '>='
                 );
+
+my %FLAGS_NEG_MLI = ('='          => '!=',
+                     '!='         => '==',
+                     'unsigned>'  => '<=',
+                     'unsigned<'  => '>=',
+                     '!unsigned>' => '>',
+                     '!unsigned<' => '<',
+                     'signed>'    => 'signed<=',
+                     'signed<'    => 'signed>=',
+                     '!signed>'   => 'signed>',
+                     '!signed<'   => 'signed<'
+                    );
+
+my %FLAGS_MLI     = ('='          => '==',
+                     '!='         => '!=',
+                     'unsigned>'  => '>',
+                     'unsigned<'  => '<',
+                     '!unsigned>' => '<=',
+                     '!unsigned<' => '>=',
+                     'signed>'    => 'signed>',
+                     'signed<'    => 'signed<',
+                     '!signed>'   => 'signed<=',
+                     '!signed<'   => 'signed>='
+                    );
 
 
 sub translate_function
@@ -73,7 +98,7 @@ sub translate_function
         }
         @comments = ();
       }
-      my ($found, $index, $usedvars_ref, $alltrans_ref) = find_mapping($map_ref, \%alltypes, $line, $linenumber, \@stack);
+      my ($found, $index, $usedvars_ref, $alltrans_ref) = find_mapping($map_ref, \%alltypes, $line, $linenumber, \@stack, $mli);
 
       if ($found)
       {
@@ -129,7 +154,6 @@ sub print_function
 
   # global params
   if($mli)
-  #{ print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "/*CHECKME*/\n$p $_ : $n = 0;" } (keys %$mt_r)))."\n\n";
   { print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "\nparam $n $_ = 0; //DEFINEME" } (keys %$mt_r)))."\n\n";
   }else
   { print OUT join(' ', (map { "\nextern $ty{$mt_r->{$_}} $_;" } (keys %$mt_r)))."\n\n";
@@ -142,8 +166,6 @@ sub print_function
     foreach my $arg (@$args_r)
     { my @grp = sort ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );
       my ($p, $n) = split '---', $ty{$vt_r->{$arg}};
-      #push @args_str, "$arg : $p $n"."[".($grp[$#grp]+1)."]" if(@grp);
-      #push @args_str, "$arg : $p $n" if(!@grp);
       if(@grp)
       { push @args_str, "$p $n"."[".($grp[$#grp]+1)."] ".$arg; }
       else
@@ -451,7 +473,7 @@ sub build_variable_types_intersection
 
 sub find_mapping
 {
-  my ($map_ref, $alltypes_ref, $line, $linenumber, $stack_ref) = @_; 
+  my ($map_ref, $alltypes_ref, $line, $linenumber, $stack_ref, $mli) = @_; 
 
   my ($found, $index, $usedvars_ref, $alltrans_ref, $alltrans_ref_final, $cline) = (0, -1, undef, undef, undef, $line);
 
@@ -508,7 +530,9 @@ sub find_mapping
 
               my $w   = $stack_ref->[$test_index]->{arg2};
               my $z   = $stack_ref->[$test_index]->{arg3};
-              my $cnd = $FLAGS{$arg2};
+              my $cnd = "";
+              $cnd = $FLAGS{$arg2} if(!$mli);
+              $cnd = $FLAGS_MLI{$arg2} if($mli);
               $alltrans_ref->[0] =~ s/\$w/$w/g;
               $alltrans_ref->[0] =~ s/\$z/$z/g;
               $alltrans_ref->[0] =~ s/\$cnd/$cnd/g;

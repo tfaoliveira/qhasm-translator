@@ -3,14 +3,12 @@ param u64 crypto_scalarmult_curve25519_amd64_51_REDMASK51 = 0x0007FFFFFFFFFFFF;
 
 fn crypto_scalarmult_curve25519_amd64_51_fe25519_freeze(reg u64[5] rp){
 
-	 reg bool eqf;
 	 reg u64 loop;
 	 reg u64 r0;
 	 reg u64 r1;
 	 reg u64 r2;
 	 reg u64 r3;
 	 reg u64 r4;
-	 reg bool slf;
 	 reg u64 t;
 	 reg u64 two51minus1;
 	 reg u64 two51minus19;
@@ -23,6 +21,7 @@ fn crypto_scalarmult_curve25519_amd64_51_fe25519_freeze(reg u64[5] rp){
 	two51minus1 = crypto_scalarmult_curve25519_amd64_51_REDMASK51; 
 	two51minus19 = two51minus1;
 	two51minus19 -= 18;
+	loop = 3;
 
 	/*loop = 3;*/
 	/*do{*/
@@ -55,16 +54,16 @@ fn crypto_scalarmult_curve25519_amd64_51_fe25519_freeze(reg u64[5] rp){
 	/*}while((loop-=1) > 0);*/
 
 	t = 1;
-	slf = (r0 <s two51minus19);
-	t = loop if slf;
-	eqf = (r1 == two51minus1);
-	t = loop if !eqf;
-	eqf = (r2 == two51minus1);
-	t = loop if !eqf;
-	eqf = (r3 == two51minus1);
-	t = loop if !eqf;
-	eqf = (r4 == two51minus1);
-	t = loop if !eqf;
+	/* signed<? r0 - two51minus19 */
+	t = loop if (r0 signed< two51minus19); /*t = loop if signed<*/
+	/*=? r1 - two51minus1*/
+	t = loop if (r1 != two51minus1);/*t = loop if !=*/
+	/*=? r2 - two51minus1*/
+	t = loop if (r2 != two51minus1);/*t = loop if !=*/
+	/*=? r3 - two51minus1*/
+	t = loop if (r3 != two51minus1);/*t = loop if !=*/
+	/*=? r4 - two51minus1*/
+	t = loop if (r4 != two51minus1);/*t = loop if !=*/
 	t = -t;
 	two51minus1 &= t;
 	two51minus19 &= t;
