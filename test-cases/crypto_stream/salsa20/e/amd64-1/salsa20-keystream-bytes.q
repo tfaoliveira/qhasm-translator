@@ -445,7 +445,7 @@ goto mainloop if unsigned>
     rbx = rbx_stack
     rbp = rbp_stack
     done:
-    leave
+    return
   bytesatleast65:
   bytes -= 64
   out += 64

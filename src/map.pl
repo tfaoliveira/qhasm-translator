@@ -63,8 +63,8 @@ sub translate_function
 {
   my ($map_ref, $func, $args_ref, $args_sorted_ref, $decs_ref, $ext_mtypes_ref, $in_mtypes_ref, $outfile, $mli) = @_;
 
-  my %alltypes                    = (%$args_ref, %$decs_ref);  # Merge the two hashes and build a hash that contains all types
-  my %variabletypes              = (%$ext_mtypes_ref, %$in_mtypes_ref);
+  my %alltypes                      = (%$args_ref, %$decs_ref);  # Merge the two hashes and build a hash that contains all types
+  my %variabletypes                 = (%$ext_mtypes_ref, %$in_mtypes_ref);
   my (@stack, @translations)        = ( (), (), () );
   my (%usedvarstypes, %usedvarsindex)  = ( (), () );
   my @comments = ();
@@ -170,7 +170,14 @@ sub print_function
     print OUT join(', ',@args_str)."){\n";
   }
   else
-  { print OUT "void ",$f->{name},"(", (join ', ', map { defined $vt_r->{$_} ? $ty{$vt_r->{$_}}." ".$_ : "void* ".$_ } (@$args_r)), "){\n"; 
+  {
+    my @ad = ();
+    foreach my $var (@$args_r)
+    { my $vd = defined $vt_r->{$var} ? $ty{$vt_r->{$var}} : "void *\$s";
+      $vd =~ s/\$s/$var/g;
+      push @ad, $vd;
+    }
+    print OUT "void ",$f->{name},"(", (join ', ', @ad), "){\n";
   }
   
   # delete unnecessary keys
@@ -181,7 +188,12 @@ sub print_function
   if($mli)
   { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $n $_;"} (sort keys %$vt_r)), "\n"; }
   else
-  { print OUT "\n",(join "\n", map {"\t $ty{$vt_r->{$_}} $_;"} (sort keys %$vt_r)), "\n"; }
+  { foreach my $var (sort keys %$vt_r)
+    { my $vd = $ty{$vt_r->{$var}};
+      $vd =~ s/\$s/$var/g;
+      print OUT "\t $vd;\n";
+    }
+  }
 
   # instructions 
   for my $tr (@$tr_r)
@@ -473,13 +485,14 @@ sub find_mapping
   my ($found, $index, $usedvars_ref, $alltrans_ref, $alltrans_ref_final, $cline) = (0, -1, undef, undef, undef, $line);
 
   $cline =~ s/[ ]+/ /g; # replace several spaces by one space
-  #print $cline."\n";
+  # print $cline."\n"; # HERE
 
   for my $m (@$map_ref)
   {
     $index++;
     my $rexp = $m->{rexp};
-    #print "\t\t".$rexp."\n";
+    # print "\t\t".$rexp."\n"; # HERE
+
     if($cline =~ m/$rexp/)
     {
         my @mat   = ($1, $2, $3, $4, $5, $6, $7, $8, $9); # Possible matched variables or constants

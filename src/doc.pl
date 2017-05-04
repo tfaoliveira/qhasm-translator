@@ -117,7 +117,7 @@ sub get_types_info{
   }
   close F;                                   # Close the types file
 
-  return %types;                               # Return
+  return %types;                             # Return
 }
 
 

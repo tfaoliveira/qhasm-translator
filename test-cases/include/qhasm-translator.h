@@ -24,4 +24,7 @@
 // carry? a = b - c - carry // TODO
 #define sub64_with_carry_and_set_carry(a,b,c) do{}while(0)
 
+// a = ((uint32_t) b) <<< n
+#define rotate64_32l(a,b,n) do{a = (a&0xFFFFFFFF00000000) | (((uint32_t)b)<<n) | ((uint32_t)b)>>(32-n); }while(0)
+
 #endif

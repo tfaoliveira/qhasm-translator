@@ -3,9 +3,36 @@
 INDENT= indent -orig -l150 -nut -ts0 -sob $@
 
 ################################################################################
-crypto_stream/salsa20/e/amd64-1/salsa20.c: crypto_stream/salsa20/e/amd64-1/salsa20-subset.q
+## crypto_stream/salsa20/e/amd64-1/
+crypto_stream/salsa20/e/amd64-1/: crypto_stream/salsa20/e/amd64-1/*.c crypto_stream/salsa20/e/amd64-1/*.mli
+
+crypto_stream/salsa20/e/amd64-1/salsa20-init.c: crypto_stream/salsa20/e/amd64-1/salsa20-init.q
 	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
 	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1/salsa20-ivsetup.c: crypto_stream/salsa20/e/amd64-1/salsa20-ivsetup.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1/salsa20-keysetup.c: crypto_stream/salsa20/e/amd64-1/salsa20-keysetup.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1/salsa20-keystream-bytes.c: crypto_stream/salsa20/e/amd64-1/salsa20-keystream-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1/salsa20-decrypt-bytes.c: crypto_stream/salsa20/e/amd64-1/salsa20-decrypt-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1/salsa20-encrypt-bytes.c: crypto_stream/salsa20/e/amd64-1/salsa20-encrypt-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+#####
+
+# TODO mli
 
 ################################################################################
 ## crypto_scalarmult/curve25519/amd64-51

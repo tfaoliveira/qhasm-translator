@@ -1,33 +1,64 @@
+##
+
+ruc;unsigned char $s
+rus;unsigned short $s
+rui;unsigned int $s
+rul;unsigned long $s
+rull;unsigned long long $s
+rui8;uint8_t $s
+rui16;uint16_t $s
+rui32;uint32_t $s
+rui64;uint64_t $s
+
+uc;unsigned char $s
+us;unsigned short $s
+ui;unsigned int $s
+ul;unsigned long $s
+ull;unsigned long long $s
+ui8;uint8_t $s
+ui16;uint16_t $s
+ui32;uint32_t $s
+ui64;uint64_t $s
+
+ui64x2;uint64_t $s[4]
+ui64x4;uint64_t $s[4]
+ui64x8;uint64_t $s[8]
+
+##
+
+rvp;void *$s
+rucp;unsigned char *$s
+rusp;unsigned short *$s
+ruip;unsigned int *$s
+rulp;unsigned long *$s
+rullp;unsigned long long *$s
+rui8p;uint8_t *$s
+rui16p;uint16_t *$s
+rui32p;uint32_t *$s
+rui64p;uint64_t *$s
+
+vp;void *$s
+ucp;unsigned char *$s
+usp;unsigned short *$s
+uip;unsigned int *$s
+ulp;unsigned long *$s
+ullp;unsigned long long *$s
+ui8p;uint8_t *$s
+ui16p;uint16_t *$s
+ui32p;uint32_t *$s
+ui64p;uint64_t *$s
+
+##
+
 rboolmli;reg---bool
-
-rui;register unsigned int
-rus;register unsigned short
-ruc;register unsigned char
-rui64;uint64_t
 rui64mli;reg---u64
-
-ui;unsigned int
-us;unsigned short
-uc;unsigned char
-uc16;unsigned char $s[16]
-ui64;uint64_t
 ui64mli;stack---u64
-
-rvp;register void*
-ruip;register unsigned int*
-rusp;register unsigned short*
-rucp;register unsigned char*
-rui64p;uint64_t*
 rui64pmli;reg---u64
-
-vp;void*
-uip;unsigned int*
-usp;unsigned short*
-ucp;unsigned char*
-ui64p;uint64_t*
 ui64pmli;stack---u64
 pui64pmli;param :---u64
 
+##
+ 
 ii;immediateInt
 it;immediateText
 iv;immediateVar -- for global variables like pre calculated tables in aes
