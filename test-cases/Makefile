@@ -8,6 +8,7 @@ crypto_stream/salsa20/e/amd64-1/salsa20.c: crypto_stream/salsa20/e/amd64-1/salsa
 	$(INDENT)
 
 ################################################################################
+## crypto_scalarmult/curve25519/amd64-51
 crypto_scalarmult/curve25519/amd64-64/: crypto_scalarmult/curve25519/amd64-64/*.c crypto_scalarmult/curve25519/amd64-64/*.mli
 
 crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.c: crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.q
@@ -19,6 +20,7 @@ crypto_scalarmult/curve25519/amd64-64/ladderstep.c: crypto_scalarmult/curve25519
 	$(INDENT)
 
 ################################################################################
+## crypto_scalarmult/curve25519/amd64-51
 
 crypto_scalarmult/curve25519/amd64-51/: crypto_scalarmult/curve25519/amd64-51/*.c crypto_scalarmult/curve25519/amd64-51/*.mli
 
