@@ -114,8 +114,11 @@ if($print_parsed)
   exit if $print_parsed_exit; # Exit
 }
 
-# Clean the output file
+# init the output file
 open OUT, ">".$out_file; 
+  # include clause if not mli
+  if(!$mli)
+  { print OUT "#include \"qhasm-translator.h\"\n\n"; }
 close OUT;
 
 # Translate all functions in qhasm file

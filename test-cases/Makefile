@@ -1,6 +1,11 @@
-.PHONY : clean crypto_scalarmult/curve25519/amd64-64/* crypto_scalarmult/curve25519/amd64-51/*
+.PHONY : clean crypto_scalarmult/curve25519/amd64-64/* crypto_scalarmult/curve25519/amd64-51/* crypto_stream/salsa20/e/amd64-1/*
 
 INDENT= indent -orig -l150 -nut -ts0 -sob $@
+
+################################################################################
+crypto_stream/salsa20/e/amd64-1/salsa20.c: crypto_stream/salsa20/e/amd64-1/salsa20-subset.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
 
 ################################################################################
 crypto_scalarmult/curve25519/amd64-64/: crypto_scalarmult/curve25519/amd64-64/*.c crypto_scalarmult/curve25519/amd64-64/*.mli

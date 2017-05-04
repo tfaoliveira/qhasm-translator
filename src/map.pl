@@ -148,10 +148,6 @@ sub print_function
   }
   if($#comment_stack > -1){print OUT "/*@\n   @".(join "\n   @ ", @comment_stack)."\n   @*/\n";}
 
-  # include clause if not mli
-  if(!$mli)
-  { print OUT "#include \"qhasm-translator.h\"\n\n"; }
-
   # global params
   if($mli)
   { print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "\nparam $n $_ = 0; //DEFINEME" } (keys %$mt_r)))."\n\n";
@@ -197,7 +193,7 @@ sub print_function
     }
     else
     {
-      print OUT "\n// NOT DEFINED\n";      
+      print OUT "\n// NOT DEFINED :: \n";      
     }
   }
 
@@ -552,7 +548,7 @@ sub process_translations
 {
   my $alltrans_ref = shift;
   my $alltrans_copy = calculate_lets($alltrans_ref);
-  my $usedvars_ref  = get_used_vars($alltrans_ref);
+  my $usedvars_ref  = get_used_vars($alltrans_copy);
   return ($usedvars_ref,$alltrans_copy);
 }
 
@@ -584,6 +580,7 @@ sub calculate_let
 {
   my $let = shift;
 
+  # TODO : read from config file
   my %siz = ('sizeof\(char\)' => 1, 'sizeof\(short\)' => 2, 'sizeof\(int\)' => 4, 'sizeof\(uint64\)' => 8);
   my ($isok, $name, $value) = (0, "", "");
   if($let =~ m/^let \$$RX_NAMES=(.+)/)
@@ -620,7 +617,6 @@ sub get_used_vars
       }
     }
   }
-
   return \%usedvars;
 }
 
