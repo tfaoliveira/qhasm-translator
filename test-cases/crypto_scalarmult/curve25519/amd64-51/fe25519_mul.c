@@ -1,6 +1,6 @@
 #include "qhasm-translator.h"
 
- /*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+extern uint64_t crypto_scalarmult_curve25519_amd64_51_REDMASK51;
 
 void
 crypto_scalarmult_curve25519_amd64_51_fe25519_mul(uint64_t * rp, uint64_t * xp, uint64_t * yp)
@@ -134,7 +134,7 @@ crypto_scalarmult_curve25519_amd64_51_fe25519_mul(uint64_t * rp, uint64_t * xp, 
     multiply128(mulrdx, mulrax, mulrax, yp[4]); // mulrdx, mulrax = mulrax * yp[$p0];
     add64_and_set_carry(r3, r3, mulrax); // cf? r3 += mulrax
     add64_with_carry(mulr31, mulr31, mulrdx); // mulr31 += mulrdx + cf; 
-    mulredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    mulredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     shift_left128(mulr01, mulr01, r0, 13);
     r0 &= mulredmask;
     shift_left128(mulr11, mulr11, r1, 13);

@@ -3,9 +3,9 @@
 use strict;
 use warnings;
 
-use constants qw(RX_TYPES RX_NAMES RX_DIGIT RX_RESER RX_PV RX_FLAGS RX_TEST_FLAGS RX_SPACE);
+use constants qw(RX_TYPES RX_NAMES RX_DIGIT RX_RESER RX_PV RX_FLAGS RX_TEST_FLAGS RX_SPACE RX_OPERAND);
 
-our ($RX_TYPES, $RX_NAMES, $RX_DIGIT, $RX_RESER, $RX_PV, $RX_FLAGS, $RX_TEST_FLAGS, $RX_SPACE) = (RX_TYPES, RX_NAMES, RX_DIGIT, RX_RESER, RX_PV, RX_FLAGS, RX_TEST_FLAGS, RX_SPACE);
+our ($RX_TYPES, $RX_NAMES, $RX_DIGIT, $RX_RESER, $RX_PV, $RX_FLAGS, $RX_TEST_FLAGS, $RX_SPACE, $RX_OPERAND) = (RX_TYPES, RX_NAMES, RX_DIGIT, RX_RESER, RX_PV, RX_FLAGS, RX_TEST_FLAGS, RX_SPACE, RX_OPERAND);
 
 # Parse translate information
 sub get_map_info{
@@ -76,6 +76,10 @@ sub get_regex{
       elsif($in =~ m/^[ ]?$RX_TYPES $RX_PV/)    # If the input has one of the above types... WARN: RW
       {
         $inst =~ s/\$$2/$RX_NAMES/g;            # Replace it's ocurrence in the instruction with a regex that matches with names
+      }
+      elsif($in =~ m/^[ ]?op o/)                # If the input is an operand...
+      {
+        $inst =~ s/\$o/$RX_OPERAND/g;
       }
       elsif($in =~ m/^[ ]?flg t/)               # If the input is a flag...
       {

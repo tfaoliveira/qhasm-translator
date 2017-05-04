@@ -1,9 +1,9 @@
 #include "qhasm-translator.h"
 
- /*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_REDMASK51;
-/*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_2P1234;
-/*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_121666_213;
-/*CHECKME*/ extern uint64_t crypto_scalarmult_curve25519_amd64_51_2P0;
+extern uint64_t crypto_scalarmult_curve25519_amd64_51_2P0;
+extern uint64_t crypto_scalarmult_curve25519_amd64_51_2P1234;
+extern uint64_t crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+extern uint64_t crypto_scalarmult_curve25519_amd64_51_121666_213;
 
 void
 crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
@@ -148,11 +148,11 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     t22 = t12;
     t23 = t13;
     t24 = t14;
-    t20 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P0;
-    t21 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    t22 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    t23 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    t24 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t20 += crypto_scalarmult_curve25519_amd64_51_2P0;
+    t21 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t22 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t23 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t24 += crypto_scalarmult_curve25519_amd64_51_2P1234;
     t10 += workp[10];
     t11 += workp[11];
     t12 += workp[12];
@@ -245,7 +245,7 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     multiply128(squarerdx, squarerax, squarerax, t24_stack);
     add64_and_set_carry(t73, t73, squarerax); // cf? t73 += squarerax
     add64_with_carry(squarer31, squarer31, squarerdx); // squarer31 += squarerdx + cf; 
-    squareredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    squareredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     shift_left128(squarer01, squarer01, t70, 13);
     t70 &= squareredmask;
     shift_left128(squarer11, squarer11, t71, 13);
@@ -360,7 +360,7 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     multiply128(squarerdx, squarerax, squarerax, t14_stack);
     add64_and_set_carry(t63, t63, squarerax); // cf? t63 += squarerax
     add64_with_carry(squarer31, squarer31, squarerdx); // squarer31 += squarerdx + cf; 
-    squareredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    squareredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     shift_left128(squarer01, squarer01, t60, 13);
     t60 &= squareredmask;
     shift_left128(squarer11, squarer11, t61, 13);
@@ -408,11 +408,11 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     t52 = t62;
     t53 = t63;
     t54 = t64;
-    t50 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P0;
-    t51 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    t52 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    t53 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    t54 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t50 += crypto_scalarmult_curve25519_amd64_51_2P0;
+    t51 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t52 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t53 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t54 += crypto_scalarmult_curve25519_amd64_51_2P1234;
     t50 -= t70_stack;
     t51 -= t71_stack;
     t52 -= t72_stack;
@@ -433,11 +433,11 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     t42 = t32;
     t43 = t33;
     t44 = t34;
-    t40 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P0;
-    t41 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    t42 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    t43 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    t44 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t40 += crypto_scalarmult_curve25519_amd64_51_2P0;
+    t41 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t42 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t43 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    t44 += crypto_scalarmult_curve25519_amd64_51_2P1234;
     t30 += workp[20];
     t31 += workp[21];
     t32 += workp[22];
@@ -565,7 +565,7 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     multiply128(mulrdx, mulrax, mulrax, t24_stack);
     add64_and_set_carry(t93, t93, mulrax); // cf? t93 += mulrax
     add64_with_carry(mulr31, mulr31, mulrdx); // mulr31 += mulrdx + cf; 
-    mulredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    mulredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     shift_left128(mulr01, mulr01, t90, 13);
     t90 &= mulredmask;
     shift_left128(mulr11, mulr11, t91, 13);
@@ -715,7 +715,7 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     multiply128(mulrdx, mulrax, mulrax, t14_stack);
     add64_and_set_carry(t83, t83, mulrax); // cf? t83 += mulrax
     add64_with_carry(mulr31, mulr31, mulrdx); // mulr31 += mulrdx + cf; 
-    mulredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    mulredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     shift_left128(mulr01, mulr01, t80, 13);
     t80 &= mulredmask;
     shift_left128(mulr11, mulr11, t81, 13);
@@ -758,11 +758,11 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     zq2 = t82;
     zq3 = t83;
     zq4 = t84;
-    zq0 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P0;
-    zq1 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    zq2 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    zq3 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
-    zq4 += *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_2P1234;
+    zq0 += crypto_scalarmult_curve25519_amd64_51_2P0;
+    zq1 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    zq2 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    zq3 += crypto_scalarmult_curve25519_amd64_51_2P1234;
+    zq4 += crypto_scalarmult_curve25519_amd64_51_2P1234;
     t80 += t90_stack;
     t81 += t91_stack;
     t82 += t92_stack;
@@ -855,7 +855,7 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     multiply128(squarerdx, squarerax, squarerax, workp[19]); // squarerdx, squarerax = squarerax * workp[$p0];
     add64_and_set_carry(xq3, xq3, squarerax); // cf? xq3 += squarerax
     add64_with_carry(squarer31, squarer31, squarerdx); // squarer31 += squarerdx + cf; 
-    squareredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    squareredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     shift_left128(squarer01, squarer01, xq0, 13);
     xq0 &= squareredmask;
     shift_left128(squarer11, squarer11, xq1, 13);
@@ -970,7 +970,7 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     multiply128(squarerdx, squarerax, squarerax, workp[24]); // squarerdx, squarerax = squarerax * workp[$p0];
     add64_and_set_carry(zq3, zq3, squarerax); // cf? zq3 += squarerax
     add64_with_carry(squarer31, squarer31, squarerdx); // squarer31 += squarerdx + cf; 
-    squareredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    squareredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     shift_left128(squarer01, squarer01, zq0, 13);
     zq0 &= squareredmask;
     shift_left128(squarer11, squarer11, zq1, 13);
@@ -1120,7 +1120,7 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     multiply128(mulrdx, mulrax, mulrax, workp[4]); // mulrdx, mulrax = mulrax * workp[$p0];
     add64_and_set_carry(zq3, zq3, mulrax); // cf? zq3 += mulrax
     add64_with_carry(mulr31, mulr31, mulrdx); // mulr31 += mulrdx + cf; 
-    mulredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    mulredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     shift_left128(mulr01, mulr01, zq0, 13);
     zq0 &= mulredmask;
     shift_left128(mulr11, mulr11, zq1, 13);
@@ -1270,7 +1270,7 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     multiply128(mulrdx, mulrax, mulrax, t74_stack);
     add64_and_set_carry(xp3, xp3, mulrax); // cf? xp3 += mulrax
     add64_with_carry(mulr31, mulr31, mulrdx); // mulr31 += mulrdx + cf; 
-    mulredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    mulredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     shift_left128(mulr01, mulr01, xp0, 13);
     xp0 &= mulredmask;
     shift_left128(mulr11, mulr11, xp1, 13);
@@ -1456,7 +1456,7 @@ crypto_scalarmult_curve25519_amd64_51_ladderstep(uint64_t * workp)
     multiply128(mulrdx, mulrax, mulrax, t54_stack);
     add64_and_set_carry(zp3, zp3, mulrax); // cf? zp3 += mulrax
     add64_with_carry(mulr31, mulr31, mulrdx); // mulr31 += mulrdx + cf; 
-    mulredmask = *(uint64_t *) & crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+    mulredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
     shift_left128(mulr01, mulr01, zp0, 13);
     zp0 &= mulredmask;
     shift_left128(mulr11, mulr11, zp1, 13);

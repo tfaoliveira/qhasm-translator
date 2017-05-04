@@ -466,7 +466,6 @@ sub build_variable_types_intersection
   }
 }
 
-
 sub find_mapping
 {
   my ($map_ref, $alltypes_ref, $line, $linenumber, $stack_ref, $mli) = @_; 
@@ -494,7 +493,7 @@ sub find_mapping
         for (@inp)
         {
           my ($t,$n) = split ' ', $_;
-          if ( ($t =~ m/(ii|it|flg|tflg)/) || ($t !~ m/(ii|it|flg|tflg)/ && $alltypes_ref->{$mat[$c]} eq $t) )
+          if ( ($t =~ m/(ii|it|op|flg|tflg)/) || ($t !~ m/(ii|it|op|flg|tflg)/ && $alltypes_ref->{$mat[$c]} eq $t) )
           {
             for (@$alltrans_ref)
             { 
