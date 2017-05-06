@@ -152,7 +152,12 @@ sub print_function
   if($mli)
   { print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "\nparam $n $_ = 0; //DEFINEME" } (keys %$mt_r)))."\n\n";
   }else
-  { print OUT join(' ', (map { "\nextern $ty{$mt_r->{$_}} $_;" } (keys %$mt_r)))."\n\n";
+  { foreach my $var (sort keys %$mt_r)
+    { my $vd = $ty{$vt_r->{$var}};
+      $vd =~ s/\$s/$var/g;
+      print OUT "\t extern $vd;\n";
+    }
+    # print OUT join(' ', (map { "\nextern $ty{$mt_r->{$_}} $_;" } (keys %$mt_r)))."\n\n";
   }
 
   # f. signature

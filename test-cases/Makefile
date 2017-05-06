@@ -3,38 +3,6 @@
 INDENT= indent -orig -l150 -nut -ts0 -sob $@
 
 ################################################################################
-## crypto_stream/salsa20/e/amd64-1/
-crypto_stream/salsa20/e/amd64-1/: crypto_stream/salsa20/e/amd64-1/*.c crypto_stream/salsa20/e/amd64-1/*.mli
-
-crypto_stream/salsa20/e/amd64-1/salsa20-init.c: crypto_stream/salsa20/e/amd64-1/salsa20-init.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1/salsa20-ivsetup.c: crypto_stream/salsa20/e/amd64-1/salsa20-ivsetup.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1/salsa20-keysetup.c: crypto_stream/salsa20/e/amd64-1/salsa20-keysetup.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1/salsa20-keystream-bytes.c: crypto_stream/salsa20/e/amd64-1/salsa20-keystream-bytes.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1/salsa20-decrypt-bytes.c: crypto_stream/salsa20/e/amd64-1/salsa20-decrypt-bytes.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1/salsa20-encrypt-bytes.c: crypto_stream/salsa20/e/amd64-1/salsa20-encrypt-bytes.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-#####
-
-# TODO mli
-
-################################################################################
 ## crypto_scalarmult/curve25519/amd64-51
 crypto_scalarmult/curve25519/amd64-64/: crypto_scalarmult/curve25519/amd64-64/*.c crypto_scalarmult/curve25519/amd64-64/*.mli
 
@@ -44,6 +12,18 @@ crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.c: crypto_scalarmult/curve2
 
 crypto_scalarmult/curve25519/amd64-64/ladderstep.c: crypto_scalarmult/curve25519/amd64-64/ladderstep.q
 	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_scalarmult_curve25519_amd64_64_121666:ui64;crypto_scalarmult_curve25519_amd64_64_38:ui64;"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-64/fe25519_mul.c: crypto_scalarmult/curve25519/amd64-64/fe25519_mul.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64;"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-64/work_cswap.c: crypto_scalarmult/curve25519/amd64-64/work_cswap.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_scalarmult/curve25519/amd64-64/fe25519_square.c: crypto_scalarmult/curve25519/amd64-64/fe25519_square.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64;"
 	$(INDENT)
 
 ################################################################################
@@ -88,6 +68,37 @@ crypto_scalarmult/curve25519/amd64-51/work_cswap.mli: crypto_scalarmult/curve255
 crypto_scalarmult/curve25519/amd64-51/fe25519_square.mli: crypto_scalarmult/curve25519/amd64-51/fe25519_square.q
 	../src/translate.pl -mli -in $< -out $@ -map-file "../config/map-direct-amd64-mli" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64mli;"
 
+################################################################################
+## crypto_stream/salsa20/e/amd64-1/
+crypto_stream/salsa20/e/amd64-1/: crypto_stream/salsa20/e/amd64-1/*.c crypto_stream/salsa20/e/amd64-1/*.mli
+
+crypto_stream/salsa20/e/amd64-1/salsa20-init.c: crypto_stream/salsa20/e/amd64-1/salsa20-init.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1/salsa20-ivsetup.c: crypto_stream/salsa20/e/amd64-1/salsa20-ivsetup.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1/salsa20-keysetup.c: crypto_stream/salsa20/e/amd64-1/salsa20-keysetup.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1/salsa20-keystream-bytes.c: crypto_stream/salsa20/e/amd64-1/salsa20-keystream-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1/salsa20-decrypt-bytes.c: crypto_stream/salsa20/e/amd64-1/salsa20-decrypt-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1/salsa20-encrypt-bytes.c: crypto_stream/salsa20/e/amd64-1/salsa20-encrypt-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+#####
+
+# TODO mli
 
 clean:
 	find . -name "*~" -exec rm {} \;
