@@ -165,7 +165,7 @@ sub print_function
   { print OUT "fn ",$f->{name},"(";  
     my @args_str = ();
     foreach my $arg (@$args_r)
-    { my @grp = sort ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );
+    { my @grp = sort {$a <=> $b} ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );
       my ($p, $n) = split '---', $ty{$vt_r->{$arg}};
       if(@grp)
       { push @args_str, "$p $n"."[".($grp[$#grp]+1)."] ".$arg; }

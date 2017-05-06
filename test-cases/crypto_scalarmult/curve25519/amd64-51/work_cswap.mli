@@ -1,6 +1,6 @@
 
 
-fn crypto_scalarmult_curve25519_amd64_51_work_cswap(reg u64[10] workp, reg u64 swap){
+fn crypto_scalarmult_curve25519_amd64_51_work_cswap(reg u64[20] workp, reg u64 swap){
 
 	 reg u64 t0;
 	 reg u64 t1;
