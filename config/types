@@ -24,6 +24,12 @@ ui64x2;uint64_t $s[4]
 ui64x4;uint64_t $s[4]
 ui64x8;uint64_t $s[8]
 
+## TODO : CHECKME : QUICKFIX
+rfloat64; double $s
+float64; double $s
+rfloat80; double $s
+float80; double $s
+
 ##
 
 rvp;void *$s
@@ -47,6 +53,13 @@ ui8p;uint8_t *$s
 ui16p;uint16_t *$s
 ui32p;uint32_t *$s
 ui64p;uint64_t *$s
+
+## TODO : CHECKME : QUICKFIX
+rfloat64p; double *$s
+float64p; double *$s
+rfloat80p; double *$s
+float80p; double *$s
+
 
 ##
 

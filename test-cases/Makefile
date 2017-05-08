@@ -1,10 +1,20 @@
-.PHONY : clean crypto_scalarmult/curve25519/amd64-64/* crypto_scalarmult/curve25519/amd64-51/* crypto_stream/salsa20/e/amd64-1/*
+.PHONY : clean crypto_onetimeauth/poly1305/amd64/* crypto_scalarmult/curve25519/amd64-64/* crypto_scalarmult/curve25519/amd64-51/* crypto_stream/salsa20/e/amd64-1/*
 
 INDENT= indent -orig -l150 -nut -ts0 -sob $@
 
 ################################################################################
+## crypto_onetimeauth/poly1305/amd64/
+crypto_onetimeauth/poly1305/amd64/: crypto_onetimeauth/poly1305/amd64/*.c
+
+crypto_onetimeauth/poly1305/amd64/auth.c: crypto_onetimeauth/poly1305/amd64/auth.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_onetimeauth_poly1305_amd64_rounding:ui16;crypto_onetimeauth_poly1305_amd64_alpha130:ui64;crypto_onetimeauth_poly1305_amd64_alpha32:ui64;crypto_onetimeauth_poly1305_amd64_alpha64:ui64;crypto_onetimeauth_poly1305_amd64_alpha96:ui64;crypto_onetimeauth_poly1305_amd64_doffset0:ui64;crypto_onetimeauth_poly1305_amd64_doffset1:ui64;crypto_onetimeauth_poly1305_amd64_doffset2:ui64;crypto_onetimeauth_poly1305_amd64_doffset3:ui64;crypto_onetimeauth_poly1305_amd64_doffset3minustwo128:ui64;crypto_onetimeauth_poly1305_amd64_hoffset0:ui64;crypto_onetimeauth_poly1305_amd64_hoffset1:ui64;crypto_onetimeauth_poly1305_amd64_hoffset2:ui64;crypto_onetimeauth_poly1305_amd64_hoffset3:ui64;crypto_onetimeauth_poly1305_amd64_scale:ui64;" > output
+
+	$(INDENT)
+
+
+################################################################################
 ## crypto_scalarmult/curve25519/amd64-51
-crypto_scalarmult/curve25519/amd64-64/: crypto_scalarmult/curve25519/amd64-64/*.c crypto_scalarmult/curve25519/amd64-64/*.mil
+crypto_scalarmult/curve25519/amd64-64/: crypto_scalarmult/curve25519/amd64-64/*.c
 
 crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.c: crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.q
 	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
@@ -29,7 +39,7 @@ crypto_scalarmult/curve25519/amd64-64/fe25519_square.c: crypto_scalarmult/curve2
 ################################################################################
 ## crypto_scalarmult/curve25519/amd64-51
 
-crypto_scalarmult/curve25519/amd64-51/: crypto_scalarmult/curve25519/amd64-51/*.c crypto_scalarmult/curve25519/amd64-51/*.mil
+crypto_scalarmult/curve25519/amd64-51/: crypto_scalarmult/curve25519/amd64-51/*.c
 
 crypto_scalarmult/curve25519/amd64-51/fe25519_freeze.c: crypto_scalarmult/curve25519/amd64-51/fe25519_freeze.q
 	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64;"
@@ -70,7 +80,7 @@ crypto_scalarmult/curve25519/amd64-51/fe25519_square.mil: crypto_scalarmult/curv
 
 ################################################################################
 ## crypto_stream/salsa20/e/amd64-1/
-crypto_stream/salsa20/e/amd64-1/: crypto_stream/salsa20/e/amd64-1/*.c crypto_stream/salsa20/e/amd64-1/*.mil
+crypto_stream/salsa20/e/amd64-1/: crypto_stream/salsa20/e/amd64-1/*.c
 
 crypto_stream/salsa20/e/amd64-1/salsa20-init.c: crypto_stream/salsa20/e/amd64-1/salsa20-init.q
 	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"

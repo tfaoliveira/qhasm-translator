@@ -1,5 +1,17 @@
 ##
 ##
+## FLOATS ######################################################################
+
+inst: round *(uint16 *) &$n
+in: iv n
+tr: qhasm_fldcw($n);//round *(uint16 *) &$n---$n:ui16
+
+inst: internal stacktop $r
+in: float80 r
+tr: //internal stacktop $r---$r:rfloat80
+
+##
+##
 ## LOADS #######################################################################
 
 ### IMM ###
@@ -33,6 +45,16 @@ inst: $r $o *(uint64 *) ($s + $t)
 in: int64 r, op o, int64 s, int64 t
 tr: $r $o *(uint64_t *) ($s + $t);//$r $o *(uint64 *) ($s + $t)---$r:rui64;$s:rvp;$t:rui64;
 
+inst: $r $o *(float64 *) &$n
+in: float80 r, op o, iv n
+tr: $r $o *(float64 *) &$n;//$r $o *(float64 *) &$n---$r:rfloat80;$n:ui64
+
+inst: $r $o *(float64 *) &$s
+in: float80 r, op o, stack64 s
+tr: $r $o *(float64 *) &$s;//$r $o *(float64 *) &$s---$r:rfloat80;$s:ui64
+
+
+
 ##
 ##
 ## STORES ######################################################################
@@ -51,7 +73,7 @@ in: int64 s, ii n, op o, int64 r
 tr: $s[$p0] $o $r;//*(uint64 *) ($s + $n) $o $r---$s:rui64p;$r:rui64;---let $p0=$n/sizeof(uint64)
 tr: *(uint64_t *) ($s + $n) $o $r;//*(uint64 *) ($s + $n) $o $r---$s:rvp;$r:rui64;
 
-## VAR ###
+### VAR ###
 inst: *(uint8 *) ($s + $t) $o $r
 in: int64 s, int64 t, op o, int64 r
 tr: *(uint8_t *) ($s + $t) $o $r;//*(uint8 *) ($s + $t) $o $r---$s:rvp;$t:rui64;$r:rui64;
@@ -71,7 +93,11 @@ tr: *(uint64_t *) ($s + $t) $o $r;//*(uint64 *) ($s + $t) $o $r---$s:rvp;$t:rui6
 
 inst: $r = $n
 in: int64 r, ii n
-tr: $r = $n;//$r = $n---$r:rui64;
+tr: $r = $n;//$r = $n---$r:rui64
+
+inst: $r = $n
+in: float80 r, ii n
+tr: $r = $n;//$r = $n---$r:rfloat80
 
 inst: $r = $s
 in: int64 r, stack64 s
@@ -113,6 +139,14 @@ tr: $r = $s;//$r = $s---$r:ruip;$s:ruip
 tr: $r = $s;//$r = $s---$r:rusp;$s:rusp
 tr: $r = $s;//$r = $s---$r:rucp;$s:rucp
 tr: $r = $s;//$r = $s---$r:rvp;$s:rvp
+
+inst: $r top = $n
+in: stack64 r, ii n
+tr: //DEFINE ME; //$r top = $n---$r:ui64
+
+inst: inplace $r bottom = $s
+in: stack64 r, int64 s
+tr: //DEFINE ME; //inplace $r bottom = $s---$r:ui64;$s:rui64
 
 ##
 ##
@@ -179,6 +213,14 @@ inst: (uint32) $r += $s
 in: int64 r, stack64 s
 tr: $r = ($r + $s) & 0xFFFFFFFF;//(uint32) $r += $s---$r:rui64;$s:ui64;
 
+
+##
+##
+## AND/MASKS ###################################################################
+
+inst: (uint32) $r &= $n
+in: int64 r, ii n
+tr: $r = ($r & 0xFFFFFFFF00000000) | (uint64_t)((uint32_t)$r & $n) ;//(uint32) $r &= $n---$r:rui64;
 
 ##
 ##

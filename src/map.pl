@@ -490,16 +490,17 @@ sub find_mapping
   my ($found, $index, $usedvars_ref, $alltrans_ref, $alltrans_ref_final, $cline) = (0, -1, undef, undef, undef, $line);
 
   $cline =~ s/[ ]+/ /g; # replace several spaces by one space
-  # print $cline."\n"; # HERE
+  print "\n\n".$cline."\n"; # HERE
 
   for my $m (@$map_ref)
   {
     $index++;
     my $rexp = $m->{rexp};
-    # print "\t\t".$rexp."\n"; # HERE
+    print "\t\t".$rexp." "; # HERE
 
     if($cline =~ m/$rexp/)
     {
+        print "MATCH - \n"; # HERE
         my @mat   = ($1, $2, $3, $4, $5, $6, $7, $8, $9); # Possible matched variables or constants
         my @inp   = split ',', $m->{in};   # List of inputs
         my $c     = 0; $found = 1;         # We have found the correspondent entry until we have evidence to the contrary
@@ -521,6 +522,7 @@ sub find_mapping
           }
           else
           {
+            print "\t\t\tABORT - ($t, $n) -> $c -> ".$mat[$c]." -> ".$alltypes_ref->{$mat[$c]}."\n"; # HERE
             @$alltrans_ref = ();
             $found = 0; last;
           }
@@ -554,6 +556,9 @@ sub find_mapping
           ($usedvars_ref, $alltrans_ref_final) = process_translations($alltrans_ref);
           last;
         }
+    }
+    else
+    { print "NOT - \n"; # HERE
     }
   }
 

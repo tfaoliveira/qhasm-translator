@@ -22,7 +22,7 @@ fn crypto_scalarmult_curve25519_amd64_51_fe25519_mul(reg u64[5] rp, reg u64[5] x
 	 reg u64 r4;
 	 stack u64 rp_stack;
 
-	rp_stack = rp;
+	/*rp_stack = rp;*/
 	yp = yp;
 	mulrax = xp[3];
 	mulrax *= 19;
