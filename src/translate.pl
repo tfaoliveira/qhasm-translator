@@ -23,7 +23,7 @@ require 'parse.pl';  # Parse information present in qhasm file
 require 'map.pl';    # Match the instructions collected by parse.pl with avaiable instructions in documentation
 
 # Arguments
-my ($temp_file, $help, $print_doc, $print_parsed, $print_parsed_exit, $in_file, $out_file, $ext_variable_types, $in_variable_types, $map_file, $mli) = 
+my ($temp_file, $help, $print_doc, $print_parsed, $print_parsed_exit, $in_file, $out_file, $ext_variable_types, $in_variable_types, $map_file, $mil) = 
    ("temporary.q","","","","","","","","","./config/map","");
 
 # Variables
@@ -40,7 +40,7 @@ GetOptions('help' => \$help,
            'print-parsed-exit' => \$print_parsed_exit,
            'ext-variables=s' => \$ext_variable_types,
            'in-variables=s' => \$in_variable_types,
-           'mli' => \$mli
+           'mil' => \$mil
           );
 
 # Print help menu if is intended or if are missing mandatory arguments
@@ -116,8 +116,8 @@ if($print_parsed)
 
 # init the output file
 open OUT, ">".$out_file; 
-  # include clause if not mli
-  if(!$mli)
+  # include clause if not mil
+  if(!$mil)
   { print OUT "#include \"qhasm-translator.h\"\n\n"; }
 close OUT;
 
@@ -125,7 +125,7 @@ close OUT;
 for my $f (@{$parsed_file->{functions}})
 {
   translate_function(\@map_info, $f, \%{$parsed_file->{arguments}}, \@{$parsed_file->{sorted_arguments}},  
-    \%{$parsed_file->{declarations}}, \%ext_mandatory_types, \%in_mandatory_types, $out_file, $mli);
+    \%{$parsed_file->{declarations}}, \%ext_mandatory_types, \%in_mandatory_types, $out_file, $mil);
 
 }
 

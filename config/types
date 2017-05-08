@@ -50,12 +50,12 @@ ui64p;uint64_t *$s
 
 ##
 
-rboolmli;reg---bool
-rui64mli;reg---u64
-ui64mli;stack---u64
-rui64pmli;reg---u64
-ui64pmli;stack---u64
-pui64pmli;param :---u64
+rboolmil;reg---bool
+rui64mil;reg---u64
+ui64mil;stack---u64
+rui64pmil;reg---u64
+ui64pmil;stack---u64
+pui64pmil;param :---u64
 
 ##
  

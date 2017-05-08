@@ -34,7 +34,7 @@ my %FLAGS     = ('='          => '==',
                  '!signed<'   => '>='
                 );
 
-my %FLAGS_NEG_MLI = ('='          => '!=',
+my %FLAGS_NEG_mil = ('='          => '!=',
                      '!='         => '==',
                      'unsigned>'  => '<=',
                      'unsigned<'  => '>=',
@@ -46,7 +46,7 @@ my %FLAGS_NEG_MLI = ('='          => '!=',
                      '!signed<'   => 'signed<'
                     );
 
-my %FLAGS_MLI     = ('='          => '==',
+my %FLAGS_mil     = ('='          => '==',
                      '!='         => '!=',
                      'unsigned>'  => '>',
                      'unsigned<'  => '<',
@@ -61,7 +61,7 @@ my %FLAGS_MLI     = ('='          => '==',
 
 sub translate_function
 {
-  my ($map_ref, $func, $args_ref, $args_sorted_ref, $decs_ref, $ext_mtypes_ref, $in_mtypes_ref, $outfile, $mli) = @_;
+  my ($map_ref, $func, $args_ref, $args_sorted_ref, $decs_ref, $ext_mtypes_ref, $in_mtypes_ref, $outfile, $mil) = @_;
 
   my %alltypes                      = (%$args_ref, %$decs_ref);  # Merge the two hashes and build a hash that contains all types
   my %variabletypes                 = (%$ext_mtypes_ref, %$in_mtypes_ref);
@@ -98,7 +98,7 @@ sub translate_function
         }
         @comments = ();
       }
-      my ($found, $index, $usedvars_ref, $alltrans_ref) = find_mapping($map_ref, \%alltypes, $line, $linenumber, \@stack, $mli);
+      my ($found, $index, $usedvars_ref, $alltrans_ref) = find_mapping($map_ref, \%alltypes, $line, $linenumber, \@stack, $mil);
 
       if ($found)
       {
@@ -122,13 +122,13 @@ sub translate_function
   #  for (reverse @stack){print "\t$ii ", $_->{type}." ".$_->{arg1}."\t\t ".$_->{line}, "\n"; $ii--;}
 
   search_flow_control(\@stack,\@translations);
-  print_function($func, $args_sorted_ref, \%variabletypes, $ext_mtypes_ref, \@translations, $outfile, $mli);
+  print_function($func, $args_sorted_ref, \%variabletypes, $ext_mtypes_ref, \@translations, $outfile, $mil);
 }
 
 
 sub print_function
 {
-  my ($f, $args_r, $vt_r, $mt_r, $tr_r, $of, $mli) = @_;
+  my ($f, $args_r, $vt_r, $mt_r, $tr_r, $of, $mil) = @_;
   my %ty = get_types_info($INC[$#INC] . "../config/types");
   open OUT, ">>".$of or die "Couldn't open the file: $of\n $! \n";
 
@@ -149,7 +149,7 @@ sub print_function
   if($#comment_stack > -1){print OUT "/*@\n   @".(join "\n   @ ", @comment_stack)."\n   @*/\n";}
 
   # global params
-  if($mli)
+  if($mil)
   { print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "\nparam $n $_ = 0; //DEFINEME" } (keys %$mt_r)))."\n\n";
   }else
   { foreach my $var (sort keys %$mt_r)
@@ -161,7 +161,7 @@ sub print_function
   }
 
   # f. signature
-  if($mli)
+  if($mil)
   { print OUT "fn ",$f->{name},"(";  
     my @args_str = ();
     foreach my $arg (@$args_r)
@@ -190,7 +190,7 @@ sub print_function
   for (keys %$mt_r){delete $vt_r->{$_};}
  
   # var. declarations
-  if($mli)
+  if($mil)
   { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $n $_;"} (sort keys %$vt_r)), "\n"; }
   else
   { foreach my $var (sort keys %$vt_r)
@@ -485,7 +485,7 @@ sub build_variable_types_intersection
 
 sub find_mapping
 {
-  my ($map_ref, $alltypes_ref, $line, $linenumber, $stack_ref, $mli) = @_; 
+  my ($map_ref, $alltypes_ref, $line, $linenumber, $stack_ref, $mil) = @_; 
 
   my ($found, $index, $usedvars_ref, $alltrans_ref, $alltrans_ref_final, $cline) = (0, -1, undef, undef, undef, $line);
 
@@ -544,8 +544,8 @@ sub find_mapping
               my $w   = $stack_ref->[$test_index]->{arg2};
               my $z   = $stack_ref->[$test_index]->{arg3};
               my $cnd = "";
-              $cnd = $FLAGS{$arg2} if(!$mli);
-              $cnd = $FLAGS_MLI{$arg2} if($mli);
+              $cnd = $FLAGS{$arg2} if(!$mil);
+              $cnd = $FLAGS_mil{$arg2} if($mil);
               $alltrans_ref->[0] =~ s/\$w/$w/g;
               $alltrans_ref->[0] =~ s/\$z/$z/g;
               $alltrans_ref->[0] =~ s/\$cnd/$cnd/g;
