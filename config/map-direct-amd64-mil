@@ -59,23 +59,23 @@ tr: $r = $s;---$r:rvp;$s:rvp
  
 inst: (uint128) $r $s = $t * *(uint64 *)($x + $n)
 in: int64 r, int64 s, int64 t, int64 x, ii n
-tr: $r, $s = $t * $x[$p0];---$r:rui64mil;$s:rui64mil;$t:rui64mil;$x:rui64pmil;---let $p0=$n/sizeof(uint64)
+tr: ($r, $s) = $t * $x[$p0];---$r:rui64mil;$s:rui64mil;$t:rui64mil;$x:rui64pmil;---let $p0=$n/sizeof(uint64)
 
 inst: (uint128) $r $s = $t * $x
 in: int64 r, int64 s, int64 t, int64 x
-tr: $r, $s = $t * $x;---$r:rui64mil;$s:rui64mil;$t:rui64mil;$x:rui64mil;
+tr: ($r, $s) = $t * $x;---$r:rui64mil;$s:rui64mil;$t:rui64mil;$x:rui64mil;
 
 inst: (uint128) $r $s = $t * $x
 in: int64 r, int64 s, int64 t, stack64 x
-tr: $r, $s = $t * $x;---$r:rui64mil;$s:rui64mil;$t:rui64mil;$x:ui64mil;
+tr: ($r, $s) = $t * $x;---$r:rui64mil;$s:rui64mil;$t:rui64mil;$x:ui64mil;
 
 inst: (uint128) $r $s = $t * *(uint64 *) &$n
 in: int64 r, int64 s, int64 t, iv n
-tr: $r, $s = $t * $n;---$r:rui64mil;$s:rui64mil;$t:rui64mil;$n:ui64mil;
+tr: ($r, $s) = $t * $n;---$r:rui64mil;$s:rui64mil;$t:rui64mil;$n:ui64mil;
 
 inst: $r = ($s.$t) << $n
 in: int64 r, int64 s, int64 t, ii n
-tr: $r = ($s, $t) << $n;---$r:rui64mil;$s:rui64mil;$t:rui64mil;
+tr: ($r, _) = ($s, $t) << $n;---$r:rui64mil;$s:rui64mil;$t:rui64mil;
 
 inst: $r <<= $n
 in: int64 r, ii n
