@@ -2,16 +2,16 @@
 
 use strict;
 use warnings;
-
 use constants qw(RX_REG RX_ASSIGN RX_NAME RX_ARG RX_VART CL_FINAL);
 
-our ($RX_REG, $RX_ASSIGN, $RX_NAME, $RX_ARG, $RX_VART, $CL_FINAL) = (RX_REG, RX_ASSIGN, RX_NAME, RX_ARG, RX_VART, CL_FINAL);
+our ($RX_REG, $RX_ASSIGN, $RX_NAME, $RX_ARG, $RX_VART, $CL_FINAL) =
+    (RX_REG, RX_ASSIGN, RX_NAME, RX_ARG, RX_VART, CL_FINAL);
 
 sub parse_file
 {
   #Load the file into file array
   open IN, "<".$_[0] or die $!; 
-  my @file = <IN>;          
+  my @file = <IN>;
   close IN;              
   chomp @file;
 

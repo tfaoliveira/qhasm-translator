@@ -61,7 +61,7 @@ my %FLAGS_mil     = ('='          => '==',
 
 sub translate_function
 {
-  my ($map_ref, $func, $args_ref, $args_sorted_ref, $decs_ref, $ext_mtypes_ref, $in_mtypes_ref, $outfile, $mil) = @_;
+  my ($map_ref, $func, $args_ref, $args_sorted_ref, $decs_ref, $ext_mtypes_ref, $in_mtypes_ref, $outfile, $mil, $debug_regex, $types_file) = @_;
 
   my %alltypes                      = (%$args_ref, %$decs_ref);  # Merge the two hashes and build a hash that contains all types
   my %variabletypes                 = (%$ext_mtypes_ref, %$in_mtypes_ref);
@@ -98,7 +98,7 @@ sub translate_function
         }
         @comments = ();
       }
-      my ($found, $index, $usedvars_ref, $alltrans_ref) = find_mapping($map_ref, \%alltypes, $line, $linenumber, \@stack, $mil);
+      my ($found, $index, $usedvars_ref, $alltrans_ref) = find_mapping($map_ref, \%alltypes, $line, $linenumber, \@stack, $mil, $debug_regex);
 
       if ($found)
       {
@@ -122,14 +122,14 @@ sub translate_function
   #  for (reverse @stack){print "\t$ii ", $_->{type}." ".$_->{arg1}."\t\t ".$_->{line}, "\n"; $ii--;}
 
   search_flow_control(\@stack,\@translations);
-  print_function($func, $args_sorted_ref, \%variabletypes, $ext_mtypes_ref, \@translations, $outfile, $mil);
+  print_function($func, $args_sorted_ref, \%variabletypes, $ext_mtypes_ref, \@translations, $outfile, $mil, $types_file);
 }
 
 
 sub print_function
 {
-  my ($f, $args_r, $vt_r, $mt_r, $tr_r, $of, $mil) = @_;
-  my %ty = get_types_info($INC[$#INC] . "../config/types");
+  my ($f, $args_r, $vt_r, $mt_r, $tr_r, $of, $mil, $types_file) = @_;
+  my %ty = get_types_info($INC[$#INC] . $types_file);
   open OUT, ">>".$of or die "Couldn't open the file: $of\n $! \n";
 
   #comments
@@ -149,16 +149,19 @@ sub print_function
   if($#comment_stack > -1){print OUT "/*@\n   @".(join "\n   @ ", @comment_stack)."\n   @*/\n";}
 
   # global params
-  if($mil)
-  { print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "\nparam $n $_ = 0; //DEFINEME" } (keys %$mt_r)))."\n\n";
-  }else
-  { foreach my $var (sort keys %$mt_r)
-    { my $vd = $ty{$vt_r->{$var}};
+#  if($mil)
+#  { print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "\nparam $n $_ = 0; //DEFINEME" } (keys %$mt_r)))."\n\n";
+#  }else
+#  { 
+    foreach my $var (sort keys %$mt_r)
+    { my $p = ($mil)? "p" : "";
+      my $vd = $ty{$p . $vt_r->{$var}};
       $vd =~ s/\$s/$var/g;
-      print OUT "\t extern $vd;\n";
+      print OUT "extern " if(!$mil);
+      print OUT "$vd;\n";
     }
     # print OUT join(' ', (map { "\nextern $ty{$mt_r->{$_}} $_;" } (keys %$mt_r)))."\n\n";
-  }
+#  }
 
   # f. signature
   if($mil)
@@ -166,11 +169,21 @@ sub print_function
     my @args_str = ();
     foreach my $arg (@$args_r)
     { my @grp = sort {$a <=> $b} ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );
-      my ($p, $n) = split '---', $ty{$vt_r->{$arg}};
+      # my ($p, $n) = split '---', $ty{$vt_r->{$arg}};
+      my $vd = $ty{$vt_r->{$arg}};
+      $vd =~ s/\$s/$arg/g;
       if(@grp)
-      { push @args_str, "$p $n"."[".($grp[$#grp]+1)."] ".$arg; }
+      {
+        my $max_i = $grp[$#grp]+1;
+        $vd =~ s/\$n/$max_i/g;
+        push @args_str, $vd;
+        #push @args_str, "$p $n"."[".($grp[$#grp]+1)."] ".$arg;
+      }
       else
-      { push @args_str, "$p $n $arg"; }
+      { 
+        $vd =~ s/\$n//g;
+        push @args_str, $vd;
+      }
     }
     print OUT join(', ',@args_str)."){\n";
   }
@@ -190,15 +203,16 @@ sub print_function
   for (keys %$mt_r){delete $vt_r->{$_};}
  
   # var. declarations
-  if($mil)
-  { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $n $_;"} (sort keys %$vt_r)), "\n"; }
-  else
-  { foreach my $var (sort keys %$vt_r)
+#  if($mil)
+#  { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $n $_;"} (sort keys %$vt_r)), "\n"; }
+#  else
+#  { 
+    foreach my $var (sort keys %$vt_r)
     { my $vd = $ty{$vt_r->{$var}};
       $vd =~ s/\$s/$var/g;
       print OUT "\t $vd;\n";
     }
-  }
+#  }
 
   # instructions 
   for my $tr (@$tr_r)
@@ -485,22 +499,25 @@ sub build_variable_types_intersection
 
 sub find_mapping
 {
-  my ($map_ref, $alltypes_ref, $line, $linenumber, $stack_ref, $mil) = @_; 
+  my ($map_ref, $alltypes_ref, $line, $linenumber, $stack_ref, $mil, $debug_regex) = @_; 
 
   my ($found, $index, $usedvars_ref, $alltrans_ref, $alltrans_ref_final, $cline) = (0, -1, undef, undef, undef, $line);
 
   $cline =~ s/[ ]+/ /g; # replace several spaces by one space
-  print "\n\n".$cline."\n"; # HERE
+
+  print "\n\n".$cline."\n" if($debug_regex); #DEBUG-REGEX
 
   for my $m (@$map_ref)
   {
     $index++;
     my $rexp = $m->{rexp};
-    print "\t\t".$rexp." "; # HERE
+    
+    print "\t\t".$rexp." " if($debug_regex); #DEBUG-REGEX
 
     if($cline =~ m/$rexp/)
     {
-        print "MATCH - \n"; # HERE
+        print "MATCH - \n" if($debug_regex); #DEBUG-REGEX
+
         my @mat   = ($1, $2, $3, $4, $5, $6, $7, $8, $9); # Possible matched variables or constants
         my @inp   = split ',', $m->{in};   # List of inputs
         my $c     = 0; $found = 1;         # We have found the correspondent entry until we have evidence to the contrary
@@ -522,7 +539,8 @@ sub find_mapping
           }
           else
           {
-            print "\t\t\tABORT - ($t, $n) -> $c -> ".$mat[$c]." -> ".$alltypes_ref->{$mat[$c]}."\n"; # HERE
+            print "\t\t\tABORT - ($t, $n) -> $c -> ".$mat[$c]." -> ".$alltypes_ref->{$mat[$c]}."\n" if($debug_regex); #DEBUG-REGEX
+
             @$alltrans_ref = ();
             $found = 0; last;
           }
@@ -558,7 +576,7 @@ sub find_mapping
         }
     }
     else
-    { print "NOT - \n"; # HERE
+    { print "NOT - \n" if($debug_regex); #DEBUG-REGEX
     }
   }
 

@@ -2,37 +2,49 @@
 
 # Examples ##############################################################################
 #                              
-# $./translate -help                Print help and exit
+# $./translate -help # print help and exit
 #                           
-# $./translate -print-doc           Parse and print doc's files and then exit
+# $./translate -print-map # parse and print map files
 #                           
-# $./translate -in file  -out file    Translate the qhasm code into C code
+# $./translate -in file  -out file # translates qhasm to C
+#
+# $./translate (...) -in-variables "name:type" -- to fix a given variable type
 #
 #########################################################################################
 
 use strict;
 use warnings;
-
-use Getopt::Long;   # Used to get the arguments
+use Getopt::Long; # get options http://perldoc.perl.org/Getopt/Long.html
 
 (my $path = $0) =~ s/translate.pl$//g;
-push @INC, $path;  # This line adds the current folder in the environment variable include
+push @INC, $path; # adds the current folder in the environment variable INC
 
-require 'doc.pl';   # Get qhasm documentation
-require 'parse.pl';  # Parse information present in qhasm file
-require 'map.pl';    # Match the instructions collected by parse.pl with avaiable instructions in documentation
+require 'doc.pl';  # for loading mapping/types/... files
+require 'parse.pl'; # transforms a qhasm file into a set of variables/function arguments and functions
+require 'map.pl';  # it performs the match between actual instructions and instructions specifications; type resolution;
 
-# Arguments
-my ($temp_file, $help, $print_doc, $print_parsed, $print_parsed_exit, $in_file, $out_file, $ext_variable_types, $in_variable_types, $map_file, $mil) = 
-   ("temporary.q","","","","","","","","","./config/map","");
+# translate arguments/options
+my ($help, #
+    $print_map, #
+    $print_parsed, #
+    $print_parsed_exit, #
+    $in_file, $out_file, #
+    $ext_variable_types, #
+    $in_variable_types, #
+    $map_file, # 
+    $mil, # 
+    $debug_regex, #
+    $types_file #
+   ) = ("","","","","","","","","../config/map","","","../config/types");
 
-# Variables
-my ($parsed_file, %ext_mandatory_types, %in_mandatory_types) = ( "", (), () );
+# local variables
+my $parsed_file = ""; # 
+my %ext_mandatory_types = (); #
+my %in_mandatory_types = (); #
 
-# Get arguments
+# get translate.pl arguments
 GetOptions('help' => \$help, 
-           'print-doc' => \$print_doc, 
-           'temp-file' => \$temp_file,
+           'print-map' => \$print_map,
            'map-file=s' => \$map_file,
            'in=s' => \$in_file, 
            'out=s' => \$out_file, 
@@ -40,62 +52,57 @@ GetOptions('help' => \$help,
            'print-parsed-exit' => \$print_parsed_exit,
            'ext-variables=s' => \$ext_variable_types,
            'in-variables=s' => \$in_variable_types,
-           'mil' => \$mil
+           'mil' => \$mil,
+           'debug-regex' => \$debug_regex,
+           'types-file=s' => \$types_file
           );
 
-# Print help menu if is intended or if are missing mandatory arguments
-if(!$print_doc && ($help or !$in_file or (!$out_file && !$print_parsed_exit)))
-{
-  print_help();
-}
-
-# Get translation information
-my @map_info = get_map_info($map_file);
-
-# Print translation information
-if($print_doc)
-{ 
-  print_map_info(\@map_info);
+# print help and exit
+if(!$print_map && ($help or !$in_file or (!$out_file && !$print_parsed_exit)))
+{ print_help();
   exit;
 }
 
-# Parse the input file
-$parsed_file = parse_file($in_file, $temp_file);
+# load map file :: default is 'map'
+my @map_info = get_map_info($map_file);
 
-# Check if there are global variables to be considered
+# print map info
+if($print_map)
+{ print_map_info(\@map_info);
+  exit;
+}
+
+# load qhasm input file
+$parsed_file = parse_file($in_file);
+
+# check if there are global/external variables that have to be considered...
 if($ext_variable_types)
 {
-    my @vars = split ';', $ext_variable_types;    # Variables are in following form: 'array:uip;result:ui'. Split them
-    for my $var (@vars)                    # For each one of the entries
-    {
-      my ($name,$type) = split ':', $var;        # Make another split
-      $parsed_file->{declarations}{$name} = "iv";  # Add them to the parsed file information
-      $ext_mandatory_types{$name} = $type;      # These types are mandatory
-    }
-}
-else
-{
-    $ext_variable_types = "";                      # Ensure that the variable are empty
+  my @vars = split ';', $ext_variable_types; # ext. vars have the following format: 'array:uip;result:ui'
+  for my $var (@vars) # for each one of the vars...
+  { 
+    my ($name,$type) = split ':', $var; # split name and type
+    $parsed_file->{declarations}{$name} = "iv"; # add var to parsed file information
+    $ext_mandatory_types{$name} = $type; # the types is mandatory
+  }
 }
 
-# Check if there are variables with fixed types
+# check if there are mandatory types... (same format as above)
 if($in_variable_types)
 {
   %in_mandatory_types = split /:|;/, $in_variable_types;
 }
 
-
-# Print the information from parsed qhasm file
+# print info from qhasm file
 if($print_parsed)
 {
   my ($n, $t) = ("","");
 
-  # Print arguments
+  # print arguments
   print "Arguments:\n";
   print "\t".$parsed_file->{arguments}{$_}." ".$_."\n" for (sort keys %{$parsed_file->{arguments}});
-  #  print "\t$t $n\n" while( ($n, $t) = each %{$parsed_file->{arguments}} );
 
-  # Print other declarations
+  # print variable declarations
   print "Variables:\n";
   print "\t".$parsed_file->{declarations}{$_}." ".$_."\n" for (sort keys %{$parsed_file->{declarations}});
 
@@ -111,22 +118,30 @@ if($print_parsed)
     }
     print "\n";
   }
-  exit if $print_parsed_exit; # Exit
+  exit if $print_parsed_exit; # exit
 }
 
 # init the output file
 open OUT, ">".$out_file; 
-  # include clause if not mil
-  if(!$mil)
-  { print OUT "#include \"qhasm-translator.h\"\n\n"; }
+print OUT "#include \"qhasm-translator.h\"\n\n" if(!$mil);
 close OUT;
 
-# Translate all functions in qhasm file
+# foreach function... 
 for my $f (@{$parsed_file->{functions}})
 {
-  translate_function(\@map_info, $f, \%{$parsed_file->{arguments}}, \@{$parsed_file->{sorted_arguments}},  
-    \%{$parsed_file->{declarations}}, \%ext_mandatory_types, \%in_mandatory_types, $out_file, $mil);
-
+  translate_function(
+    \@map_info,
+    $f,
+    \%{$parsed_file->{arguments}},
+    \@{$parsed_file->{sorted_arguments}},
+    \%{$parsed_file->{declarations}},
+    \%ext_mandatory_types,
+    \%in_mandatory_types,
+    $out_file,
+    $mil,
+    $debug_regex,
+    $types_file
+  );
 }
 
 1;

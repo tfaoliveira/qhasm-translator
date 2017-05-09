@@ -1,0 +1,76 @@
+### params #####################################################################
+# only for printing ; do not use these types as input to translator.pl
+puc;param u8 $s
+pus;param u16 $s
+pui;param u32 $s
+pul;param u64 $s
+pull;param u64 $s
+pui8;param u8 $s
+pui16;param u16 $s
+pui32;param u32 $s
+pui64;param u64 $s
+
+### non-pointers ###############################################################
+
+rbool;reg bool $s
+
+ruc;reg u8 $s
+rus;reg u16 $s
+rui;reg u32 $s
+rul;reg u64 $s
+rull;reg u64 $s
+rui8;reg u8 $s
+rui16;reg u16 $s
+rui32;reg u32 $s
+rui64;reg u64 $s
+
+bool;stack bool $s
+
+uc;stack u8 $s
+us;stack u16 $s
+ui;stack u32 $s
+ul;stack u64 $s
+ull;stack u64 $s
+ui8;stack u8 $s
+ui16;stack u16 $s
+ui32;stack u32 $s
+ui64;stack u64 $s
+
+## TODO : CHECKME 
+rfloat64; double $s
+float64; double $s
+rfloat80; double $s
+float80; double $s
+
+### pointers ###################################################################
+
+rboolp;reg bool[$n] $s
+
+rucp;reg u8[$n] $s
+rusp;reg u16[$n] $s
+ruip;reg u32[$n] $s
+rulp;reg u64[$n] $s
+rullp;reg u64[$n] $s
+rui8p;reg u8[$n] $s
+rui16p;reg u16[$n] $s
+rui32p;reg u32[$n] $s
+rui64p;reg u64[$n] $s
+
+boolp;reg bool[$n] $s
+
+ucp;stack u8[$n] $s
+usp;stack u16[$n] $s
+uip;stack u32[$n] $s
+ulp;stack u64[$n] $s
+ullp;stack u64[$n] $s
+ui8p;stack u8[$n] $s
+ui16p;stack u16[$n] $s
+ui32p;stack u32[$n] $s
+ui64p;stack u64[$n] $s
+
+## TODO : CHECKME
+rfloat64p; double[$n] $s
+float64p; double[$n] $s
+rfloat80p; double[$n] $s
+float80p; double[$n] $s
+

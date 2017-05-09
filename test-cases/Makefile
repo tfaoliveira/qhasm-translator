@@ -5,12 +5,15 @@ INDENT= indent -orig -l150 -nut -ts0 -sob $@
 #REMCMT= sed -i 's/;  \/\/.*/;/' $@
 REMCMT=
 
+# mil types and map file
+MILFLAGS=-map-file "../config/map-direct-amd64-mil" -types-file "../config/types-mil"
+
 ################################################################################
 ## crypto_onetimeauth/poly1305/amd64/
 crypto_onetimeauth/poly1305/amd64/: crypto_onetimeauth/poly1305/amd64/*.c
 
 crypto_onetimeauth/poly1305/amd64/auth.c: crypto_onetimeauth/poly1305/amd64/auth.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_onetimeauth_poly1305_amd64_rounding:ui16;crypto_onetimeauth_poly1305_amd64_alpha130:ui64;crypto_onetimeauth_poly1305_amd64_alpha32:ui64;crypto_onetimeauth_poly1305_amd64_alpha64:ui64;crypto_onetimeauth_poly1305_amd64_alpha96:ui64;crypto_onetimeauth_poly1305_amd64_doffset0:ui64;crypto_onetimeauth_poly1305_amd64_doffset1:ui64;crypto_onetimeauth_poly1305_amd64_doffset2:ui64;crypto_onetimeauth_poly1305_amd64_doffset3:ui64;crypto_onetimeauth_poly1305_amd64_doffset3minustwo128:ui64;crypto_onetimeauth_poly1305_amd64_hoffset0:ui64;crypto_onetimeauth_poly1305_amd64_hoffset1:ui64;crypto_onetimeauth_poly1305_amd64_hoffset2:ui64;crypto_onetimeauth_poly1305_amd64_hoffset3:ui64;crypto_onetimeauth_poly1305_amd64_scale:ui64;" > output
+	../src/translate.pl -debug-regex -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_onetimeauth_poly1305_amd64_rounding:ui16;crypto_onetimeauth_poly1305_amd64_alpha130:ui64;crypto_onetimeauth_poly1305_amd64_alpha32:ui64;crypto_onetimeauth_poly1305_amd64_alpha64:ui64;crypto_onetimeauth_poly1305_amd64_alpha96:ui64;crypto_onetimeauth_poly1305_amd64_doffset0:ui64;crypto_onetimeauth_poly1305_amd64_doffset1:ui64;crypto_onetimeauth_poly1305_amd64_doffset2:ui64;crypto_onetimeauth_poly1305_amd64_doffset3:ui64;crypto_onetimeauth_poly1305_amd64_doffset3minustwo128:ui64;crypto_onetimeauth_poly1305_amd64_hoffset0:ui64;crypto_onetimeauth_poly1305_amd64_hoffset1:ui64;crypto_onetimeauth_poly1305_amd64_hoffset2:ui64;crypto_onetimeauth_poly1305_amd64_hoffset3:ui64;crypto_onetimeauth_poly1305_amd64_scale:ui64;" > output
 	$(INDENT)
 
 
@@ -41,30 +44,30 @@ crypto_scalarmult/curve25519/amd64-64/fe25519_square.c: crypto_scalarmult/curve2
 ####
 
 crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.mil: crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.q
-	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil"
+	../src/translate.pl -mil -in $< -out $@ $(MILFLAGS)
 	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-64/ladderstep.mil: crypto_scalarmult/curve25519/amd64-64/ladderstep.q
-	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil" -ext-variables "crypto_scalarmult_curve25519_amd64_64_121666:ui64mil;crypto_scalarmult_curve25519_amd64_64_38:ui64mil;"
+	../src/translate.pl -mil -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_64_121666:ui64mil;crypto_scalarmult_curve25519_amd64_64_38:ui64mil;"
 	$(REMCMT)
 	sed -i 's/121666 = 0; \/\/DEFINEME/121666 = 121666;/' $@
 	sed -i 's/38 = 0; \/\/DEFINEME/38 = 38;/' $@
 
 crypto_scalarmult/curve25519/amd64-64/fe25519_mul.mil: crypto_scalarmult/curve25519/amd64-64/fe25519_mul.q
-	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil" -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64mil;"
+	../src/translate.pl -mil -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64;"
 	$(REMCMT)
 	sed -i 's/38 = 0; \/\/DEFINEME/38 = 38;/' $@
 
 crypto_scalarmult/curve25519/amd64-64/work_cswap.mil: crypto_scalarmult/curve25519/amd64-64/work_cswap.q
-	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil"
+	../src/translate.pl -mil -in $< -out $@ $(MILFLAGS)
 	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-64/work_cswap_v2.mil: crypto_scalarmult/curve25519/amd64-64/work_cswap.q
-	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil-eqf"
+	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil-eqf" -types-file "../config/types-mil"
 	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-64/fe25519_square.mil: crypto_scalarmult/curve25519/amd64-64/fe25519_square.q
-	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil" -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64mil;"
+	../src/translate.pl -mil -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64mil;"
 	$(REMCMT)
 	sed -i 's/38 = 0; \/\/DEFINEME/38 = 38;/' $@
 

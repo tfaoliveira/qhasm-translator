@@ -1,4 +1,4 @@
-##
+### non-pointers ###############################################################
 
 ruc;unsigned char $s
 rus;unsigned short $s
@@ -20,17 +20,13 @@ ui16;uint16_t $s
 ui32;uint32_t $s
 ui64;uint64_t $s
 
-ui64x2;uint64_t $s[4]
-ui64x4;uint64_t $s[4]
-ui64x8;uint64_t $s[8]
-
-## TODO : CHECKME : QUICKFIX
+## TODO : CHECKME 
 rfloat64; double $s
 float64; double $s
 rfloat80; double $s
 float80; double $s
 
-##
+### pointers ###################################################################
 
 rvp;void *$s
 rucp;unsigned char *$s
@@ -54,29 +50,9 @@ ui16p;uint16_t *$s
 ui32p;uint32_t *$s
 ui64p;uint64_t *$s
 
-## TODO : CHECKME : QUICKFIX
+## TODO : CHECKME
 rfloat64p; double *$s
 float64p; double *$s
 rfloat80p; double *$s
 float80p; double *$s
 
-
-##
-
-rboolmil;reg---bool
-rui64mil;reg---u64
-ui64mil;stack---u64
-rui64pmil;reg---u64
-ui64pmil;stack---u64
-pui64pmil;param :---u64
-
-##
- 
-ii;immediateInt
-it;immediateText
-iv;immediateVar -- for global variables like pre calculated tables in aes
-
-sizeof(char);1
-sizeof(short);2
-sizeof(int);4
-sizeof(uint64);8
