@@ -2,6 +2,8 @@
 
 INDENT= indent -orig -l150 -nut -ts0 -sob $@
 
+REMCMT= sed -i 's/;  \/\/.*/;/' $@
+
 ################################################################################
 ## crypto_onetimeauth/poly1305/amd64/
 crypto_onetimeauth/poly1305/amd64/: crypto_onetimeauth/poly1305/amd64/*.c
@@ -39,18 +41,31 @@ crypto_scalarmult/curve25519/amd64-64/fe25519_square.c: crypto_scalarmult/curve2
 
 crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.mil: crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.q
 	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil"
+	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-64/ladderstep.mil: crypto_scalarmult/curve25519/amd64-64/ladderstep.q
 	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil" -ext-variables "crypto_scalarmult_curve25519_amd64_64_121666:ui64mil;crypto_scalarmult_curve25519_amd64_64_38:ui64mil;"
+	$(REMCMT)
+	sed -i 's/121666 = 0; \/\/DEFINEME/121666 = 121666;/' $@
+	sed -i 's/38 = 0; \/\/DEFINEME/38 = 38;/' $@
 
 crypto_scalarmult/curve25519/amd64-64/fe25519_mul.mil: crypto_scalarmult/curve25519/amd64-64/fe25519_mul.q
 	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil" -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64mil;"
+	$(REMCMT)
+	sed -i 's/38 = 0; \/\/DEFINEME/38 = 38;/' $@
 
 crypto_scalarmult/curve25519/amd64-64/work_cswap.mil: crypto_scalarmult/curve25519/amd64-64/work_cswap.q
 	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil"
+	$(REMCMT)
+
+crypto_scalarmult/curve25519/amd64-64/work_cswap_v2.mil: crypto_scalarmult/curve25519/amd64-64/work_cswap.q
+	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil-eqf"
+	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-64/fe25519_square.mil: crypto_scalarmult/curve25519/amd64-64/fe25519_square.q
 	../src/translate.pl -mil -in $< -out $@ -map-file "../config/map-direct-amd64-mil" -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64mil;"
+	$(REMCMT)
+	sed -i 's/38 = 0; \/\/DEFINEME/38 = 38;/' $@
 
 ################################################################################
 ## crypto_scalarmult/curve25519/amd64-51
