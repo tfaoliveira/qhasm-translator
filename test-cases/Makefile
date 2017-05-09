@@ -2,7 +2,8 @@
 
 INDENT= indent -orig -l150 -nut -ts0 -sob $@
 
-REMCMT= sed -i 's/;  \/\/.*/;/' $@
+#REMCMT= sed -i 's/;  \/\/.*/;/' $@
+REMCMT=
 
 ################################################################################
 ## crypto_onetimeauth/poly1305/amd64/
