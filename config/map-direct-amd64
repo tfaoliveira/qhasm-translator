@@ -10,6 +10,10 @@ inst: internal stacktop $r
 in: float80 r
 tr: //internal stacktop $r---$r:rfloat80
 
+inst: stacktop $r
+in: float80 r
+tr: //stacktop $r---$r:rfloat80
+
 ##
 ##
 ## LOADS #######################################################################
@@ -87,6 +91,11 @@ in: int64 s, int64 t, op o, int64 r
 tr: $s[$p0] $o $r;//*(uint64 *) ($s + $t) $o $r---$s:rui64p;$t:rui64;$r:rui64;---let $p0=$n/sizeof(uint64)
 tr: *(uint64_t *) ($s + $t) $o $r;//*(uint64 *) ($s + $t) $o $r---$s:rvp;$t:rui64;$r:rui64;
 
+inst: *(float64 *) &$s $o $r
+in: stack64 s, op o, float80 r
+tr: *(float64 *) &$s $o $r;//*(float64 *) &$s $o $r---$s:ui64;$r:rfloat80;
+
+
 ##
 ##
 ## ATTRIBUTION #################################################################
@@ -144,6 +153,14 @@ inst: $r top = $n
 in: stack64 r, ii n
 tr: //DEFINE ME; //$r top = $n---$r:ui64
 
+inst: $r = top $s
+in: int64 r, stack64 s
+tr: //DEFINE ME; //$r = top $s---$r:rui64;$s:ui64
+
+inst: $r = bottom $s
+in: int64 r, stack64 s
+tr: //DEFINE ME; //$r = bottom $s---$r:rui64;$s:ui64
+
 inst: inplace $r bottom = $s
 in: stack64 r, int64 s
 tr: //DEFINE ME; //inplace $r bottom = $s---$r:ui64;$s:rui64
@@ -196,6 +213,10 @@ tr: $r $o $s;//$r $o $s---$r:ui64;$s:rui64
 inst: $r $o $s
 in: int64 r, op o, int64 s
 tr: $r $o $s;//$r $o $s---$r:rui64;$s:rui64
+
+inst: $r $o $s
+in: float80 r, op o, float80 s
+tr: $r $o $s;//$r $o $s---$r:rfloat80;$s:rfloat80
 
 ##
 ##
