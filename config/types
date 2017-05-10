@@ -56,5 +56,6 @@ float64p; double *$s
 rfloat80p; double *$s
 float80p; double *$s
 
+ui8x64; uint8_t $s[64]
 ui64x8; uint64_t $s[8]
 

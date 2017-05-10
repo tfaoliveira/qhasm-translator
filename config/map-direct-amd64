@@ -34,6 +34,7 @@ tr: $r $o *(uint32_t *) ($s + $n);//$r $o *(uint32 *) ($s + $n)---$r:rui64;$s:rv
 inst: $r $o *(uint64 *) ($s + $n)
 in: int64 r, op o, int64 s, ii n
 tr: $r $o $s[$p0];//$r $o *(uint64 *) ($s + $n)---$r:rui64;$s:rui64p;---let $p0=$n/sizeof(uint64)
+tr: $r $o load64_uint8_t($s,$n);---$r:rui64;$s:rui8p;
 tr: $r $o *(uint64_t *) ($s + $n);---$r:rui64;$s:rvp;
 
 ## VAR ###
@@ -48,6 +49,7 @@ tr: $r $o *(uint32_t *) ($s + $t);//$r $o *(uint32 *) ($s + $t)---$r:rui64;$s:rv
 inst: $r $o *(uint64 *) ($s + $t)
 in: int64 r, op o, int64 s, int64 t
 tr: $r $o *(uint64_t *) ($s + $t);//$r $o *(uint64 *) ($s + $t)---$r:rui64;$s:rvp;$t:rui64;
+tr: $r $o load64_uint8_t($s,$t);//$r $o *(uint64 *) ($s + $t)---$r:rui64;$s:rui8p;$t:rui64;
 
 inst: $r $o *(float64 *) &$n
 in: float80 r, op o, iv n
@@ -72,6 +74,12 @@ inst: *(uint32 *) ($s + $n) $o $r
 in: int64 s, ii n, op o, int64 r
 tr: *(uint32_t *) ($s + $n) $o $r;//*(uint32 *) ($s + $n) $o $r---$s:rvp;$r:rui64;
 
+inst: *(uint64 *) ($s + $n) = $r
+in: int64 s, ii n, int64 r
+tr: $s[$p0] = $r;//*(uint64 *) ($s + $n) = $r---$s:rui64p;$r:rui64;---let $p0=$n/sizeof(uint64)
+tr: store64_uint8_t($s,$n,$r); //*(uint64 *) ($s + $n) = $r---$s:rui8p;$r:rui64;
+tr: *(uint64_t *) ($s + $n) = $r;//*(uint64 *) ($s + $n) = $r---$s:rvp;$r:rui64;
+
 inst: *(uint64 *) ($s + $n) $o $r
 in: int64 s, ii n, op o, int64 r
 tr: $s[$p0] $o $r;//*(uint64 *) ($s + $n) $o $r---$s:rui64p;$r:rui64;---let $p0=$n/sizeof(uint64)
@@ -86,9 +94,15 @@ inst: *(uint32 *) ($s + $t) $o $r
 in: int64 s, int64 t, op o, int64 r
 tr: *(uint32_t *) ($s + $t) $o $r;//*(uint32 *) ($s + $t) $o $r---$s:rvp;$t:rui64;$r:rui64;
 
+inst: *(uint64 *) ($s + $t) = $r
+in: int64 s, int64 t, int64 r
+tr: *(uint64_t *) (((void*)$s) + $t) = $r;//*(uint64 *) ($s + $t) = $r---$s:rui64p;$t:rui64;$r:rui64;
+tr: store64_uint8_t($s,$t,$r);//*(uint64 *) ($s + $t) = $r---$s:rui8p;$t:rui64;$r:rui64;
+tr: *(uint64_t *) ($s + $t) = $r;//*(uint64 *) ($s + $t) = $r---$s:rvp;$t:rui64;$r:rui64;
+
 inst: *(uint64 *) ($s + $t) $o $r
 in: int64 s, int64 t, op o, int64 r
-tr: $s[$p0] $o $r;//*(uint64 *) ($s + $t) $o $r---$s:rui64p;$t:rui64;$r:rui64;---let $p0=$n/sizeof(uint64)
+tr: *(uint64_t *) (((void*)$s) + $t) $o $r;//*(uint64 *) ($s + $t) $o $r---$s:rui64p;$t:rui64;$r:rui64;
 tr: *(uint64_t *) ($s + $t) $o $r;//*(uint64 *) ($s + $t) $o $r---$s:rvp;$t:rui64;$r:rui64;
 
 inst: *(float64 *) &$s $o $r
@@ -112,6 +126,7 @@ inst: $r = $s
 in: int64 r, stack64 s
 tr: $r = $s;//$r = $s---$r:rui64;$s:ui64
 tr: $r = $s;//$r = $s---$r:rui64p;$s:ui64p
+tr: $r = $s;//$r = $s---$r:rui8p;$s:ui8p
 tr: $r = $s;//$r = $s---$r:ruip;$s:uip
 tr: $r = $s;//$r = $s---$r:rusp;$s:usp
 tr: $r = $s;//$r = $s---$r:rucp;$s:ucp
@@ -120,12 +135,14 @@ tr: $r = $s;//$r = $s---$r:rvp;$s:vp
 inst: $r = &$s
 in: int64 r, stack512 s
 tr: $r = $s;//$r = &$s---$r:rui64p;$s:ui64x8
+tr: $r = $s;//$r = &$s---$r:rui8p;$s:ui8x64
 tr: $r = $s;//$r = &$s---$r:rvp;$s:ui64x8
 
 inst: $r = $s
 in: int64 r, int64 s
 tr: $r = $s;//$r = $s---$r:rui64;$s:rui64
 tr: $r = $s;//$r = $s---$r:rui64p;$s:rui64p
+tr: $r = $s;//$r = $s---$r:rui8p;$s:rui8p
 tr: $r = $s;//$r = $s---$r:ruip;$s:ruip
 tr: $r = $s;//$r = $s---$r:rusp;$s:rusp
 tr: $r = $s;//$r = $s---$r:rucp;$s:rucp
@@ -135,6 +152,7 @@ inst: $r = $s
 in: stack64 r, int64 s
 tr: $r = $s;//$r = $s---$r:ui64;$s:rui64
 tr: $r = $s;//$r = $s---$r:ui64p;$s:rui64p
+tr: $r = $s;//$r = $s---$r:ui8p;$s:rui8p
 tr: $r = $s;//$r = $s---$r:uip;$s:ruip
 tr: $r = $s;//$r = $s---$r:usp;$s:rusp
 tr: $r = $s;//$r = $s---$r:ucp;$s:rucp
@@ -144,6 +162,7 @@ inst: $r = $s
 in: int64 r, int64 s
 tr: $r = $s;//$r = $s---$r:rui64;$s:rui64
 tr: $r = $s;//$r = $s---$r:rui64p;$s:rui64p
+tr: $r = $s;//$r = $s---$r:rui8p;$s:rui8p
 tr: $r = $s;//$r = $s---$r:ruip;$s:ruip
 tr: $r = $s;//$r = $s---$r:rusp;$s:rusp
 tr: $r = $s;//$r = $s---$r:rucp;$s:rucp
@@ -172,21 +191,25 @@ tr: //DEFINE ME; //inplace $r bottom = $s---$r:ui64;$s:rui64
 inst: $r += $n
 in: int64 r, ii n
 tr: $r += $n;//$r += $n---$r:rui64;
+tr: $r += $n;//$r += $n---$r:rui8p;
 tr: $r += $n;//$r += $n---$r:rvp;
 
 inst: $r += $s
 in: int64 r, int64 s
 tr: $r += $s;//$r += $s---$r:rui64;$s:rui64
+tr: $r += $s;//$r += $s---$r:rui8p;$s:rui64
 tr: $r += $s;//$r += $s---$r:rvp;$s:rui64
 
 inst: $r -= $n
 in: int64 r, ii n
 tr: $r -= $n;//$r -= $n---$r:rui64;
+tr: $r -= $n;//$r -= $n---$r:rui8p;
 tr: $r -= $n;//$r -= $n---$r:rvp;
 
 inst: $r -= $s
 in: int64 r, int64 s
 tr: $r -= $s;//$r -= $s---$r:rui64;$s:rui64
+tr: $r -= $s;//$r -= $s---$r:rui8p;$s:rui64
 tr: $r -= $s;//$r -= $s---$r:rvp;$s:rui64
 
 
@@ -425,11 +448,13 @@ tr: $r = $s * $n;//$r = $s * $n---$r:rui64;$s:rui64;
 inst: while ($r) { *$s++ = $t; --$r }
 in: int64 r, int64 s, int64 t
 #tr: while ($r) { *(uint8_t*)$s = $t; $s = (uint64_t*)(((uint8_t*)$s) + 1); --$r; }---$r:rui64;$s:rui64p;$t:rui64;
+tr: while ($r) { $s[0] = $t; $s++; --$r; }//while ($r) { *$s++ = $t; --$r }---$r:rui64;$s:rui8p;$t:rui64;
 tr: while ($r) { *(uint8_t*)$s = $t; $s++; --$r; }//while ($r) { *$s++ = $t; --$r }---$r:rui64;$s:rvp;$t:rui64;
 
 inst: while ($r) { *$s++ = *$t++; --$r }
 in: int64 r, int64 s, int64 t
 #tr: while ($r) { *(uint8_t*)$s = *(uint8_t*)$t; $s = (uint64_t*)(((uint8_t*)$s) + 1); $t = (uint64_t*)(((uint8_t*)$t) + 1); --$r; }---$r:rui64;$s:rui64p;$t:rui64p;
+tr: while ($r) { $s[0] = $t[0]; $s++; $t++; --$r; }//while ($r) { *$s++ = *$t++; --$r }---$r:rui64;$s:rui8p;$t:rui8p;
 tr: while ($r) { *(uint8_t*)$s = *(uint8_t*)$t; $s++; $t++; --$r; }//while ($r) { *$s++ = *$t++; --$r }---$r:rui64;$s:rvp;$t:rvp;
 
 

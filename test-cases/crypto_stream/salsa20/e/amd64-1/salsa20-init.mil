@@ -1,0 +1,6 @@
+fn ECRYPT_init(reg u64 arg1, reg u64 arg2, reg u64 arg3, reg u64 arg4){
+
+	return;
+}
+
+

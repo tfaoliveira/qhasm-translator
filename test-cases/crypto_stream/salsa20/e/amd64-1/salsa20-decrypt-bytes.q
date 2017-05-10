@@ -101,6 +101,7 @@ stack64 j12
 stack64 j14
 stack512 tmp
 int64 ctarget
+int64 jump
 
 enter ECRYPT_decrypt_bytes
 x = arg1
@@ -420,14 +421,29 @@ goto mainloop if unsigned>
   in8 = j8
   in8 += 1
   j8 = in8
-                         unsigned>? unsigned<? bytes - 64
-  goto bytesatleast65 if unsigned>
-    goto bytesatleast64 if !unsigned<
-      m = out
-      out = ctarget
-      i = bytes
-      while (i) { *out++ = *m++; --i }
-    bytesatleast64:
+
+
+  jump = 0
+                              unsigned>? bytes - 64
+  goto notbytesatleast65 if !unsigned>
+    bytes -= 64
+    out += 64
+    m += 64
+    jump = 1
+  notbytesatleast65:
+
+                      =? jump - 0
+  goto exitdowhile if =
+    goto bytesatleast1
+  exitdowhile:
+ 
+                          unsigned<? bytes - 64
+  goto bytesatleast64 if !unsigned<
+    m = out
+    out = ctarget
+    i = bytes
+    while (i) { *out++ = *m++; --i }
+  bytesatleast64:
     x = x_backup
     in8 = j8
     *(uint64 *) (x + 32) = in8
@@ -438,11 +454,32 @@ goto mainloop if unsigned>
     r15 = r15_stack
     rbx = rbx_stack
     rbp = rbp_stack
-    done:
-    return
-  bytesatleast65:
-  bytes -= 64
-  out += 64
-  m += 64
-goto bytesatleast1
-leave
+  done:
+  leave
+
+#                         unsigned>? unsigned<? bytes - 64
+#  goto bytesatleast65 if unsigned>
+#    goto bytesatleast64 if !unsigned<
+#      m = out
+#      out = ctarget
+#      i = bytes
+#      while (i) { *out++ = *m++; --i }
+#    bytesatleast64:
+#    x = x_backup
+#    in8 = j8
+#    *(uint64 *) (x + 32) = in8
+#    r11 = r11_stack
+#    r12 = r12_stack
+#    r13 = r13_stack
+#    r14 = r14_stack
+#    r15 = r15_stack
+#    rbx = rbx_stack
+#    rbp = rbp_stack
+#    done:
+#    return
+#  bytesatleast65:
+#  bytes -= 64
+#  out += 64
+#  m += 64
+#goto bytesatleast1
+#leave

@@ -77,8 +77,7 @@ crypto_scalarmult_curve25519_amd64_51_fe25519_freeze(uint64_t * rp)
      */ if (r4 != two51minus1) {
         t = loop;
     }
-    // UNMATCHED: t = -t
-
+    t = -t;                     // t = -t
     two51minus1 &= t;           // two51minus1 &= t
     two51minus19 &= t;          // two51minus19 &= t
     r0 -= two51minus19;         // r0 -= two51minus19

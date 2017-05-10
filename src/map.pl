@@ -166,7 +166,7 @@ sub print_function
     my @args_str = ();
     foreach my $arg (@$args_r)
     { my @grp = sort {$a <=> $b} ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );
-      my $vd = $ty{$vt_r->{$arg}};
+      my $vd = (defined $vt_r->{$arg}) ? $ty{$vt_r->{$arg}} : $ty{'rui64'}; # if argument was not used then assume u64 type
       $vd =~ s/\$s/$arg/g;
       if(@grp)
       {
@@ -186,7 +186,7 @@ sub print_function
   {
     my @ad = ();
     foreach my $var (@$args_r)
-    { my $vd = defined $vt_r->{$var} ? $ty{$vt_r->{$var}} : "void *\$s";
+    { my $vd = defined $vt_r->{$var} ? $ty{$vt_r->{$var}} : $ty{'rvp'};
       $vd =~ s/\$s/$var/g;
       push @ad, $vd;
     }
@@ -200,8 +200,19 @@ sub print_function
   # var. declarations
   foreach my $var (sort keys %$vt_r)
   { my $vd = $ty{$vt_r->{$var}};
+
+    my @grp = sort {$a <=> $b} ( grep { ! /^$/ } (map { $_->[0] =~ m/$var\[(\d+)\]/ ? $1 : "" } @$tr_r) );
     $vd =~ s/\$s/$var/g;
-    print OUT "\t $vd;\n";
+    if(@grp)
+    { my $max_i = $grp[$#grp]+1;
+      $vd =~ s/\$n/$max_i/g;
+    }else
+    { $vd =~ s/\$n//g;
+    }
+    print OUT "\t $vd;\n";    
+
+#    $vd =~ s/\$s/$var/g;
+#    print OUT "\t $vd;\n";
   }
 
   # instructions 

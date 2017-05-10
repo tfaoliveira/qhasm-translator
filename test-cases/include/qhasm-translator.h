@@ -27,6 +27,11 @@
 // a = ((uint32_t) b) <<< n
 #define rotate64_32l(a,b,n) do{a = (a&0xFFFFFFFF00000000) | (((uint32_t)b)<<n) | ((uint32_t)b)>>(32-n); }while(0)
 
+// *(uint64_t*)(a + b) = c
+#define store64_uint8_t(a,b,c) *(uint64_t*)(a + b) = c;
+
+// *(uint64_t*)(a + b)
+#define load64_uint8_t(a,b) *(uint64_t*)(a + b)
 
 
 

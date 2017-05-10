@@ -1,0 +1,16 @@
+fn ECRYPT_ivsetup(reg u64[] arg1, reg u64[] arg2, reg u64 arg3, reg u64 arg4){
+	 reg u64 in6;
+	 reg u64 in8;
+	 reg u64[1] iv;
+	 reg u64[5] x;
+
+	iv = arg2;  //iv = arg2
+	x = arg1;  //x = arg1
+	in6 = iv[0];  //in6 = *(uint64 *) (iv + 0)
+	in8 = 0;  //in8 = 0
+	x[3] = in6;  //*(uint64 *) (x + 24) = in6
+	x[4] = in8;  //*(uint64 *) (x + 32) = in8
+	return;
+}
+
+

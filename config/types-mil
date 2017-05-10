@@ -75,4 +75,6 @@ rfloat80p; double[$n] $s
 float80p; double[$n] $s
 
 ui64x8; u64[8] $s
+ui8x64; u8[64] $s
+
 

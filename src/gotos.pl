@@ -18,7 +18,7 @@ sub print_tree
   for (@$tree_ref)
   {
     print "\n", (("  ")x$level), "type: ", $_->{type}, " b/e: ", $_->{begin}, " ", $_->{end}, 
-        " arg1: ",$stack_ref->[$_->{begin}]->{arg1},"\n";
+        " arg1: ",$stack_ref->[$_->{begin}]->{arg1}," (--->) ",$stack_ref->[$_->{end}]->{arg1}, "\n";
     if($level < 30)
     {
       print_tree($_->{childs_left}, $stack_ref, $level+1);
@@ -294,15 +294,17 @@ sub search_do_while
 {
   my ($lim_sup, $up, $down, $stack_ref, $tree_ref, $label_index_ref, $goto_index_ref, $inside_loop, $label_loop) = @_;
 
-  if( ($up - $down) >= 4                                  &&
+  if( ($up - $down) >= 4                                        &&
       $stack_ref->[$up]->{type}     eq "label"                  &&
       $stack_ref->[$down]->{type}   eq "label"                  &&
       $stack_ref->[$down+1]->{type} eq "goto"                   &&
       $stack_ref->[$down+2]->{type} eq "gotoif"                 &&
       $stack_ref->[$down+3]->{type} eq "test"                   &&
       $stack_ref->[$down]->{arg1}   eq $stack_ref->[$down+2]->{arg1}   &&
-      $stack_ref->[$up]->{arg1}     eq $stack_ref->[$down+1]->{arg1}  &&  
-      ($stack_ref->[$down+2]->{line} - $stack_ref->[$up]->{line})     >= 3)
+      $stack_ref->[$up]->{arg1}     eq $stack_ref->[$down+1]->{arg1}   &&  
+      ($stack_ref->[$down+2]->{line} - $stack_ref->[$up]->{line}) >= 3 &&
+      ($stack_ref->[$down+1]->{line} - $stack_ref->[$down+2]->{line}) == 1
+    )
   {
     return 0 if ! check_validity($up-1, $down+4, $stack_ref, $label_index_ref, $goto_index_ref, 1, $stack_ref->[$down]->{arg1}, 0, "");
 

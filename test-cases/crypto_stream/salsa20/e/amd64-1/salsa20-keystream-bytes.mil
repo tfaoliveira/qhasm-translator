@@ -1,86 +1,92 @@
-#include "qhasm-translator.h"
-
-void
-ECRYPT_decrypt_bytes(uint64_t * arg1, uint8_t * arg2, uint8_t * arg3, uint64_t arg4)
+fn
+ECRYPT_keystream_bytes(reg u64[]arg1, reg u8[]arg2, reg u64 arg3, reg u64 arg4)
 {
-    uint64_t        A;
-    uint64_t        B;
-    uint64_t        C;
-    uint64_t        D;
-    uint64_t        E;
-    uint64_t        R;
-    uint64_t        S;
-    uint64_t        T;
-    uint64_t        U;
-    uint64_t        V;
-    uint64_t        a;
-    uint64_t        b;
-    uint64_t        bytes;
-    uint64_t        bytes_backup;
-    uint64_t        c;
-    uint8_t        *ctarget;
-    uint64_t        d;
-    uint64_t        e;
-    uint64_t        i;
-    uint64_t        in0;
-    uint64_t        in10;
-    uint64_t        in12;
-    uint64_t        in14;
-    uint64_t        in2;
-    uint64_t        in4;
-    uint64_t        in6;
-    uint64_t        in8;
-    uint64_t        j0;
-    uint64_t        j10;
-    uint64_t        j12;
-    uint64_t        j14;
-    uint64_t        j2;
-    uint64_t        j4;
-    uint64_t        j6;
-    uint64_t        j8;
-    uint64_t        jump;
-    uint8_t        *m;
-    uint8_t        *m_backup;
-    uint8_t        *out;
-    uint64_t        out0;
-    uint64_t        out10;
-    uint64_t        out12;
-    uint64_t        out14;
-    uint64_t        out2;
-    uint64_t        out4;
-    uint64_t        out6;
-    uint64_t        out8;
-    uint8_t        *out_backup;
-    uint64_t        r;
-    uint64_t        s;
-    uint64_t        t;
-    uint8_t         tmp[64];
-    uint64_t        u;
-    uint64_t        v;
-    uint64_t       *x;
-    uint64_t        x0;
-    uint64_t        x1;
-    uint64_t        x10;
-    uint64_t        x11;
-    uint64_t        x12;
-    uint64_t        x13;
-    uint64_t        x14;
-    uint64_t        x15;
-    uint64_t        x2;
-    uint64_t        x3;
-    uint64_t        x4;
-    uint64_t        x5;
-    uint64_t        x6;
-    uint64_t        x7;
-    uint64_t        x8;
-    uint64_t        x9;
-    uint64_t       *x_backup;
+    reg u64         A;
+    reg u64         B;
+    reg u64         C;
+    reg u64         D;
+    reg u64         E;
+    reg u64         R;
+    reg u64         S;
+    reg u64         T;
+    reg u64         U;
+    reg u64         V;
+    reg u64         a;
+    reg u64         b;
+    reg u64         bytes;
+    stack u64       bytes_backup;
+    reg u64         c;
+    reg             u8[] ctarget;
+    reg u64         d;
+    reg u64         e;
+    reg u64         i;
+    reg u64         in0;
+    reg u64         in10;
+    reg u64         in12;
+    reg u64         in14;
+    reg u64         in2;
+    reg u64         in4;
+    reg u64         in6;
+    reg u64         in8;
+    stack u64       j0;
+    stack u64       j10;
+    stack u64       j12;
+    stack u64       j14;
+    stack u64       j2;
+    stack u64       j4;
+    stack u64       j6;
+    stack u64       j8;
+    reg u64         jump;
+    reg             u8[1] m;
+    stack           u8[] m_backup;
+    reg             u8[1] out;
+    reg u64         out0;
+    reg u64         out10;
+    reg u64         out12;
+    reg u64         out14;
+    reg u64         out2;
+    reg u64         out4;
+    reg u64         out6;
+    reg u64         out8;
+    stack           u8[] out_backup;
+    reg u64         r;
+    reg u64         s;
+    reg u64         t;
+    u8[64] tmp;
+    reg u64         u;
+    reg u64         v;
+    reg             u64[8] x;
+    stack u64       x0;
+    stack u64       x1;
+    stack u64       x10;
+    stack u64       x11;
+    stack u64       x12;
+    stack u64       x13;
+    stack u64       x14;
+    stack u64       x15;
+    stack u64       x2;
+    stack u64       x3;
+    stack u64       x4;
+    stack u64       x5;
+    stack u64       x6;
+    stack u64       x7;
+    stack u64       x8;
+    stack u64       x9;
+    stack           u64[] x_backup;
 
     x = arg1;                   // x = arg1
     m = arg2;                   // m = arg2
-    out = arg3;                 // out = arg3
-    bytes = arg4;               // bytes = arg4
+    out = m;                    // out = m
+    bytes = arg3;               // bytes = arg3
     if (bytes > 0) {
+        a = 0;                  // a = 0
+        i = bytes;              // i = bytes
+        while (i) {
+            out[0] = a;
+            out++;
+            --i;
+        }                       // while (i) { *out++ = a; --i }
+        out -= bytes;           // out -= bytes
         in0 = x[0];             // in0 = *(uint64 *) (x + 0)
         in2 = x[1];             // in2 = *(uint64 *) (x + 8)
         in4 = x[2];             // in4 = *(uint64 *) (x + 16)
