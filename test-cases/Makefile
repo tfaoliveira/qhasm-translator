@@ -48,7 +48,7 @@ crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.mil: crypto_scalarmult/curv
 	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-64/ladderstep.mil: crypto_scalarmult/curve25519/amd64-64/ladderstep.q
-	../src/translate.pl -mil -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_64_121666:ui64mil;crypto_scalarmult_curve25519_amd64_64_38:ui64mil;"
+	../src/translate.pl -mil -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_64_121666:ui64;crypto_scalarmult_curve25519_amd64_64_38:ui64;"
 	$(REMCMT)
 	sed -i 's/121666 = 0; \/\/DEFINEME/121666 = 121666;/' $@
 	sed -i 's/38 = 0; \/\/DEFINEME/38 = 38;/' $@
@@ -67,7 +67,7 @@ crypto_scalarmult/curve25519/amd64-64/work_cswap_v2.mil: crypto_scalarmult/curve
 	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-64/fe25519_square.mil: crypto_scalarmult/curve25519/amd64-64/fe25519_square.q
-	../src/translate.pl -mil -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64mil;"
+	../src/translate.pl -mil -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64"
 	$(REMCMT)
 	sed -i 's/38 = 0; \/\/DEFINEME/38 = 38;/' $@
 

@@ -257,19 +257,19 @@ tr: //DM rotate64_32l($r,$r,$n);  //(uint32) $r <<<= $n---$r:rui64;
 
 inst: (uint128) $r $s = $t * *(uint64 *) ($x + $n)
 in: int64 r, int64 s, int64 t, int64 x, ii n
-tr: u128 ($r, $s) = $t * $x[$p0];  //(uint128) $r $s = $t * *(uint64 *) ($x + $n);---$r:rui64;$s:rui64;$t:rui64;$x:rui64p;---let $p0=$n/sizeof(uint64)
+tr: $r, $s = $t * $x[$p0];  //(uint128) $r $s = $t * *(uint64 *) ($x + $n);---$r:rui64;$s:rui64;$t:rui64;$x:rui64p;---let $p0=$n/sizeof(uint64)
 
 inst: (uint128) $r $s = $t * $x
 in: int64 r, int64 s, int64 t, int64 x
-tr: u128 ($r, $s) = $t * $x;  //(uint128) $r $s = $t * $x---$r:rui64;$s:rui64;$t:rui64;$x:rui64;
+tr: $r, $s = $t * $x;  //(uint128) $r $s = $t * $x---$r:rui64;$s:rui64;$t:rui64;$x:rui64;
 
 inst: (uint128) $r $s = $t * $x
 in: int64 r, int64 s, int64 t, stack64 x
-tr: u128 ($r, $s) = $t * $x;  //(uint128) $r $s = $t * $x---$r:rui64;$s:rui64;$t:rui64;$x:ui64;
+tr: $r, $s = $t * $x;  //(uint128) $r $s = $t * $x---$r:rui64;$s:rui64;$t:rui64;$x:ui64;
 
 inst: (uint128) $r $s = $t * *(uint64 *) &$n
 in: int64 r, int64 s, int64 t, iv n
-tr: u128 ($r, $s) = $t * $n;  //(uint128) $r $s = $t * *(uint64 *) &$n---$r:rui64;$s:rui64;$t:rui64;$n:ui64
+tr: $r, $s = $t * $n;  //(uint128) $r $s = $t * *(uint64 *) &$n---$r:rui64;$s:rui64;$t:rui64;$n:ui64
 
 inst: $r = ($s.$t) << $n
 in: int64 r, int64 s, int64 t, ii n
@@ -305,11 +305,11 @@ tr: cf, $r += $s[$p0] + cf;  //cf? $r += *(uint64 *) ($s + $n) + cf;---$r:rui64;
 ### USE ###
 inst: $r += $s + carry
 in: int64 r, int64 s
-tr: $r += $s + cf;  //$r += $s + cf; ---$r:rui64;$s:rui64;cf:rbool;
+tr: _, $r += $s + cf;  //$r += $s + cf; ---$r:rui64;$s:rui64;cf:rbool;
 
 inst: $r += $n + carry
 in: int64 r, ii n
-tr: $r += $n + cf;  // $r += $n + cf; ---$r:rui64;cf:rbool;
+tr: _, $r += $n + cf;  // $r += $n + cf; ---$r:rui64;cf:rbool;
 
 
 ### SET-AND-USE ###
