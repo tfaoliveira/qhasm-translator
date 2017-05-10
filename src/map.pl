@@ -61,7 +61,7 @@ my %FLAGS_mil     = ('='          => '==',
 
 sub translate_function
 {
-  my ($map_ref, $func, $args_ref, $args_sorted_ref, $decs_ref, $ext_mtypes_ref, $in_mtypes_ref, $outfile, $mil, $debug_regex, $types_file) = @_;
+  my ($map_ref, $func, $args_ref, $args_sorted_ref, $decs_ref, $ext_mtypes_ref, $ext_variable_values_ref, $in_mtypes_ref, $outfile, $mil, $debug_regex, $types_file) = @_;
 
   my %alltypes                      = (%$args_ref, %$decs_ref);  # Merge the two hashes and build a hash that contains all types
   my %variabletypes                 = (%$ext_mtypes_ref, %$in_mtypes_ref);
@@ -122,13 +122,13 @@ sub translate_function
   #  for (reverse @stack){print "\t$ii ", $_->{type}." ".$_->{arg1}."\t\t ".$_->{line}, "\n"; $ii--;}
 
   search_flow_control(\@stack,\@translations);
-  print_function($func, $args_sorted_ref, \%variabletypes, $ext_mtypes_ref, \@translations, $outfile, $mil, $types_file);
+  print_function($func, $args_sorted_ref, \%variabletypes, $ext_mtypes_ref, $ext_variable_values_ref, \@translations, $outfile, $mil, $types_file);
 }
 
 
 sub print_function
 {
-  my ($f, $args_r, $vt_r, $mt_r, $tr_r, $of, $mil, $types_file) = @_;
+  my ($f, $args_r, $vt_r, $mt_r, $ext_variable_values_ref, $tr_r, $of, $mil, $types_file) = @_;
   my %ty = get_types_info($INC[$#INC] . $types_file);
   open OUT, ">>".$of or die "Couldn't open the file: $of\n $! \n";
 
@@ -149,19 +149,16 @@ sub print_function
   if($#comment_stack > -1){print OUT "/*@\n   @".(join "\n   @ ", @comment_stack)."\n   @*/\n";}
 
   # global params
-#  if($mil)
-#  { print OUT join(' ', (map { my ($p,$n) = split '---', $ty{$mt_r->{$_}}; "\nparam $n $_ = 0; //DEFINEME" } (keys %$mt_r)))."\n\n";
-#  }else
-#  { 
-    foreach my $var (sort keys %$mt_r)
-    { my $p = ($mil)? "p" : "";
-      my $vd = $ty{$p . $vt_r->{$var}};
-      $vd =~ s/\$s/$var/g;
-      print OUT "extern " if(!$mil);
-      print OUT "$vd;\n";
-    }
-    # print OUT join(' ', (map { "\nextern $ty{$mt_r->{$_}} $_;" } (keys %$mt_r)))."\n\n";
-#  }
+  foreach my $var (sort keys %$mt_r)
+  { my $p = ($mil) ? "p" : "";
+    my $vd = $ty{$p . $vt_r->{$var}};
+    $vd =~ s/\$s/$var/g;
+    print OUT "extern " if(!$mil && !$ext_variable_values_ref->{$var});
+    if($ext_variable_values_ref->{$var})
+      { print OUT "$vd = ".$ext_variable_values_ref->{$var}.";\n"; }
+    else
+      { print OUT "$vd;\n"; }
+  }
 
   # f. signature
   if($mil)
@@ -169,7 +166,6 @@ sub print_function
     my @args_str = ();
     foreach my $arg (@$args_r)
     { my @grp = sort {$a <=> $b} ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );
-      # my ($p, $n) = split '---', $ty{$vt_r->{$arg}};
       my $vd = $ty{$vt_r->{$arg}};
       $vd =~ s/\$s/$arg/g;
       if(@grp)
@@ -177,7 +173,6 @@ sub print_function
         my $max_i = $grp[$#grp]+1;
         $vd =~ s/\$n/$max_i/g;
         push @args_str, $vd;
-        #push @args_str, "$p $n"."[".($grp[$#grp]+1)."] ".$arg;
       }
       else
       { 
@@ -203,16 +198,11 @@ sub print_function
   for (keys %$mt_r){delete $vt_r->{$_};}
  
   # var. declarations
-#  if($mil)
-#  { print OUT "\n",(join "\n", map { my ($p,$n) = split '---', $ty{$vt_r->{$_}}; "\t $p $n $_;"} (sort keys %$vt_r)), "\n"; }
-#  else
-#  { 
-    foreach my $var (sort keys %$vt_r)
-    { my $vd = $ty{$vt_r->{$var}};
-      $vd =~ s/\$s/$var/g;
-      print OUT "\t $vd;\n";
-    }
-#  }
+  foreach my $var (sort keys %$vt_r)
+  { my $vd = $ty{$vt_r->{$var}};
+    $vd =~ s/\$s/$var/g;
+    print OUT "\t $vd;\n";
+  }
 
   # instructions 
   for my $tr (@$tr_r)

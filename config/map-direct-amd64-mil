@@ -218,6 +218,32 @@ inst: $r $o $s
 in: float80 r, op o, float80 s
 tr: //DM $r $o $s;  //$r $o $s---$r:rfloat80;$s:rfloat80
 
+### NEG
+
+inst: $r $o -$n
+in: int64 r, op o, ii n
+tr: $r $o -$n;  //$r $o -$n---$r:rui64;
+
+inst: $r $o -$s
+in: int64 r, op o, stack64 s
+tr: $r $o -$s;  //$r $o -$s---$r:rui64;$s:ui64
+
+inst: $r $o -$s
+in: int64 r, op o, int64 s
+tr: $r $o -$s;  //$r $o -$s---$r:rui64;$s:rui64
+
+inst: $r $o -$s
+in: stack64 r, op o, int64 s
+tr: $r $o -$s;  //$r $o -$s---$r:ui64;$s:rui64
+
+inst: $r $o -$s
+in: int64 r, op o, int64 s
+tr: $r $o -$s;  //$r $o -$s---$r:rui64;$s:rui64
+
+inst: $r $o -$s
+in: float80 r, op o, float80 s
+tr: //DM $r $o -$s;  //$r $o -$s---$r:rfloat80;$s:rfloat80
+
 ##
 ##
 ## ADDITION ####################################################################

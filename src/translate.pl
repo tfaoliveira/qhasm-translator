@@ -34,13 +34,15 @@ my ($help, #
     $map_file, # 
     $mil, # 
     $debug_regex, #
-    $types_file #
-   ) = ("","","","","","","","","../config/map","","","../config/types");
+    $types_file, #
+    $ext_variable_values_str
+   ) = ("","","","","","","","","../config/map","","","../config/types", "");
 
 # local variables
 my $parsed_file = ""; # 
 my %ext_mandatory_types = (); #
 my %in_mandatory_types = (); #
+my %ext_variable_values = (); #
 
 # get translate.pl arguments
 GetOptions('help' => \$help, 
@@ -54,7 +56,8 @@ GetOptions('help' => \$help,
            'in-variables=s' => \$in_variable_types,
            'mil' => \$mil,
            'debug-regex' => \$debug_regex,
-           'types-file=s' => \$types_file
+           'types-file=s' => \$types_file,
+           'ext-variable-values=s' => \$ext_variable_values_str,
           );
 
 # print help and exit
@@ -91,6 +94,12 @@ if($ext_variable_types)
 if($in_variable_types)
 {
   %in_mandatory_types = split /:|;/, $in_variable_types;
+}
+
+# load external variable values
+if($ext_variable_values_str)
+{
+  %ext_variable_values = split /:|;/, $ext_variable_values_str;
 }
 
 # print info from qhasm file
@@ -136,6 +145,7 @@ for my $f (@{$parsed_file->{functions}})
     \@{$parsed_file->{sorted_arguments}},
     \%{$parsed_file->{declarations}},
     \%ext_mandatory_types,
+    \%ext_variable_values,
     \%in_mandatory_types,
     $out_file,
     $mil,
