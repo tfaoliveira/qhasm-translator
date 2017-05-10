@@ -54,30 +54,30 @@ crypto_stream/salsa20/e/amd64-1/salsa20-encrypt-bytes.c: crypto_stream/salsa20/e
 #####
 
 crypto_stream/salsa20/e/amd64-1/salsa20-init.mil: crypto_stream/salsa20/e/amd64-1/salsa20-init.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS) -map-file "../config/map-direct-amd64-mil"
+	../src/translate.pl -in $< -out $@ $(MILFLAGS)
 	$(REMCMT)
 
 crypto_stream/salsa20/e/amd64-1/salsa20-ivsetup.mil: crypto_stream/salsa20/e/amd64-1/salsa20-ivsetup.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS) -map-file "../config/map-direct-amd64-mil"
+	../src/translate.pl -in $< -out $@ $(MILFLAGS)
 	$(REMCMT)
 
 crypto_stream/salsa20/e/amd64-1/salsa20-keysetup.mil: crypto_stream/salsa20/e/amd64-1/salsa20-keysetup.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS) -map-file "../config/map-direct-amd64-mil"
+	../src/translate.pl -in $< -out $@ $(MILFLAGS)
 	$(REMCMT)
 	$(INDENT)
 
 crypto_stream/salsa20/e/amd64-1/salsa20-keystream-bytes.mil: crypto_stream/salsa20/e/amd64-1/salsa20-keystream-bytes.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS) -map-file "../config/map-direct-amd64" -in-variables "out:rui8p;m:rui8p;"
+	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "out:rui8p;m:rui8p;tmp:ui8x64"
 	$(REMCMT)
 	$(INDENT)
 
 crypto_stream/salsa20/e/amd64-1/salsa20-decrypt-bytes.mil: crypto_stream/salsa20/e/amd64-1/salsa20-decrypt-bytes.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS) -map-file "../config/map-direct-amd64" -in-variables "out:rui8p;m:rui8p;"
+	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "out:rui8p;m:rui8p;tmp:ui8x64"
 	$(REMCMT)
 	$(INDENT)
 
 crypto_stream/salsa20/e/amd64-1/salsa20-encrypt-bytes.mil: crypto_stream/salsa20/e/amd64-1/salsa20-encrypt-bytes.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS) -map-file "../config/map-direct-amd64" -in-variables "out:rui8p;m:rui8p;"
+	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "out:rui8p;m:rui8p;tmp:ui8x64"
 	$(REMCMT)
 	$(INDENT)
 

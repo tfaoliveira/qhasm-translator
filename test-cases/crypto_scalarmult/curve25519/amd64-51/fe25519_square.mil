@@ -17,75 +17,75 @@ fn crypto_scalarmult_curve25519_amd64_51_fe25519_square(reg u64[5] rp, reg u64[5
 	 reg u64 squaret;
 
 	squarerax = xp[0];  //squarerax = *(uint64 *) (xp + 0)
-	squarerdx, squarerax = squarerax * xp[0];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
+	(squarerdx, squarerax) = squarerax u128* xp[0];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
 	r0 = squarerax;  //r0 = squarerax
 	squarer01 = squarerdx;  //squarer01 = squarerdx
 	squarerax = xp[0];  //squarerax = *(uint64 *) (xp + 0)
 	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * xp[1];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
+	(squarerdx, squarerax) = squarerax u128* xp[1];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
 	r1 = squarerax;  //r1 = squarerax
 	squarer11 = squarerdx;  //squarer11 = squarerdx
 	squarerax = xp[0];  //squarerax = *(uint64 *) (xp + 0)
 	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * xp[2];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
+	(squarerdx, squarerax) = squarerax u128* xp[2];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
 	r2 = squarerax;  //r2 = squarerax
 	squarer21 = squarerdx;  //squarer21 = squarerdx
 	squarerax = xp[0];  //squarerax = *(uint64 *) (xp + 0)
 	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * xp[3];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
+	(squarerdx, squarerax) = squarerax u128* xp[3];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
 	r3 = squarerax;  //r3 = squarerax
 	squarer31 = squarerdx;  //squarer31 = squarerdx
 	squarerax = xp[0];  //squarerax = *(uint64 *) (xp + 0)
 	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * xp[4];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
+	(squarerdx, squarerax) = squarerax u128* xp[4];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
 	r4 = squarerax;  //r4 = squarerax
 	squarer41 = squarerdx;  //squarer41 = squarerdx
 	squarerax = xp[1];  //squarerax = *(uint64 *) (xp + 8)
-	squarerdx, squarerax = squarerax * xp[1];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
+	(squarerdx, squarerax) = squarerax u128* xp[1];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
 	cf, r2 += squarerax;  //cf? r2 += squarerax
 	_, squarer21 += squarerdx + cf;  //squarer21 += squarerdx + cf; 
 	squarerax = xp[1];  //squarerax = *(uint64 *) (xp + 8)
 	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * xp[2];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
+	(squarerdx, squarerax) = squarerax u128* xp[2];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
 	cf, r3 += squarerax;  //cf? r3 += squarerax
 	_, squarer31 += squarerdx + cf;  //squarer31 += squarerdx + cf; 
 	squarerax = xp[1];  //squarerax = *(uint64 *) (xp + 8)
 	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * xp[3];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
+	(squarerdx, squarerax) = squarerax u128* xp[3];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
 	cf, r4 += squarerax;  //cf? r4 += squarerax
 	_, squarer41 += squarerdx + cf;  //squarer41 += squarerdx + cf; 
 	squarerax = xp[1];  //squarerax = *(uint64 *) (xp + 8)
 	squarerax *= 38;  //squarerax *= 38
-	squarerdx, squarerax = squarerax * xp[4];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
+	(squarerdx, squarerax) = squarerax u128* xp[4];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
 	cf, r0 += squarerax;  //cf? r0 += squarerax
 	_, squarer01 += squarerdx + cf;  //squarer01 += squarerdx + cf; 
 	squarerax = xp[2];  //squarerax = *(uint64 *) (xp + 16)
-	squarerdx, squarerax = squarerax * xp[2];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
+	(squarerdx, squarerax) = squarerax u128* xp[2];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
 	cf, r4 += squarerax;  //cf? r4 += squarerax
 	_, squarer41 += squarerdx + cf;  //squarer41 += squarerdx + cf; 
 	squarerax = xp[2];  //squarerax = *(uint64 *) (xp + 16)
 	squarerax *= 38;  //squarerax *= 38
-	squarerdx, squarerax = squarerax * xp[3];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
+	(squarerdx, squarerax) = squarerax u128* xp[3];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
 	cf, r0 += squarerax;  //cf? r0 += squarerax
 	_, squarer01 += squarerdx + cf;  //squarer01 += squarerdx + cf; 
 	squarerax = xp[2];  //squarerax = *(uint64 *) (xp + 16)
 	squarerax *= 38;  //squarerax *= 38
-	squarerdx, squarerax = squarerax * xp[4];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
+	(squarerdx, squarerax) = squarerax u128* xp[4];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
 	cf, r1 += squarerax;  //cf? r1 += squarerax
 	_, squarer11 += squarerdx + cf;  //squarer11 += squarerdx + cf; 
 	squarerax = xp[3];  //squarerax = *(uint64 *) (xp + 24)
 	squarerax *= 19;  //squarerax *= 19
-	squarerdx, squarerax = squarerax * xp[3];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
+	(squarerdx, squarerax) = squarerax u128* xp[3];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
 	cf, r1 += squarerax;  //cf? r1 += squarerax
 	_, squarer11 += squarerdx + cf;  //squarer11 += squarerdx + cf; 
 	squarerax = xp[3];  //squarerax = *(uint64 *) (xp + 24)
 	squarerax *= 38;  //squarerax *= 38
-	squarerdx, squarerax = squarerax * xp[4];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
+	(squarerdx, squarerax) = squarerax u128* xp[4];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
 	cf, r2 += squarerax;  //cf? r2 += squarerax
 	_, squarer21 += squarerdx + cf;  //squarer21 += squarerdx + cf; 
 	squarerax = xp[4];  //squarerax = *(uint64 *) (xp + 32)
 	squarerax *= 19;  //squarerax *= 19
-	squarerdx, squarerax = squarerax * xp[4];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
+	(squarerdx, squarerax) = squarerax u128* xp[4];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
 	cf, r3 += squarerax;  //cf? r3 += squarerax
 	_, squarer31 += squarerdx + cf;  //squarer31 += squarerdx + cf; 
 	squareredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;  //squareredmask = *(uint64 *) &crypto_scalarmult_curve25519_amd64_51_REDMASK51

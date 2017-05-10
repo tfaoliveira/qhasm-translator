@@ -19,29 +19,29 @@ fn crypto_scalarmult_curve25519_amd64_64_fe25519_square(reg u64[4] rp, reg u64[4
 
 	squarer7 = 0;  //squarer7 = 0
 	squarerax = xp[1];  //squarerax = *(uint64 *) (xp + 8)
-	squarerdx, squarerax = squarerax * xp[0];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
+	(squarerdx, squarerax) = squarerax u128* xp[0];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
 	r1 = squarerax;  //r1 = squarerax
 	r2 = squarerdx;  //r2 = squarerdx
 	squarerax = xp[2];  //squarerax = *(uint64 *) (xp + 16)
-	squarerdx, squarerax = squarerax * xp[1];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
+	(squarerdx, squarerax) = squarerax u128* xp[1];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
 	r3 = squarerax;  //r3 = squarerax
 	squarer4 = squarerdx;  //squarer4 = squarerdx
 	squarerax = xp[3];  //squarerax = *(uint64 *) (xp + 24)
-	squarerdx, squarerax = squarerax * xp[2];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
+	(squarerdx, squarerax) = squarerax u128* xp[2];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
 	squarer5 = squarerax;  //squarer5 = squarerax
 	squarer6 = squarerdx;  //squarer6 = squarerdx
 	squarerax = xp[2];  //squarerax = *(uint64 *) (xp + 16)
-	squarerdx, squarerax = squarerax * xp[0];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
+	(squarerdx, squarerax) = squarerax u128* xp[0];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
 	cf, r2 += squarerax;  //cf? r2 += squarerax
 	cf, r3 += squarerdx + cf;  //cf? r3 += squarerdx + cf; 
 	_, squarer4 += 0 + cf;  // squarer4 += 0 + cf; 
 	squarerax = xp[3];  //squarerax = *(uint64 *) (xp + 24)
-	squarerdx, squarerax = squarerax * xp[1];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
+	(squarerdx, squarerax) = squarerax u128* xp[1];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
 	cf, squarer4 += squarerax;  //cf? squarer4 += squarerax
 	cf, squarer5 += squarerdx + cf;  //cf? squarer5 += squarerdx + cf; 
 	_, squarer6 += 0 + cf;  // squarer6 += 0 + cf; 
 	squarerax = xp[3];  //squarerax = *(uint64 *) (xp + 24)
-	squarerdx, squarerax = squarerax * xp[0];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
+	(squarerdx, squarerax) = squarerax u128* xp[0];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
 	cf, r3 += squarerax;  //cf? r3 += squarerax
 	cf, squarer4 += squarerdx + cf;  //cf? squarer4 += squarerdx + cf; 
 	cf, squarer5 += 0 + cf;  //cf? squarer5 += 0 + cf; 
@@ -55,15 +55,15 @@ fn crypto_scalarmult_curve25519_amd64_64_fe25519_square(reg u64[4] rp, reg u64[4
 	cf, squarer6 += squarer6 + cf;  //cf? squarer6 += squarer6 + cf; 
 	_, squarer7 += squarer7 + cf;  //squarer7 += squarer7 + cf; 
 	squarerax = xp[0];  //squarerax = *(uint64 *) (xp + 0)
-	squarerdx, squarerax = squarerax * xp[0];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
+	(squarerdx, squarerax) = squarerax u128* xp[0];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
 	r0 = squarerax;  //r0 = squarerax
 	squaret1 = squarerdx;  //squaret1 = squarerdx
 	squarerax = xp[1];  //squarerax = *(uint64 *) (xp + 8)
-	squarerdx, squarerax = squarerax * xp[1];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
+	(squarerdx, squarerax) = squarerax u128* xp[1];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
 	squaret2 = squarerax;  //squaret2 = squarerax
 	squaret3 = squarerdx;  //squaret3 = squarerdx
 	squarerax = xp[2];  //squarerax = *(uint64 *) (xp + 16)
-	squarerdx, squarerax = squarerax * xp[2];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
+	(squarerdx, squarerax) = squarerax u128* xp[2];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
 	cf, r1 += squaret1;  //cf? r1 += squaret1
 	cf, r2 += squaret2 + cf;  //cf? r2 += squaret2 + cf; 
 	cf, r3 += squaret3 + cf;  //cf? r3 += squaret3 + cf; 
@@ -72,25 +72,25 @@ fn crypto_scalarmult_curve25519_amd64_64_fe25519_square(reg u64[4] rp, reg u64[4
 	cf, squarer6 += 0 + cf;  //cf? squarer6 += 0 + cf; 
 	_, squarer7 += 0 + cf;  // squarer7 += 0 + cf; 
 	squarerax = xp[3];  //squarerax = *(uint64 *) (xp + 24)
-	squarerdx, squarerax = squarerax * xp[3];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
+	(squarerdx, squarerax) = squarerax u128* xp[3];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
 	cf, squarer6 += squarerax;  //cf? squarer6 += squarerax
 	_, squarer7 += squarerdx + cf;  //squarer7 += squarerdx + cf; 
 	squarerax = squarer4;  //squarerax = squarer4
-	squarerdx, squarerax = squarerax * crypto_scalarmult_curve25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_scalarmult_curve25519_amd64_64_38
+	(squarerdx, squarerax) = squarerax u128* crypto_scalarmult_curve25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_scalarmult_curve25519_amd64_64_38
 	squarer4 = squarerax;  //squarer4 = squarerax
 	squarerax = squarer5;  //squarerax = squarer5
 	squarer5 = squarerdx;  //squarer5 = squarerdx
-	squarerdx, squarerax = squarerax * crypto_scalarmult_curve25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_scalarmult_curve25519_amd64_64_38
+	(squarerdx, squarerax) = squarerax u128* crypto_scalarmult_curve25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_scalarmult_curve25519_amd64_64_38
 	cf, squarer5 += squarerax;  //cf? squarer5 += squarerax
 	squarerax = squarer6;  //squarerax = squarer6
 	squarer6 = 0;  //squarer6 = 0
 	_, squarer6 += squarerdx + cf;  //squarer6 += squarerdx + cf; 
-	squarerdx, squarerax = squarerax * crypto_scalarmult_curve25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_scalarmult_curve25519_amd64_64_38
+	(squarerdx, squarerax) = squarerax u128* crypto_scalarmult_curve25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_scalarmult_curve25519_amd64_64_38
 	cf, squarer6 += squarerax;  //cf? squarer6 += squarerax
 	squarerax = squarer7;  //squarerax = squarer7
 	squarer7 = 0;  //squarer7 = 0
 	_, squarer7 += squarerdx + cf;  //squarer7 += squarerdx + cf; 
-	squarerdx, squarerax = squarerax * crypto_scalarmult_curve25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_scalarmult_curve25519_amd64_64_38
+	(squarerdx, squarerax) = squarerax u128* crypto_scalarmult_curve25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_scalarmult_curve25519_amd64_64_38
 	cf, squarer7 += squarerax;  //cf? squarer7 += squarerax
 	squarer8 = 0;  //squarer8 = 0
 	_, squarer8 += squarerdx + cf;  //squarer8 += squarerdx + cf; 
