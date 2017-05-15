@@ -17,7 +17,7 @@ export fn crypto_scalarmult_curve25519_amd64_51_fe25519_mul(reg u64 rp, reg u64 
 	 reg u64 r2;
 	 reg u64 r3;
 	 reg u64 r4;
-	 stack u64[] rp_stack;
+	 stack u64 rp_stack;
 
 	rp_stack = rp;  //rp_stack = rp
 	yp = yp;  //yp = yp
