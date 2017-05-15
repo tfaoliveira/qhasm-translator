@@ -1,4 +1,4 @@
-param u64 crypto_scalarmult_curve25519_amd64_51_REDMASK51 = 0x0007FFFFFFFFFFFF;
+param int crypto_scalarmult_curve25519_amd64_51_REDMASK51 = 0x0007FFFFFFFFFFFF;
 export fn crypto_scalarmult_curve25519_amd64_51_fe25519_mul(reg u64 rp, reg u64 xp, reg u64 yp){
 	 reg bool cf;
 	 reg u64 mulr01;

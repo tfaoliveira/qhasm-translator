@@ -1,4 +1,4 @@
-param u64 crypto_scalarmult_curve25519_amd64_64_38 = 38;
+param int crypto_scalarmult_curve25519_amd64_64_38 = 38;
 export fn crypto_scalarmult_curve25519_amd64_64_fe25519_square(reg u64 rp, reg u64 xp){
 	 reg bool cf;
 	 reg u64 r0;

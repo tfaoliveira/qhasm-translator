@@ -3,12 +3,12 @@
 puc;param u8 $s
 pus;param u16 $s
 pui;param u32 $s
-pul;param u64 $s
+pul;param int $s
 pull;param u64 $s
 pui8;param u8 $s
 pui16;param u16 $s
 pui32;param u32 $s
-pui64;param u64 $s
+pui64;param int $s
 
 ### non-pointers ###############################################################
 
