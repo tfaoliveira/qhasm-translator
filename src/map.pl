@@ -166,8 +166,17 @@ sub print_function
     my @args_str = ();
     foreach my $arg (@$args_r)
     { my @grp = sort {$a <=> $b} ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );
-      my $vd = (defined $vt_r->{$arg}) ? $ty{$vt_r->{$arg}} : $ty{'rui64'}; # if argument was not used then assume u64 type
+
+
+      my $arg_type = ( defined $vt_r->{$arg} ) ? $vt_r->{$arg} : 'rui64';
+      $arg_type =~ s/p$//;
+      my $vd = $ty{$arg_type};
       $vd =~ s/\$s/$arg/g;
+
+      #my $vd = (defined $vt_r->{$arg}) ? $ty{$vt_r->{$arg}} : $ty{'rui64'}; # if argument was not used then assume u64 type
+      #$vd =~ s/\$s/$arg/g;
+
+
       if(@grp)
       {
         my $max_i = $grp[$#grp]+1;

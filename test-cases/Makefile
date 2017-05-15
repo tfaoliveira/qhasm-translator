@@ -10,7 +10,7 @@ IMPLEMENTATIONS=\
 INDENT= indent -orig -l150 -nut -ts0 -sob $@
 
 # remove comments
-#REMCMT= sed -i 's/;  \/\/.*/;/' $@
+REMCMT= sed -i 's/;  \/\/.*/;/' $@
 
 # mil types and map file
 MILFLAGS=-mil -map-file "../config/map-direct-amd64-mil" -types-file "../config/types-mil"

@@ -1,5 +1,5 @@
 param u64 crypto_scalarmult_curve25519_amd64_51_REDMASK51 = 0x0007FFFFFFFFFFFF;
-fn crypto_scalarmult_curve25519_amd64_51_fe25519_freeze(reg u64[5] rp){
+fn crypto_scalarmult_curve25519_amd64_51_fe25519_freeze(reg u64 rp){
 	 reg u64 loop;
 	 reg u64 r0;
 	 reg u64 r1;
@@ -10,11 +10,11 @@ fn crypto_scalarmult_curve25519_amd64_51_fe25519_freeze(reg u64[5] rp){
 	 reg u64 two51minus1;
 	 reg u64 two51minus19;
 
-	r0 = rp[0];  //r0 = *(uint64 *) (rp + 0)
-	r1 = rp[1];  //r1 = *(uint64 *) (rp + 8)
-	r2 = rp[2];  //r2 = *(uint64 *) (rp + 16)
-	r3 = rp[3];  //r3 = *(uint64 *) (rp + 24)
-	r4 = rp[4];  //r4 = *(uint64 *) (rp + 32)
+	r0 = [rp + 0*8];  //r0 = *(uint64 *) (rp + 0)
+	r1 = [rp + 1*8];  //r1 = *(uint64 *) (rp + 8)
+	r2 = [rp + 2*8];  //r2 = *(uint64 *) (rp + 16)
+	r3 = [rp + 3*8];  //r3 = *(uint64 *) (rp + 24)
+	r4 = [rp + 4*8];  //r4 = *(uint64 *) (rp + 32)
 	two51minus1 = crypto_scalarmult_curve25519_amd64_51_REDMASK51;  //two51minus1 = *(uint64 *) &crypto_scalarmult_curve25519_amd64_51_REDMASK51
 	two51minus19 = two51minus1;  //two51minus19 = two51minus1
 	two51minus19 -= 18;  //two51minus19 -= 18
@@ -61,11 +61,11 @@ fn crypto_scalarmult_curve25519_amd64_51_fe25519_freeze(reg u64[5] rp){
 	r2 -= two51minus1;  //r2 -= two51minus1
 	r3 -= two51minus1;  //r3 -= two51minus1
 	r4 -= two51minus1;  //r4 -= two51minus1
-	rp[0] = r0;  //*(uint64 *) (rp + 0) = r0
-	rp[1] = r1;  //*(uint64 *) (rp + 8) = r1
-	rp[2] = r2;  //*(uint64 *) (rp + 16) = r2
-	rp[3] = r3;  //*(uint64 *) (rp + 24) = r3
-	rp[4] = r4;  //*(uint64 *) (rp + 32) = r4
+	[rp + 0*8] = r0;  //*(uint64 *) (rp + 0) = r0
+	[rp + 1*8] = r1;  //*(uint64 *) (rp + 8) = r1
+	[rp + 2*8] = r2;  //*(uint64 *) (rp + 16) = r2
+	[rp + 3*8] = r3;  //*(uint64 *) (rp + 24) = r3
+	[rp + 4*8] = r4;  //*(uint64 *) (rp + 32) = r4
 	return;
 }
 
