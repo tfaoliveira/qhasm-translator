@@ -1,6 +1,6 @@
 param u64 crypto_scalarmult_curve25519_amd64_64_121666 = 121666;
 param u64 crypto_scalarmult_curve25519_amd64_64_38 = 38;
-fn crypto_scalarmult_curve25519_amd64_64_ladderstep(reg u64 workp){
+export fn crypto_scalarmult_curve25519_amd64_64_ladderstep(reg u64 workp){
 	 reg u64 addt0;
 	 reg u64 addt1;
 	 reg bool cf;

@@ -2,7 +2,7 @@ param u64 crypto_scalarmult_curve25519_amd64_51_121666_213 = 996687872;
 param u64 crypto_scalarmult_curve25519_amd64_51_2P0 = 0xFFFFFFFFFFFDA;
 param u64 crypto_scalarmult_curve25519_amd64_51_2P1234 = 0xFFFFFFFFFFFFE;
 param u64 crypto_scalarmult_curve25519_amd64_51_REDMASK51 = 0x0007FFFFFFFFFFFF;
-fn crypto_scalarmult_curve25519_amd64_51_ladderstep(reg u64 workp){
+export fn crypto_scalarmult_curve25519_amd64_51_ladderstep(reg u64 workp){
 	 reg bool cf;
 	 reg u64 mul121666rax;
 	 reg u64 mul121666rdx;

@@ -162,7 +162,7 @@ sub print_function
 
   # f. signature
   if($mil)
-  { print OUT "fn ",$f->{name},"(";  
+  { print OUT "export fn ",$f->{name},"(";  
     my @args_str = ();
     foreach my $arg (@$args_r)
     { my @grp = sort {$a <=> $b} ( grep { ! /^$/ } (map { $_->[0] =~ m/$arg\[(\d+)\]/ ? $1 : "" } @$tr_r) );

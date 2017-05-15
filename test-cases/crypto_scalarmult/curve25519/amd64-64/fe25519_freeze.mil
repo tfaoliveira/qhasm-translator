@@ -1,4 +1,4 @@
-fn crypto_scalarmult_curve25519_amd64_64_fe25519_freeze(reg u64 rp){
+export fn crypto_scalarmult_curve25519_amd64_64_fe25519_freeze(reg u64 rp){
 	 reg bool cf;
 	 reg u64 r0;
 	 reg u64 r1;
