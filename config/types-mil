@@ -44,35 +44,35 @@ float80; double $s
 
 ### pointers ###################################################################
 
-rboolp;reg bool[$n] $s
+rboolp;reg bool $s
 
-rucp;reg u8[$n] $s
-rusp;reg u16[$n] $s
-ruip;reg u32[$n] $s
-rulp;reg u64[$n] $s
-rullp;reg u64[$n] $s
-rui8p;reg u8[$n] $s
-rui16p;reg u16[$n] $s
-rui32p;reg u32[$n] $s
-rui64p;reg u64[$n] $s
+rucp;reg u8 $s
+rusp;reg u16 $s
+ruip;reg u32 $s
+rulp;reg u64 $s
+rullp;reg u64 $s
+rui8p;reg u8 $s
+rui16p;reg u16 $s
+rui32p;reg u32 $s
+rui64p;reg u64 $s
 
-boolp;reg bool[$n] $s
+boolp;reg bool $s
 
-ucp;stack u8[$n] $s
-usp;stack u16[$n] $s
-uip;stack u32[$n] $s
-ulp;stack u64[$n] $s
-ullp;stack u64[$n] $s
-ui8p;stack u8[$n] $s
-ui16p;stack u16[$n] $s
-ui32p;stack u32[$n] $s
-ui64p;stack u64[$n] $s
+ucp;stack u8 $s
+usp;stack u16 $s
+uip;stack u32 $s
+ulp;stack u64 $s
+ullp;stack u64 $s
+ui8p;stack u8 $s
+ui16p;stack u16 $s
+ui32p;stack u32 $s
+ui64p;stack u64 $s
 
 ## TODO : CHECKME
-rfloat64p; double[$n] $s
-float64p; double[$n] $s
-rfloat80p; double[$n] $s
-float80p; double[$n] $s
+rfloat64p; double $s
+float64p; double $s
+rfloat80p; double $s
+float80p; double $s
 
 ui64x8; u64[8] $s
 ui8x64; u8[64] $s

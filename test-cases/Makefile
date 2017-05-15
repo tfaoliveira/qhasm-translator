@@ -2,12 +2,14 @@ IMPLEMENTATIONS=\
  crypto_scalarmult/curve25519/amd64-64/* \
  crypto_scalarmult/curve25519/amd64-51/* \
  crypto_stream/salsa20/e/amd64-1/* \
- crypto_onetimeauth/poly1305/amd64/* 
+crypto_stream/salsa20/e/amd64-1-manual/* \
+ crypto_onetimeauth/poly1305/amd64/*
 
 .PHONY : clean $(IMPLEMENTATIONS)
 
 # indent cmd
-INDENT= indent -orig -l150 -nut -ts0 -sob $@
+#INDENT= indent -orig -l150 -nut -ts0 -sob $@
+INDENT= indent -orig -l150 -nut -ts0 -sob $@ && sed -i 's/<<<= 32/<<<=32/' $@ && sed -i 's/ \* 8\]/\*8\]/' $@
 
 # remove comments
 REMCMT= sed -i 's/;  \/\/.*/;/' $@
@@ -22,6 +24,65 @@ crypto_onetimeauth/poly1305/amd64/: crypto_onetimeauth/poly1305/amd64/*.c
 crypto_onetimeauth/poly1305/amd64/auth.c: crypto_onetimeauth/poly1305/amd64/auth.q
 	../src/translate.pl -debug-regex -in $< -out $@ -map-file "../config/map-direct-amd64" -ext-variables "crypto_onetimeauth_poly1305_amd64_rounding:ui16;crypto_onetimeauth_poly1305_amd64_alpha130:ui64;crypto_onetimeauth_poly1305_amd64_alpha32:ui64;crypto_onetimeauth_poly1305_amd64_alpha64:ui64;crypto_onetimeauth_poly1305_amd64_alpha96:ui64;crypto_onetimeauth_poly1305_amd64_doffset0:ui64;crypto_onetimeauth_poly1305_amd64_doffset1:ui64;crypto_onetimeauth_poly1305_amd64_doffset2:ui64;crypto_onetimeauth_poly1305_amd64_doffset3:ui64;crypto_onetimeauth_poly1305_amd64_doffset3minustwo128:ui64;crypto_onetimeauth_poly1305_amd64_hoffset0:ui64;crypto_onetimeauth_poly1305_amd64_hoffset1:ui64;crypto_onetimeauth_poly1305_amd64_hoffset2:ui64;crypto_onetimeauth_poly1305_amd64_hoffset3:ui64;crypto_onetimeauth_poly1305_amd64_scale:ui64;" > output
 	$(INDENT)
+
+################################################################################
+## crypto_stream/salsa20/e/amd64-1-manual/
+crypto_stream/salsa20/e/amd64-1-manual/: crypto_stream/salsa20/e/amd64-1-manual/*.c crypto_stream/salsa20/e/amd64-1-manual/*.mil
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+#####
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS)
+	$(REMCMT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS)
+	$(REMCMT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS)
+	$(REMCMT)
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "tmp:ui8x64"
+	$(REMCMT)
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "out:rui64p;m:rui64p;tmp:ui8x64"
+	$(REMCMT)
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "out:rui64p;m:rui64p;tmp:ui8x64"
+	$(REMCMT)
+	$(INDENT)
+
 
 ################################################################################
 ## crypto_stream/salsa20/e/amd64-1/

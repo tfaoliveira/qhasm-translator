@@ -198,18 +198,21 @@ tr: //DM;  //inplace $r bottom = $s---$r:ui64;$s:rui64
 inst: $r += $n
 in: int64 r, ii n
 tr: $r += $n;  //$r += $n---$r:rui64;
+tr: $r += $n;  //$r += $n---$r:rui64p;
 tr: $r += $n;  //$r += $n---$r:rui8p;
 tr: //DM ptr $r += $n;  //$r += $n---$r:rvp;
 
 inst: $r += $s
 in: int64 r, int64 s
 tr: $r += $s;  //$r += $s---$r:rui64;$s:rui64
+tr: $r += $s;  //$r += $s---$r:rui64p;$s:rui64
 tr: $r += $s;  //$r += $s---$r:rui8p;$s:rui64
 tr: //DM ptr $r += $s;  //$r += $s---$r:rvp;$s:rui64
 
 inst: $r -= $n
 in: int64 r, ii n
 tr: $r -= $n;  //$r -= $n---$r:rui64;
+tr: $r -= $n;  //$r -= $n---$r:rui64p;
 tr: $r -= $n;  //$r -= $n---$r:rui8p;
 tr: //DM ptr $r -= $n;  //$r -= $n---$r:rvp;
 
@@ -284,11 +287,11 @@ tr: $r = $s + $t;  //$r = $s + $t---$r:rui64;$s:rui64;$t:rui64;
 
 inst: (uint32) $r += $s
 in: int64 r, int64 s
-tr: (u32) $r = ($r + $s);  //(uint32) $r += $s---$r:rui64;$s:rui64;
+tr: x86_add_uint32($r, $s);  //(uint32) $r += $s---$r:rui64;$s:rui64;
 
 inst: (uint32) $r += $s
 in: int64 r, stack64 s
-tr: (u32) $r = ($r + $s);  //(uint32) $r += $s---$r:rui64;$s:ui64;
+tr: x86_add_uint32($r, $s);  //(uint32) $r += $s---$r:rui64;$s:ui64;
 
 
 ##
@@ -297,7 +300,7 @@ tr: (u32) $r = ($r + $s);  //(uint32) $r += $s---$r:rui64;$s:ui64;
 
 inst: (uint32) $r &= $n
 in: int64 r, ii n
-tr: (u32) $r &= $n;  //(uint32) $r &= $n---$r:rui64;
+tr: x86_and_uint32($r,$n);  //(uint32) $r &= $n---$r:rui64;
 
 ##
 ##
@@ -305,7 +308,7 @@ tr: (u32) $r &= $n;  //(uint32) $r &= $n---$r:rui64;
 
 inst: (uint32) $r <<<= $n
 in: int64 r, ii n
-tr: (u32) $r <<<= $n;  //(uint32) $r <<<= $n---$r:rui64;
+tr: $r <<<=32 $n;  //(uint32) $r <<<= $n---$r:rui64;
 
 ##
 ##

@@ -1,0 +1,16 @@
+export fn ECRYPT_ivsetup(reg u64 arg1, reg u64 arg2, reg u64 arg3, reg u64 arg4){
+	 reg u64 in6;
+	 reg u64 in8;
+	 reg u64 iv;
+	 reg u64 x;
+
+	iv = arg2;
+	x = arg1;
+	in6 = [iv + 0*8];
+	in8 = 0;
+	[x + 3*8] = in6;
+	[x + 4*8] = in8;
+	return;
+}
+
+

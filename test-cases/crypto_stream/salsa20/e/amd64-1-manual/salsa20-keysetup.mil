@@ -1,0 +1,51 @@
+export fn
+ECRYPT_keysetup(reg u8 arg1, reg u64 arg2, reg u64 arg3, reg u64 arg4)
+{
+    reg u64         in0;
+    reg u64         in10;
+    reg u64         in12;
+    reg u64         in14;
+    reg u64         in2;
+    reg u64         in4;
+    reg u64         k;
+    reg u64         kbits;
+    reg u8          x;
+
+    k = arg2;
+    kbits = arg3;
+    x = arg1;
+    in0 =[k + 0*8];
+    in2 =[k + 1*8];
+    store64_u8(x, 4, in0);      // *(uint64 *) (x + 4) = in0
+    store64_u8(x, 12, in2);     // *(uint64 *) (x + 12) = in2
+    if (kbits >= 256) {
+      kbits256:
+        in10 =[k + 2*8];
+        in12 =[k + 3*8];
+        store64_u8(x, 44, in10); // *(uint64 *) (x + 44) = in10
+        store64_u8(x, 52, in12); // *(uint64 *) (x + 52) = in12
+        in0 = 1634760805;
+        in4 = 857760878;
+        in10 = 2036477234;
+        in14 = 1797285236;
+        store32_u8(x, 0, in0);
+        store32_u8(x, 20, in4);
+        store32_u8(x, 40, in10);
+        store32_u8(x, 60, in14);
+    } else {
+        in10 =[k + 0*8];
+        in12 =[k + 1*8];
+        store64_u8(x, 44, in10); // *(uint64 *) (x + 44) = in10
+        store64_u8(x, 52, in12); // *(uint64 *) (x + 52) = in12
+        in0 = 1634760805;
+        in4 = 824206446;
+        in10 = 2036477238;
+        in14 = 1797285236;
+        store32_u8(x, 0, in0);
+        store32_u8(x, 20, in4);
+        store32_u8(x, 40, in10);
+        store32_u8(x, 60, in14);
+    }
+
+    return;
+}
