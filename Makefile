@@ -1,3 +1,8 @@
+.PHONY : clean
+
+clean:
+	find . -name "*~" -exec rm {} \;
+
 aes:
 	./src/translate.pl -in test-cases/aes/aes-ctr.q -out test-cases/aes/aes-ctr.c -ext-variables "aes_tablex:ucp;aes_table2:ucp;aes_table1:ucp;aes_table0:ucp;aes_table3:uip;lr_table0:uip;lr_table1:uip"
 	sed -i '1i #include "constants.h"\n#include "macros.h"\n' test-cases/aes/aes-ctr.c

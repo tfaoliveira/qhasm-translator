@@ -475,27 +475,27 @@ tr: //DM while ($r) { *(uint8_t*)$s = *(uint8_t*)$t; $s++; $t++; --$r; }  //whil
 inst: =? $r - $s
 in: int64 r, int64 s
   #tr: eqf = cmp_eq($r, $s);---$r:rui64;$s:rui64;eqf:rbool;
-  #tr: eqf = ($r == $s);---$r:rui64;$s:rui64;eqf:rbool;
-tr: //=? $r - $s---$r:rui64;$s:rui64;
+tr: eqf = ($r == $s);---$r:rui64;$s:rui64;eqf:rbool;
+  #tr: //=? $r - $s---$r:rui64;$s:rui64;
 ps: test;=;$r;$s;
 
 inst: =? $r - $n
 in: int64 r, ii n
   #tr: eqf = cmp_eq($r, $n);---$r:rui64;eqf:rbool;
-  #tr: eqf = ($r == $n);---$r:rui64;eqf:rbool;
-tr: //=? $r - $n---$r:rui64;
+tr: eqf = ($r == $n);---$r:rui64;eqf:rbool;
+  #tr: //=? $r - $n---$r:rui64;
 ps: test;=;$r;$n;
 
 inst: $r = $s if !=
 in: int64 r, int64 s
-  #tr: $r = $s if !eqf;---$r:rui64;$s:rui64;eqf:rbool;
-tr: $r = $s if ($w $cnd $z);  //$r = $s if !=---$r:rui64;$s:rui64;
+tr: $r = $s if !eqf;---$r:rui64;$s:rui64;eqf:rbool;
+  #tr: $r = $s if ($w $cnd $z);  //$r = $s if !=---$r:rui64;$s:rui64;
 ps: attr;($r = $s);!=
 
 inst: $r = $s if =
 in: int64 r, int64 s
-  #tr: $r = $s if eqf;---$r:rui64;$s:rui64;eqf:rbool;
-tr: $r = $s if ($w $cnd $z);  //$r = $s if =---$r:rui64;$s:rui64;
+tr: $r = $s if eqf;---$r:rui64;$s:rui64;eqf:rbool;
+  #tr: $r = $s if ($w $cnd $z);  //$r = $s if =---$r:rui64;$s:rui64;
 ps: attr;($r = $s);=
 
 inst: signed<? $r - $s

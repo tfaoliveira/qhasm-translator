@@ -186,10 +186,6 @@ crypto_scalarmult/curve25519/amd64-64/work_cswap.mil: crypto_scalarmult/curve255
 	../src/translate.pl -in $< -out $@ $(MILFLAGS)
 	$(REMCMT)
 
-crypto_scalarmult/curve25519/amd64-64/work_cswap_v2.mil: crypto_scalarmult/curve25519/amd64-64/work_cswap.q
-	../src/translate.pl -in $< -out $@ -mil -map-file "../config/map-direct-amd64-mil-eqf" -types-file "../config/types-mil"
-	$(REMCMT)
-
 crypto_scalarmult/curve25519/amd64-64/fe25519_square.mil: crypto_scalarmult/curve25519/amd64-64/fe25519_square.q
 	../src/translate.pl -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64" -ext-variable-values "crypto_scalarmult_curve25519_amd64_64_38:38;"
 	$(REMCMT)
@@ -207,9 +203,6 @@ crypto_scalarmult/curve25519/amd64-64/fe25519_mul.mil.s: crypto_scalarmult/curve
 	$(JASMINC)
 
 crypto_scalarmult/curve25519/amd64-64/work_cswap.mil.s: crypto_scalarmult/curve25519/amd64-64/work_cswap.mil
-	$(JASMINC)
-
-crypto_scalarmult/curve25519/amd64-64/work_cswap_v2.mil.s: crypto_scalarmult/curve25519/amd64-64/work_cswap.mil
 	$(JASMINC)
 
 crypto_scalarmult/curve25519/amd64-64/fe25519_square.mil.s: crypto_scalarmult/curve25519/amd64-64/fe25519_square.mil
