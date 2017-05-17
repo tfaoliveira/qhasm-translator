@@ -5,7 +5,7 @@ IMPLEMENTATIONS=\
 crypto_stream/salsa20/e/amd64-1-manual/* \
  crypto_onetimeauth/poly1305/amd64/*
 
-.PHONY : clean $(IMPLEMENTATIONS)
+.PHONY : clean
 
 # indent cmd
 #INDENT= indent -orig -l150 -nut -ts0 -sob $@
@@ -16,6 +16,8 @@ REMCMT= sed -i 's/;  \/\/.*/;/' $@
 
 # mil types and map file
 MILFLAGS=-mil -map-file "../config/map-direct-amd64-mil" -types-file "../config/types-mil"
+
+JASMINC=jasminc -o $@ $< 2> /dev/null
 
 ################################################################################
 ## crypto_onetimeauth/poly1305/amd64/
@@ -192,7 +194,26 @@ crypto_scalarmult/curve25519/amd64-64/fe25519_square.mil: crypto_scalarmult/curv
 	../src/translate.pl -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_64_38:ui64" -ext-variable-values "crypto_scalarmult_curve25519_amd64_64_38:38;"
 	$(REMCMT)
 
+####
 
+crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.mil.s: crypto_scalarmult/curve25519/amd64-64/fe25519_freeze.mil
+	$(JASMINC)
+
+
+crypto_scalarmult/curve25519/amd64-64/ladderstep.mil.s: crypto_scalarmult/curve25519/amd64-64/ladderstep.mil
+	$(JASMINC)
+
+crypto_scalarmult/curve25519/amd64-64/fe25519_mul.mil.s: crypto_scalarmult/curve25519/amd64-64/fe25519_mul.mil
+	$(JASMINC)
+
+crypto_scalarmult/curve25519/amd64-64/work_cswap.mil.s: crypto_scalarmult/curve25519/amd64-64/work_cswap.mil
+	$(JASMINC)
+
+crypto_scalarmult/curve25519/amd64-64/work_cswap_v2.mil.s: crypto_scalarmult/curve25519/amd64-64/work_cswap.mil
+	$(JASMINC)
+
+crypto_scalarmult/curve25519/amd64-64/fe25519_square.mil.s: crypto_scalarmult/curve25519/amd64-64/fe25519_square.mil
+	$(JASMINC)
 
 ################################################################################
 ## crypto_scalarmult/curve25519/amd64-51
