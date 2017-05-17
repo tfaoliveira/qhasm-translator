@@ -503,12 +503,12 @@ in: int64 r, int64 s
   #tr: slf = cmp_signed_less($r, $s);---$r:rui64;$s:rui64;slf:rbool;
   #tr: slf = ($r <s $s);---$r:rui64;$s:rui64;slf:rbool;
 tr: //signed<? $r - $s ---$r:rui64;$s:rui64;
-ps: test;signed<;$r;$s;
+ps: test;s<;$r;$s;
 
 inst: $r = $s if signed<
 in: int64 r, int64 s
 tr: $r = $s if ($w $cnd $z); /*$r = $s if signed<*/---$r:rui64;$s:rui64;
-ps: attr;($r = $s);signed<
+ps: attr;($r = $s);s<
 
 
 ##
@@ -524,12 +524,12 @@ ps: test;unsigned>;$r;$n
 inst: signed<? $r - $s
 in: int64 r, int64 s
 tr: //signed<? $r - $s---$r:rui64;$s:rui64
-ps: test;signed<;((int64_t)$r);((int64_t)$s)
+ps: test;s<;((int64_t)$r);((int64_t)$s)
 
 inst: $r = $s if signed<
 in: int64 r, int64 s
 tr: if($w $cnd $z){$r=$s;}  //$r = $s if signed<---$r:rui64;$s:rui64
-ps: attr;($r = $s);signed<
+ps: attr;($r = $s);s<
 
 inst: $r = $s if $t
 in: int64 r, int64 s, flg t

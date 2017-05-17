@@ -43,7 +43,12 @@ my %FLAGS_NEG_mil = ('='          => '!=',
                      'signed>'    => 'signed<=',
                      'signed<'    => 'signed>=',
                      '!signed>'   => 'signed>',
-                     '!signed<'   => 'signed<'
+                     '!signed<'   => 'signed<',
+
+                     's>'    => 's<=',
+                     's<'    => 's>=',
+                     '!s>'   => 's>',
+                     '!s<'   => 's<'
                     );
 
 my %FLAGS_mil     = ('='          => '==',
@@ -55,7 +60,12 @@ my %FLAGS_mil     = ('='          => '==',
                      'signed>'    => 'signed>',
                      'signed<'    => 'signed<',
                      '!signed>'   => 'signed<=',
-                     '!signed<'   => 'signed>='
+                     '!signed<'   => 'signed>=',
+
+                     's>'    => 's>',
+                     's<'    => 's<',
+                     '!s>'   => 's<=',
+                     '!s<'   => 's>='
                     );
 
 

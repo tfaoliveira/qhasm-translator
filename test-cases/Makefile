@@ -237,19 +237,23 @@ crypto_scalarmult/curve25519/amd64-51/fe25519_square.c: crypto_scalarmult/curve2
 
 crypto_scalarmult/curve25519/amd64-51/fe25519_freeze.mil: crypto_scalarmult/curve25519/amd64-51/fe25519_freeze.q
 	../src/translate.pl -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64;" -ext-variable-values "crypto_scalarmult_curve25519_amd64_51_REDMASK51:0x0007FFFFFFFFFFFF;"
+	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-51/ladderstep.mil: crypto_scalarmult/curve25519/amd64-51/ladderstep.q
 	../src/translate.pl -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_51_121666_213:ui64;crypto_scalarmult_curve25519_amd64_51_2P0:ui64;crypto_scalarmult_curve25519_amd64_51_2P1234:ui64;crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64;" -ext-variable-values "crypto_scalarmult_curve25519_amd64_51_121666_213:996687872;crypto_scalarmult_curve25519_amd64_51_2P0:0xFFFFFFFFFFFDA;crypto_scalarmult_curve25519_amd64_51_2P1234:0xFFFFFFFFFFFFE;crypto_scalarmult_curve25519_amd64_51_REDMASK51:0x0007FFFFFFFFFFFF;"
+	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-51/fe25519_mul.mil: crypto_scalarmult/curve25519/amd64-51/fe25519_mul.q
 	../src/translate.pl -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64;" -ext-variable-values "crypto_scalarmult_curve25519_amd64_51_REDMASK51:0x0007FFFFFFFFFFFF;"
+	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-51/work_cswap.mil: crypto_scalarmult/curve25519/amd64-51/work_cswap.q
 	../src/translate.pl -in $< -out $@ $(MILFLAGS)
+	$(REMCMT)
 
 crypto_scalarmult/curve25519/amd64-51/fe25519_square.mil: crypto_scalarmult/curve25519/amd64-51/fe25519_square.q
 	../src/translate.pl -in $< -out $@ $(MILFLAGS) -ext-variables "crypto_scalarmult_curve25519_amd64_51_REDMASK51:ui64;" -ext-variable-values "crypto_scalarmult_curve25519_amd64_51_REDMASK51:0x0007FFFFFFFFFFFF;"
-
+	$(REMCMT)
 
 clean:
 	find . -name "*~" -exec rm {} \;

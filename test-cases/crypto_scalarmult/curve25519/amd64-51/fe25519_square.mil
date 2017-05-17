@@ -16,121 +16,121 @@ export fn crypto_scalarmult_curve25519_amd64_51_fe25519_square(reg u64 rp, reg u
 	 reg u64 squareredmask;
 	 reg u64 squaret;
 
-	squarerax = [xp + 0*8];  //squarerax = *(uint64 *) (xp + 0)
-	squarerdx, squarerax = squarerax * [xp + 0*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 0);
-	r0 = squarerax;  //r0 = squarerax
-	squarer01 = squarerdx;  //squarer01 = squarerdx
-	squarerax = [xp + 0*8];  //squarerax = *(uint64 *) (xp + 0)
-	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * [xp + 1*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
-	r1 = squarerax;  //r1 = squarerax
-	squarer11 = squarerdx;  //squarer11 = squarerdx
-	squarerax = [xp + 0*8];  //squarerax = *(uint64 *) (xp + 0)
-	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * [xp + 2*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
-	r2 = squarerax;  //r2 = squarerax
-	squarer21 = squarerdx;  //squarer21 = squarerdx
-	squarerax = [xp + 0*8];  //squarerax = *(uint64 *) (xp + 0)
-	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * [xp + 3*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
-	r3 = squarerax;  //r3 = squarerax
-	squarer31 = squarerdx;  //squarer31 = squarerdx
-	squarerax = [xp + 0*8];  //squarerax = *(uint64 *) (xp + 0)
-	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * [xp + 4*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
-	r4 = squarerax;  //r4 = squarerax
-	squarer41 = squarerdx;  //squarer41 = squarerdx
-	squarerax = [xp + 1*8];  //squarerax = *(uint64 *) (xp + 8)
-	squarerdx, squarerax = squarerax * [xp + 1*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 8);
-	cf, r2 += squarerax;  //cf? r2 += squarerax
-	_, squarer21 += squarerdx + cf;  //squarer21 += squarerdx + cf; 
-	squarerax = [xp + 1*8];  //squarerax = *(uint64 *) (xp + 8)
-	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * [xp + 2*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
-	cf, r3 += squarerax;  //cf? r3 += squarerax
-	_, squarer31 += squarerdx + cf;  //squarer31 += squarerdx + cf; 
-	squarerax = [xp + 1*8];  //squarerax = *(uint64 *) (xp + 8)
-	squarerax <<= 1;  //squarerax <<= 1
-	squarerdx, squarerax = squarerax * [xp + 3*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
-	cf, r4 += squarerax;  //cf? r4 += squarerax
-	_, squarer41 += squarerdx + cf;  //squarer41 += squarerdx + cf; 
-	squarerax = [xp + 1*8];  //squarerax = *(uint64 *) (xp + 8)
-	squarerax *= 38;  //squarerax *= 38
-	squarerdx, squarerax = squarerax * [xp + 4*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
-	cf, r0 += squarerax;  //cf? r0 += squarerax
-	_, squarer01 += squarerdx + cf;  //squarer01 += squarerdx + cf; 
-	squarerax = [xp + 2*8];  //squarerax = *(uint64 *) (xp + 16)
-	squarerdx, squarerax = squarerax * [xp + 2*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 16);
-	cf, r4 += squarerax;  //cf? r4 += squarerax
-	_, squarer41 += squarerdx + cf;  //squarer41 += squarerdx + cf; 
-	squarerax = [xp + 2*8];  //squarerax = *(uint64 *) (xp + 16)
-	squarerax *= 38;  //squarerax *= 38
-	squarerdx, squarerax = squarerax * [xp + 3*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
-	cf, r0 += squarerax;  //cf? r0 += squarerax
-	_, squarer01 += squarerdx + cf;  //squarer01 += squarerdx + cf; 
-	squarerax = [xp + 2*8];  //squarerax = *(uint64 *) (xp + 16)
-	squarerax *= 38;  //squarerax *= 38
-	squarerdx, squarerax = squarerax * [xp + 4*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
-	cf, r1 += squarerax;  //cf? r1 += squarerax
-	_, squarer11 += squarerdx + cf;  //squarer11 += squarerdx + cf; 
-	squarerax = [xp + 3*8];  //squarerax = *(uint64 *) (xp + 24)
-	squarerax *= 19;  //squarerax *= 19
-	squarerdx, squarerax = squarerax * [xp + 3*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 24);
-	cf, r1 += squarerax;  //cf? r1 += squarerax
-	_, squarer11 += squarerdx + cf;  //squarer11 += squarerdx + cf; 
-	squarerax = [xp + 3*8];  //squarerax = *(uint64 *) (xp + 24)
-	squarerax *= 38;  //squarerax *= 38
-	squarerdx, squarerax = squarerax * [xp + 4*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
-	cf, r2 += squarerax;  //cf? r2 += squarerax
-	_, squarer21 += squarerdx + cf;  //squarer21 += squarerdx + cf; 
-	squarerax = [xp + 4*8];  //squarerax = *(uint64 *) (xp + 32)
-	squarerax *= 19;  //squarerax *= 19
-	squarerdx, squarerax = squarerax * [xp + 4*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (xp + 32);
-	cf, r3 += squarerax;  //cf? r3 += squarerax
-	_, squarer31 += squarerdx + cf;  //squarer31 += squarerdx + cf; 
-	squareredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;  //squareredmask = *(uint64 *) &crypto_scalarmult_curve25519_amd64_51_REDMASK51
-	squarer01, _ = (squarer01, r0) << 13;  //squarer01 = (squarer01.r0) << 13
-	r0 &= squareredmask;  //r0 &= squareredmask
-	squarer11, _ = (squarer11, r1) << 13;  //squarer11 = (squarer11.r1) << 13
-	r1 &= squareredmask;  //r1 &= squareredmask
-	r1 += squarer01;  //r1 += squarer01
-	squarer21, _ = (squarer21, r2) << 13;  //squarer21 = (squarer21.r2) << 13
-	r2 &= squareredmask;  //r2 &= squareredmask
-	r2 += squarer11;  //r2 += squarer11
-	squarer31, _ = (squarer31, r3) << 13;  //squarer31 = (squarer31.r3) << 13
-	r3 &= squareredmask;  //r3 &= squareredmask
-	r3 += squarer21;  //r3 += squarer21
-	squarer41, _ = (squarer41, r4) << 13;  //squarer41 = (squarer41.r4) << 13
-	r4 &= squareredmask;  //r4 &= squareredmask
-	r4 += squarer31;  //r4 += squarer31
-	squarer41 = squarer41 * 19;  //squarer41 = squarer41 * 19
-	r0 += squarer41;  //r0 += squarer41
-	squaret = r0;  //squaret = r0
-	squaret >>= 51;  //(uint64) squaret >>= 51
-	squaret += r1;  //squaret += r1
-	r0 &= squareredmask;  //r0 &= squareredmask
-	r1 = squaret;  //r1 = squaret
-	squaret >>= 51;  //(uint64) squaret >>= 51
-	squaret += r2;  //squaret += r2
-	r1 &= squareredmask;  //r1 &= squareredmask
-	r2 = squaret;  //r2 = squaret
-	squaret >>= 51;  //(uint64) squaret >>= 51
-	squaret += r3;  //squaret += r3
-	r2 &= squareredmask;  //r2 &= squareredmask
-	r3 = squaret;  //r3 = squaret
-	squaret >>= 51;  //(uint64) squaret >>= 51
-	squaret += r4;  //squaret += r4
-	r3 &= squareredmask;  //r3 &= squareredmask
-	r4 = squaret;  //r4 = squaret
-	squaret >>= 51;  //(uint64) squaret >>= 51
-	squaret *= 19;  //squaret *= 19
-	r0 += squaret;  //r0 += squaret
-	r4 &= squareredmask;  //r4 &= squareredmask
-	[rp + 0*8] = r0;  //*(uint64 *) (rp + 0) = r0
-	[rp + 1*8] = r1;  //*(uint64 *) (rp + 8) = r1
-	[rp + 2*8] = r2;  //*(uint64 *) (rp + 16) = r2
-	[rp + 3*8] = r3;  //*(uint64 *) (rp + 24) = r3
-	[rp + 4*8] = r4;  //*(uint64 *) (rp + 32) = r4
+	squarerax = [xp + 0*8];
+	squarerdx, squarerax = squarerax * [xp + 0*8];
+	r0 = squarerax;
+	squarer01 = squarerdx;
+	squarerax = [xp + 0*8];
+	squarerax <<= 1;
+	squarerdx, squarerax = squarerax * [xp + 1*8];
+	r1 = squarerax;
+	squarer11 = squarerdx;
+	squarerax = [xp + 0*8];
+	squarerax <<= 1;
+	squarerdx, squarerax = squarerax * [xp + 2*8];
+	r2 = squarerax;
+	squarer21 = squarerdx;
+	squarerax = [xp + 0*8];
+	squarerax <<= 1;
+	squarerdx, squarerax = squarerax * [xp + 3*8];
+	r3 = squarerax;
+	squarer31 = squarerdx;
+	squarerax = [xp + 0*8];
+	squarerax <<= 1;
+	squarerdx, squarerax = squarerax * [xp + 4*8];
+	r4 = squarerax;
+	squarer41 = squarerdx;
+	squarerax = [xp + 1*8];
+	squarerdx, squarerax = squarerax * [xp + 1*8];
+	cf, r2 += squarerax;
+	_, squarer21 += squarerdx + cf;
+	squarerax = [xp + 1*8];
+	squarerax <<= 1;
+	squarerdx, squarerax = squarerax * [xp + 2*8];
+	cf, r3 += squarerax;
+	_, squarer31 += squarerdx + cf;
+	squarerax = [xp + 1*8];
+	squarerax <<= 1;
+	squarerdx, squarerax = squarerax * [xp + 3*8];
+	cf, r4 += squarerax;
+	_, squarer41 += squarerdx + cf;
+	squarerax = [xp + 1*8];
+	squarerax *= 38;
+	squarerdx, squarerax = squarerax * [xp + 4*8];
+	cf, r0 += squarerax;
+	_, squarer01 += squarerdx + cf;
+	squarerax = [xp + 2*8];
+	squarerdx, squarerax = squarerax * [xp + 2*8];
+	cf, r4 += squarerax;
+	_, squarer41 += squarerdx + cf;
+	squarerax = [xp + 2*8];
+	squarerax *= 38;
+	squarerdx, squarerax = squarerax * [xp + 3*8];
+	cf, r0 += squarerax;
+	_, squarer01 += squarerdx + cf;
+	squarerax = [xp + 2*8];
+	squarerax *= 38;
+	squarerdx, squarerax = squarerax * [xp + 4*8];
+	cf, r1 += squarerax;
+	_, squarer11 += squarerdx + cf;
+	squarerax = [xp + 3*8];
+	squarerax *= 19;
+	squarerdx, squarerax = squarerax * [xp + 3*8];
+	cf, r1 += squarerax;
+	_, squarer11 += squarerdx + cf;
+	squarerax = [xp + 3*8];
+	squarerax *= 38;
+	squarerdx, squarerax = squarerax * [xp + 4*8];
+	cf, r2 += squarerax;
+	_, squarer21 += squarerdx + cf;
+	squarerax = [xp + 4*8];
+	squarerax *= 19;
+	squarerdx, squarerax = squarerax * [xp + 4*8];
+	cf, r3 += squarerax;
+	_, squarer31 += squarerdx + cf;
+	squareredmask = crypto_scalarmult_curve25519_amd64_51_REDMASK51;
+	squarer01, _ = (squarer01, r0) << 13;
+	r0 &= squareredmask;
+	squarer11, _ = (squarer11, r1) << 13;
+	r1 &= squareredmask;
+	r1 += squarer01;
+	squarer21, _ = (squarer21, r2) << 13;
+	r2 &= squareredmask;
+	r2 += squarer11;
+	squarer31, _ = (squarer31, r3) << 13;
+	r3 &= squareredmask;
+	r3 += squarer21;
+	squarer41, _ = (squarer41, r4) << 13;
+	r4 &= squareredmask;
+	r4 += squarer31;
+	squarer41 = squarer41 * 19;
+	r0 += squarer41;
+	squaret = r0;
+	squaret >>= 51;
+	squaret += r1;
+	r0 &= squareredmask;
+	r1 = squaret;
+	squaret >>= 51;
+	squaret += r2;
+	r1 &= squareredmask;
+	r2 = squaret;
+	squaret >>= 51;
+	squaret += r3;
+	r2 &= squareredmask;
+	r3 = squaret;
+	squaret >>= 51;
+	squaret += r4;
+	r3 &= squareredmask;
+	r4 = squaret;
+	squaret >>= 51;
+	squaret *= 19;
+	r0 += squaret;
+	r4 &= squareredmask;
+	[rp + 0*8] = r0;
+	[rp + 1*8] = r1;
+	[rp + 2*8] = r2;
+	[rp + 3*8] = r3;
+	[rp + 4*8] = r4;
 	return;
 }
 
