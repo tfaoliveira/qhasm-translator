@@ -36,8 +36,8 @@ use constant CL_FINAL   => "^[ \t]*(".
 								 "eax_stack = eax|ebx_stack = ebx|ecx_stack = ecx|esi_stack = esi|edi_stack = edi|ebp_stack = ebp"."|".
 								 "eax = eax_stack|ebx = ebx_stack|ecx = ecx_stack|esi = esi_stack|edi = edi_stack|ebp = ebp_stack"."|".
 
-#                 "c".RX_ASSIGN."_stack".RX_SPACE."=".RX_SPACE."c".RX_ASSIGN."|". # c1_stack = c1
-#                 "c".RX_ASSIGN.RX_SPACE."=".RX_SPACE."c".RX_ASSIGN."_stack"."|". # c1 = c1_stack
+                 "c".RX_ASSIGN."_stack".RX_SPACE."=".RX_SPACE."c".RX_ASSIGN."|". # c1_stack = c1
+                 "c".RX_ASSIGN.RX_SPACE."=".RX_SPACE."c".RX_ASSIGN."_stack"."|". # c1 = c1_stack
 
                  "caller".RX_ASSIGN."_stack".RX_SPACE."=".RX_SPACE."caller".RX_ASSIGN."|". # caller1_stack = caller1
                  "caller".RX_ASSIGN.RX_SPACE."=".RX_SPACE."caller".RX_ASSIGN."_stack"."|". # caller1 = caller1_stack

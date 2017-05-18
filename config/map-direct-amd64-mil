@@ -19,6 +19,11 @@ tr: //DM stacktop $r---$r:rfloat80
 ## LOADS #######################################################################
 
 ### IMM ###
+
+inst: $r += *(uint64 *) &$n
+in: int64 r, iv n
+tr: __temp = $n; $r += __temp;  //$r += *(uint64 *) &$n---$r:rui64;__temp:rui64;$n:ui64
+
 inst: $r $o *(uint64 *) &$n
 in: int64 r, op o, iv n
 tr: $r $o $n;  //$r $o *(uint64 *) &$n---$r:rui64;$n:ui64
@@ -498,7 +503,7 @@ tr: $r >>= $n;  //(uint64) $r >>= $n---$r:rui64;
 
 inst: $r = ($s.$t) << $n
 in: int64 r, int64 s, int64 t, ii n
-tr: _, _, _, _, _, $r = X86_SHLD($s, $t, $n);  //$r = ($s.$t) << $n---$r:rui64;$s:rui64;$t:rui64;
+tr: _, _, _, _, _, $r = #x86_SHLD($s, $t, $n);  //$r = ($s.$t) << $n---$r:rui64;$s:rui64;$t:rui64;
 #tr: $r, _ = ($s, $t) << $n;  //$r = ($s.$t) << $n---$r:rui64;$s:rui64;$t:rui64;
 
 ##
