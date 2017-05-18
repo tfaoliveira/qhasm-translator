@@ -161,7 +161,7 @@ sub print_function
   # global params
   foreach my $var (sort keys %$mt_r)
   { my $p = ($mil) ? "p" : "";
-    my $vd = $ty{$p . $vt_r->{$var}};
+    my $vd = $ty{$p . $vt_r->{$var}}; print $var."\n" if (!defined $vt_r->{$var});
     $vd =~ s/\$s/$var/g;
     print OUT "extern " if(!$mil && !$ext_variable_values_ref->{$var});
     if($ext_variable_values_ref->{$var})
@@ -218,7 +218,8 @@ sub print_function
  
   # var. declarations
   foreach my $var (sort keys %$vt_r)
-  { my $vd = $ty{$vt_r->{$var}};
+  { 
+    my $vd = $ty{$vt_r->{$var}};
 
     my @grp = sort {$a <=> $b} ( grep { ! /^$/ } (map { $_->[0] =~ m/$var\[(\d+)\]/ ? $1 : "" } @$tr_r) );
     $vd =~ s/\$s/$var/g;
@@ -552,7 +553,7 @@ sub find_mapping
           if ( ($t =~ m/(ii|it|op|flg|tflg)/) || ($t !~ m/(ii|it|op|flg|tflg)/ && $alltypes_ref->{$mat[$c]} eq $t) )
           {
             for (@$alltrans_ref)
-            { 
+            { #print $cline if (!defined $mat[$c]);
               s/\$$n/$mat[$c]/g; 
             }
             $ps =~ s/\$$n/$mat[$c]/g unless $ps eq "";

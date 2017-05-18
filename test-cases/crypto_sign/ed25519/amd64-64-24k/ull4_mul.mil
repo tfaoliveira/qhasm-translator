@@ -1,0 +1,129 @@
+export fn crypto_sign_ed25519_amd64_64_ull4_mul(reg u64 rp, reg u64 xp, reg u64 yp){
+	 reg u64 c;
+	 reg bool cf;
+	 reg u64 r0;
+	 reg u64 r1;
+	 reg u64 r2;
+	 reg u64 r3;
+	 reg u64 r4;
+	 reg u64 r5;
+	 reg u64 r6;
+	 reg u64 r7;
+	 reg u64 rax;
+	 reg u64 rdx;
+	 reg u64 zero;
+
+	yp = yp;  //yp = yp
+	r4 = 0;  //r4 = 0
+	r5 = 0;  //r5 = 0
+	r6 = 0;  //r6 = 0
+	r7 = 0;  //r7 = 0
+	zero = 0;  //zero = 0
+	rax = [xp + 0*8];  //rax = *(uint64 *) (xp + 0)
+	rdx, rax = rax * [yp + 0*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 0);
+	r0 = rax;  //r0 = rax
+	c = rdx;  //c = rdx
+	rax = [xp + 0*8];  //rax = *(uint64 *) (xp + 0)
+	rdx, rax = rax * [yp + 1*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 8);
+	r1 = rax;  //r1 = rax
+	cf, r1 += c;  //cf? r1 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 0*8];  //rax = *(uint64 *) (xp + 0)
+	rdx, rax = rax * [yp + 2*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 16);
+	r2 = rax;  //r2 = rax
+	cf, r2 += c;  //cf? r2 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 0*8];  //rax = *(uint64 *) (xp + 0)
+	rdx, rax = rax * [yp + 3*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 24);
+	r3 = rax;  //r3 = rax
+	cf, r3 += c;  //cf? r3 += c
+	_, r4 += rdx + cf;  //r4 += rdx + cf; 
+	rax = [xp + 1*8];  //rax = *(uint64 *) (xp + 8)
+	rdx, rax = rax * [yp + 0*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 0);
+	cf, r1 += rax;  //cf? r1 += rax
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 1*8];  //rax = *(uint64 *) (xp + 8)
+	rdx, rax = rax * [yp + 1*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 8);
+	cf, r2 += rax;  //cf? r2 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, r2 += c;  //cf? r2 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 1*8];  //rax = *(uint64 *) (xp + 8)
+	rdx, rax = rax * [yp + 2*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 16);
+	cf, r3 += rax;  //cf? r3 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, r3 += c;  //cf? r3 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 1*8];  //rax = *(uint64 *) (xp + 8)
+	rdx, rax = rax * [yp + 3*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 24);
+	cf, r4 += rax;  //cf? r4 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, r4 += c;  //cf? r4 += c
+	_, r5 += rdx + cf;  //r5 += rdx + cf; 
+	rax = [xp + 2*8];  //rax = *(uint64 *) (xp + 16)
+	rdx, rax = rax * [yp + 0*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 0);
+	cf, r2 += rax;  //cf? r2 += rax
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 2*8];  //rax = *(uint64 *) (xp + 16)
+	rdx, rax = rax * [yp + 1*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 8);
+	cf, r3 += rax;  //cf? r3 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, r3 += c;  //cf? r3 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 2*8];  //rax = *(uint64 *) (xp + 16)
+	rdx, rax = rax * [yp + 2*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 16);
+	cf, r4 += rax;  //cf? r4 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, r4 += c;  //cf? r4 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 2*8];  //rax = *(uint64 *) (xp + 16)
+	rdx, rax = rax * [yp + 3*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 24);
+	cf, r5 += rax;  //cf? r5 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, r5 += c;  //cf? r5 += c
+	_, r6 += rdx + cf;  //r6 += rdx + cf; 
+	rax = [xp + 3*8];  //rax = *(uint64 *) (xp + 24)
+	rdx, rax = rax * [yp + 0*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 0);
+	cf, r3 += rax;  //cf? r3 += rax
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 3*8];  //rax = *(uint64 *) (xp + 24)
+	rdx, rax = rax * [yp + 1*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 8);
+	cf, r4 += rax;  //cf? r4 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, r4 += c;  //cf? r4 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 3*8];  //rax = *(uint64 *) (xp + 24)
+	rdx, rax = rax * [yp + 2*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 16);
+	cf, r5 += rax;  //cf? r5 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, r5 += c;  //cf? r5 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 3*8];  //rax = *(uint64 *) (xp + 24)
+	rdx, rax = rax * [yp + 3*8];  //(uint128) rdx rax = rax * *(uint64 *) (yp + 24);
+	cf, r6 += rax;  //cf? r6 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, r6 += c;  //cf? r6 += c
+	_, r7 += rdx + cf;  //r7 += rdx + cf; 
+	[rp + 0*8] = r0;  //*(uint64 *) (rp + 0) = r0
+	[rp + 1*8] = r1;  //*(uint64 *) (rp + 8) = r1
+	[rp + 2*8] = r2;  //*(uint64 *) (rp + 16) = r2
+	[rp + 3*8] = r3;  //*(uint64 *) (rp + 24) = r3
+	[rp + 4*8] = r4;  //*(uint64 *) (rp + 32) = r4
+	[rp + 5*8] = r5;  //*(uint64 *) (rp + 40) = r5
+	[rp + 6*8] = r6;  //*(uint64 *) (rp + 48) = r6
+	[rp + 7*8] = r7;  //*(uint64 *) (rp + 56) = r7
+	return;
+}
+
+

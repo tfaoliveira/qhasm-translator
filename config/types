@@ -38,6 +38,7 @@ rui8p;uint8_t *$s
 rui16p;uint16_t *$s
 rui32p;uint32_t *$s
 rui64p;uint64_t *$s
+rui64pp;uint64_t **$s
 
 vp;void *$s
 ucp;unsigned char *$s
@@ -49,6 +50,7 @@ ui8p;uint8_t *$s
 ui16p;uint16_t *$s
 ui32p;uint32_t *$s
 ui64p;uint64_t *$s
+ui64pp;uint64_t **$s
 
 ## TODO : CHECKME
 rfloat64p; double *$s

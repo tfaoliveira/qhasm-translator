@@ -1,0 +1,48 @@
+param int crypto_sign_ed25519_amd64_64_ORDER0 = 0x5812631A5CF5D3ED;
+param int crypto_sign_ed25519_amd64_64_ORDER1 = 0x14DEF9DEA2F79CD6;
+param int crypto_sign_ed25519_amd64_64_ORDER2 = 0x0000000000000000;
+param int crypto_sign_ed25519_amd64_64_ORDER3 = 0x1000000000000000;
+export fn crypto_sign_ed25519_amd64_64_sc25519_add(reg u64 rp, reg u64 xp, reg u64 yp){
+	 reg bool cf;
+	 reg u64 r0;
+	 reg u64 r1;
+	 reg u64 r2;
+	 reg u64 r3;
+	 reg u64 t0;
+	 reg u64 t1;
+	 reg u64 t2;
+	 reg u64 t3;
+
+	r0 = [xp + 0*8];  //r0 = *(uint64 *) (xp + 0)
+	r1 = [xp + 1*8];  //r1 = *(uint64 *) (xp + 8)
+	r2 = [xp + 2*8];  //r2 = *(uint64 *) (xp + 16)
+	r3 = [xp + 3*8];  //r3 = *(uint64 *) (xp + 24)
+	cf, r0 += [yp + 0*8];  //cf? r0 += *(uint64 *) (yp + 0)
+	cf, r1 += [yp + 1*8] + cf;  //cf? r1 += *(uint64 *) (yp + 8) + cf;
+	cf, r2 += [yp + 2*8] + cf;  //cf? r2 += *(uint64 *) (yp + 16) + cf;
+	_, r3 += [yp + 3*8] + cf; //r3 += *(uint64 *) (yp + 24) + cf;
+	t0 = r0;  //t0 = r0
+	t1 = r1;  //t1 = r1
+	t2 = r2;  //t2 = r2
+	t3 = r3;  //t3 = r3
+	cf, t0 -= crypto_sign_ed25519_amd64_64_ORDER0; //cf? t0 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER0
+	cf, t1 -= crypto_sign_ed25519_amd64_64_ORDER1 - cf;  // cf? t1 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER1 - cf; 
+	cf, t2 -= crypto_sign_ed25519_amd64_64_ORDER2 - cf;  // cf? t2 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER2 - cf; 
+	cf, t3 -= crypto_sign_ed25519_amd64_64_ORDER3 - cf;  // cf? t3 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER3 - cf; 
+	r0 = t0 if !cf;  //r0 = t0 if !carry; 
+	r1 = t1 if !cf;  //r1 = t1 if !carry; 
+	r2 = t2 if !cf;  //r2 = t2 if !carry; 
+	r3 = t3 if !cf;  //r3 = t3 if !carry; 
+	//  unsigned<? t3 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER3 - carry
+	//  r0 = t0 if !unsigned<
+	//  r1 = t1 if !unsigned<
+	//  r2 = t2 if !unsigned<
+	//  r3 = t3 if !unsigned<
+	[rp + 0*8] = r0;  //*(uint64 *) (rp + 0) = r0
+	[rp + 1*8] = r1;  //*(uint64 *) (rp + 8) = r1
+	[rp + 2*8] = r2;  //*(uint64 *) (rp + 16) = r2
+	[rp + 3*8] = r3;  //*(uint64 *) (rp + 24) = r3
+	return;
+}
+
+

@@ -55,6 +55,7 @@ rui8p;reg u8 $s
 rui16p;reg u16 $s
 rui32p;reg u32 $s
 rui64p;reg u64 $s
+rui64pp;reg u64 $s
 
 boolp;reg bool $s
 
@@ -67,6 +68,7 @@ ui8p;stack u8 $s
 ui16p;stack u16 $s
 ui32p;stack u32 $s
 ui64p;stack u64 $s
+ui64pp;stack u64 $s
 
 ## TODO : CHECKME
 rfloat64p; double $s

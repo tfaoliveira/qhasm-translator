@@ -1,0 +1,612 @@
+param int crypto_sign_ed25519_amd64_64_38 = 38;
+export fn crypto_sign_ed25519_amd64_64_ge25519_dbl_p1p1(reg u64 rp, reg u64 pp){
+	 reg u64 a0;
+	 stack u64 a0_stack;
+	 reg u64 a1;
+	 stack u64 a1_stack;
+	 reg u64 a2;
+	 stack u64 a2_stack;
+	 reg u64 a3;
+	 stack u64 a3_stack;
+	 reg u64 addt0;
+	 reg u64 addt1;
+	 reg u64 b0;
+	 stack u64 b0_stack;
+	 reg u64 b1;
+	 stack u64 b1_stack;
+	 reg u64 b2;
+	 stack u64 b2_stack;
+	 reg u64 b3;
+	 stack u64 b3_stack;
+	 reg u64 c0;
+	 stack u64 c0_stack;
+	 reg u64 c1;
+	 stack u64 c1_stack;
+	 reg u64 c2;
+	 stack u64 c2_stack;
+	 reg u64 c3;
+	 stack u64 c3_stack;
+	 reg bool cf;
+	 reg u64 d0;
+	 stack u64 d0_stack;
+	 reg u64 d1;
+	 stack u64 d1_stack;
+	 reg u64 d2;
+	 stack u64 d2_stack;
+	 reg u64 d3;
+	 stack u64 d3_stack;
+	 reg u64 e0;
+	 stack u64 e0_stack;
+	 reg u64 e1;
+	 stack u64 e1_stack;
+	 reg u64 e2;
+	 stack u64 e2_stack;
+	 reg u64 e3;
+	 stack u64 e3_stack;
+	 reg u64 rx0;
+	 stack u64 rx0_stack;
+	 reg u64 rx1;
+	 stack u64 rx1_stack;
+	 reg u64 rx2;
+	 stack u64 rx2_stack;
+	 reg u64 rx3;
+	 stack u64 rx3_stack;
+	 reg u64 rz0;
+	 reg u64 rz1;
+	 reg u64 rz2;
+	 reg u64 rz3;
+	 reg u64 squarer4;
+	 reg u64 squarer5;
+	 reg u64 squarer6;
+	 reg u64 squarer7;
+	 reg u64 squarer8;
+	 reg u64 squarerax;
+	 reg u64 squarerdx;
+	 reg u64 squaret1;
+	 reg u64 squaret2;
+	 reg u64 squaret3;
+	 reg u64 squarezero;
+	 reg u64 subt0;
+	 reg u64 subt1;
+
+	squarer7 = 0;  //squarer7 = 0
+	squarerax = [pp + 1*8];  //squarerax = *(uint64 *) (pp + 8)
+	squarerdx, squarerax = squarerax * [pp + 0*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 0);
+	a1 = squarerax;  //a1 = squarerax
+	a2 = squarerdx;  //a2 = squarerdx
+	squarerax = [pp + 2*8];  //squarerax = *(uint64 *) (pp + 16)
+	squarerdx, squarerax = squarerax * [pp + 1*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 8);
+	a3 = squarerax;  //a3 = squarerax
+	squarer4 = squarerdx;  //squarer4 = squarerdx
+	squarerax = [pp + 3*8];  //squarerax = *(uint64 *) (pp + 24)
+	squarerdx, squarerax = squarerax * [pp + 2*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 16);
+	squarer5 = squarerax;  //squarer5 = squarerax
+	squarer6 = squarerdx;  //squarer6 = squarerdx
+	squarerax = [pp + 2*8];  //squarerax = *(uint64 *) (pp + 16)
+	squarerdx, squarerax = squarerax * [pp + 0*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 0);
+	cf, a2 += squarerax;  //cf? a2 += squarerax
+	cf, a3 += squarerdx + cf;  //cf? a3 += squarerdx + cf; 
+	_, squarer4 += 0 + cf;  // squarer4 += 0 + cf; 
+	squarerax = [pp + 3*8];  //squarerax = *(uint64 *) (pp + 24)
+	squarerdx, squarerax = squarerax * [pp + 1*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 8);
+	cf, squarer4 += squarerax;  //cf? squarer4 += squarerax
+	cf, squarer5 += squarerdx + cf;  //cf? squarer5 += squarerdx + cf; 
+	_, squarer6 += 0 + cf;  // squarer6 += 0 + cf; 
+	squarerax = [pp + 3*8];  //squarerax = *(uint64 *) (pp + 24)
+	squarerdx, squarerax = squarerax * [pp + 0*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 0);
+	cf, a3 += squarerax;  //cf? a3 += squarerax
+	cf, squarer4 += squarerdx + cf;  //cf? squarer4 += squarerdx + cf; 
+	cf, squarer5 += 0 + cf;  //cf? squarer5 += 0 + cf; 
+	cf, squarer6 += 0 + cf;  //cf? squarer6 += 0 + cf; 
+	_, squarer7 += 0 + cf;  // squarer7 += 0 + cf; 
+	cf, a1 += a1;  //cf? a1 += a1
+	cf, a2 += a2 + cf;  //cf? a2 += a2 + cf; 
+	cf, a3 += a3 + cf;  //cf? a3 += a3 + cf; 
+	cf, squarer4 += squarer4 + cf;  //cf? squarer4 += squarer4 + cf; 
+	cf, squarer5 += squarer5 + cf;  //cf? squarer5 += squarer5 + cf; 
+	cf, squarer6 += squarer6 + cf;  //cf? squarer6 += squarer6 + cf; 
+	_, squarer7 += squarer7 + cf;  //squarer7 += squarer7 + cf; 
+	squarerax = [pp + 0*8];  //squarerax = *(uint64 *) (pp + 0)
+	squarerdx, squarerax = squarerax * [pp + 0*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 0);
+	a0 = squarerax;  //a0 = squarerax
+	squaret1 = squarerdx;  //squaret1 = squarerdx
+	squarerax = [pp + 1*8];  //squarerax = *(uint64 *) (pp + 8)
+	squarerdx, squarerax = squarerax * [pp + 1*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 8);
+	squaret2 = squarerax;  //squaret2 = squarerax
+	squaret3 = squarerdx;  //squaret3 = squarerdx
+	squarerax = [pp + 2*8];  //squarerax = *(uint64 *) (pp + 16)
+	squarerdx, squarerax = squarerax * [pp + 2*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 16);
+	cf, a1 += squaret1;  //cf? a1 += squaret1
+	cf, a2 += squaret2 + cf;  //cf? a2 += squaret2 + cf; 
+	cf, a3 += squaret3 + cf;  //cf? a3 += squaret3 + cf; 
+	cf, squarer4 += squarerax + cf;  //cf? squarer4 += squarerax + cf; 
+	cf, squarer5 += squarerdx + cf;  //cf? squarer5 += squarerdx + cf; 
+	cf, squarer6 += 0 + cf;  //cf? squarer6 += 0 + cf; 
+	_, squarer7 += 0 + cf;  // squarer7 += 0 + cf; 
+	squarerax = [pp + 3*8];  //squarerax = *(uint64 *) (pp + 24)
+	squarerdx, squarerax = squarerax * [pp + 3*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 24);
+	cf, squarer6 += squarerax;  //cf? squarer6 += squarerax
+	_, squarer7 += squarerdx + cf;  //squarer7 += squarerdx + cf; 
+	squarerax = squarer4;  //squarerax = squarer4
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	squarer4 = squarerax;  //squarer4 = squarerax
+	squarerax = squarer5;  //squarerax = squarer5
+	squarer5 = squarerdx;  //squarer5 = squarerdx
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer5 += squarerax;  //cf? squarer5 += squarerax
+	squarerax = squarer6;  //squarerax = squarer6
+	squarer6 = 0;  //squarer6 = 0
+	_, squarer6 += squarerdx + cf;  //squarer6 += squarerdx + cf; 
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer6 += squarerax;  //cf? squarer6 += squarerax
+	squarerax = squarer7;  //squarerax = squarer7
+	squarer7 = 0;  //squarer7 = 0
+	_, squarer7 += squarerdx + cf;  //squarer7 += squarerdx + cf; 
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer7 += squarerax;  //cf? squarer7 += squarerax
+	squarer8 = 0;  //squarer8 = 0
+	_, squarer8 += squarerdx + cf;  //squarer8 += squarerdx + cf; 
+	cf, a0 += squarer4;  //cf? a0 += squarer4
+	cf, a1 += squarer5 + cf;  //cf? a1 += squarer5 + cf; 
+	cf, a2 += squarer6 + cf;  //cf? a2 += squarer6 + cf; 
+	cf, a3 += squarer7 + cf;  //cf? a3 += squarer7 + cf; 
+	squarezero = 0;  //squarezero = 0
+	_, squarer8 += squarezero + cf;  //squarer8 += squarezero + cf; 
+	squarer8 *= 38;  //squarer8 *= 38
+	cf, a0 += squarer8;  //cf? a0 += squarer8
+	cf, a1 += squarezero + cf;  //cf? a1 += squarezero + cf; 
+	cf, a2 += squarezero + cf;  //cf? a2 += squarezero + cf; 
+	cf, a3 += squarezero + cf;  //cf? a3 += squarezero + cf; 
+	_, squarezero += squarezero + cf;  //squarezero += squarezero + cf; 
+	squarezero *= 38;  //squarezero *= 38
+	a0 += squarezero;  //a0 += squarezero
+	a0_stack = a0;  //a0_stack = a0
+	a1_stack = a1;  //a1_stack = a1
+	a2_stack = a2;  //a2_stack = a2
+	a3_stack = a3;  //a3_stack = a3
+	squarer7 = 0;  //squarer7 = 0
+	squarerax = [pp + 5*8];  //squarerax = *(uint64 *) (pp + 40)
+	squarerdx, squarerax = squarerax * [pp + 4*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 32);
+	b1 = squarerax;  //b1 = squarerax
+	b2 = squarerdx;  //b2 = squarerdx
+	squarerax = [pp + 6*8];  //squarerax = *(uint64 *) (pp + 48)
+	squarerdx, squarerax = squarerax * [pp + 5*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 40);
+	b3 = squarerax;  //b3 = squarerax
+	squarer4 = squarerdx;  //squarer4 = squarerdx
+	squarerax = [pp + 7*8];  //squarerax = *(uint64 *) (pp + 56)
+	squarerdx, squarerax = squarerax * [pp + 6*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 48);
+	squarer5 = squarerax;  //squarer5 = squarerax
+	squarer6 = squarerdx;  //squarer6 = squarerdx
+	squarerax = [pp + 6*8];  //squarerax = *(uint64 *) (pp + 48)
+	squarerdx, squarerax = squarerax * [pp + 4*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 32);
+	cf, b2 += squarerax;  //cf? b2 += squarerax
+	cf, b3 += squarerdx + cf;  //cf? b3 += squarerdx + cf; 
+	_, squarer4 += 0 + cf;  // squarer4 += 0 + cf; 
+	squarerax = [pp + 7*8];  //squarerax = *(uint64 *) (pp + 56)
+	squarerdx, squarerax = squarerax * [pp + 5*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 40);
+	cf, squarer4 += squarerax;  //cf? squarer4 += squarerax
+	cf, squarer5 += squarerdx + cf;  //cf? squarer5 += squarerdx + cf; 
+	_, squarer6 += 0 + cf;  // squarer6 += 0 + cf; 
+	squarerax = [pp + 7*8];  //squarerax = *(uint64 *) (pp + 56)
+	squarerdx, squarerax = squarerax * [pp + 4*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 32);
+	cf, b3 += squarerax;  //cf? b3 += squarerax
+	cf, squarer4 += squarerdx + cf;  //cf? squarer4 += squarerdx + cf; 
+	cf, squarer5 += 0 + cf;  //cf? squarer5 += 0 + cf; 
+	cf, squarer6 += 0 + cf;  //cf? squarer6 += 0 + cf; 
+	_, squarer7 += 0 + cf;  // squarer7 += 0 + cf; 
+	cf, b1 += b1;  //cf? b1 += b1
+	cf, b2 += b2 + cf;  //cf? b2 += b2 + cf; 
+	cf, b3 += b3 + cf;  //cf? b3 += b3 + cf; 
+	cf, squarer4 += squarer4 + cf;  //cf? squarer4 += squarer4 + cf; 
+	cf, squarer5 += squarer5 + cf;  //cf? squarer5 += squarer5 + cf; 
+	cf, squarer6 += squarer6 + cf;  //cf? squarer6 += squarer6 + cf; 
+	_, squarer7 += squarer7 + cf;  //squarer7 += squarer7 + cf; 
+	squarerax = [pp + 4*8];  //squarerax = *(uint64 *) (pp + 32)
+	squarerdx, squarerax = squarerax * [pp + 4*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 32);
+	b0 = squarerax;  //b0 = squarerax
+	squaret1 = squarerdx;  //squaret1 = squarerdx
+	squarerax = [pp + 5*8];  //squarerax = *(uint64 *) (pp + 40)
+	squarerdx, squarerax = squarerax * [pp + 5*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 40);
+	squaret2 = squarerax;  //squaret2 = squarerax
+	squaret3 = squarerdx;  //squaret3 = squarerdx
+	squarerax = [pp + 6*8];  //squarerax = *(uint64 *) (pp + 48)
+	squarerdx, squarerax = squarerax * [pp + 6*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 48);
+	cf, b1 += squaret1;  //cf? b1 += squaret1
+	cf, b2 += squaret2 + cf;  //cf? b2 += squaret2 + cf; 
+	cf, b3 += squaret3 + cf;  //cf? b3 += squaret3 + cf; 
+	cf, squarer4 += squarerax + cf;  //cf? squarer4 += squarerax + cf; 
+	cf, squarer5 += squarerdx + cf;  //cf? squarer5 += squarerdx + cf; 
+	cf, squarer6 += 0 + cf;  //cf? squarer6 += 0 + cf; 
+	_, squarer7 += 0 + cf;  // squarer7 += 0 + cf; 
+	squarerax = [pp + 7*8];  //squarerax = *(uint64 *) (pp + 56)
+	squarerdx, squarerax = squarerax * [pp + 7*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 56);
+	cf, squarer6 += squarerax;  //cf? squarer6 += squarerax
+	_, squarer7 += squarerdx + cf;  //squarer7 += squarerdx + cf; 
+	squarerax = squarer4;  //squarerax = squarer4
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	squarer4 = squarerax;  //squarer4 = squarerax
+	squarerax = squarer5;  //squarerax = squarer5
+	squarer5 = squarerdx;  //squarer5 = squarerdx
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer5 += squarerax;  //cf? squarer5 += squarerax
+	squarerax = squarer6;  //squarerax = squarer6
+	squarer6 = 0;  //squarer6 = 0
+	_, squarer6 += squarerdx + cf;  //squarer6 += squarerdx + cf; 
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer6 += squarerax;  //cf? squarer6 += squarerax
+	squarerax = squarer7;  //squarerax = squarer7
+	squarer7 = 0;  //squarer7 = 0
+	_, squarer7 += squarerdx + cf;  //squarer7 += squarerdx + cf; 
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer7 += squarerax;  //cf? squarer7 += squarerax
+	squarer8 = 0;  //squarer8 = 0
+	_, squarer8 += squarerdx + cf;  //squarer8 += squarerdx + cf; 
+	cf, b0 += squarer4;  //cf? b0 += squarer4
+	cf, b1 += squarer5 + cf;  //cf? b1 += squarer5 + cf; 
+	cf, b2 += squarer6 + cf;  //cf? b2 += squarer6 + cf; 
+	cf, b3 += squarer7 + cf;  //cf? b3 += squarer7 + cf; 
+	squarezero = 0;  //squarezero = 0
+	_, squarer8 += squarezero + cf;  //squarer8 += squarezero + cf; 
+	squarer8 *= 38;  //squarer8 *= 38
+	cf, b0 += squarer8;  //cf? b0 += squarer8
+	cf, b1 += squarezero + cf;  //cf? b1 += squarezero + cf; 
+	cf, b2 += squarezero + cf;  //cf? b2 += squarezero + cf; 
+	cf, b3 += squarezero + cf;  //cf? b3 += squarezero + cf; 
+	_, squarezero += squarezero + cf;  //squarezero += squarezero + cf; 
+	squarezero *= 38;  //squarezero *= 38
+	b0 += squarezero;  //b0 += squarezero
+	b0_stack = b0;  //b0_stack = b0
+	b1_stack = b1;  //b1_stack = b1
+	b2_stack = b2;  //b2_stack = b2
+	b3_stack = b3;  //b3_stack = b3
+	squarer7 = 0;  //squarer7 = 0
+	squarerax = [pp + 9*8];  //squarerax = *(uint64 *) (pp + 72)
+	squarerdx, squarerax = squarerax * [pp + 8*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 64);
+	c1 = squarerax;  //c1 = squarerax
+	c2 = squarerdx;  //c2 = squarerdx
+	squarerax = [pp + 10*8];  //squarerax = *(uint64 *) (pp + 80)
+	squarerdx, squarerax = squarerax * [pp + 9*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 72);
+	c3 = squarerax;  //c3 = squarerax
+	squarer4 = squarerdx;  //squarer4 = squarerdx
+	squarerax = [pp + 11*8];  //squarerax = *(uint64 *) (pp + 88)
+	squarerdx, squarerax = squarerax * [pp + 10*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 80);
+	squarer5 = squarerax;  //squarer5 = squarerax
+	squarer6 = squarerdx;  //squarer6 = squarerdx
+	squarerax = [pp + 10*8];  //squarerax = *(uint64 *) (pp + 80)
+	squarerdx, squarerax = squarerax * [pp + 8*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 64);
+	cf, c2 += squarerax;  //cf? c2 += squarerax
+	cf, c3 += squarerdx + cf;  //cf? c3 += squarerdx + cf; 
+	_, squarer4 += 0 + cf;  // squarer4 += 0 + cf; 
+	squarerax = [pp + 11*8];  //squarerax = *(uint64 *) (pp + 88)
+	squarerdx, squarerax = squarerax * [pp + 9*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 72);
+	cf, squarer4 += squarerax;  //cf? squarer4 += squarerax
+	cf, squarer5 += squarerdx + cf;  //cf? squarer5 += squarerdx + cf; 
+	_, squarer6 += 0 + cf;  // squarer6 += 0 + cf; 
+	squarerax = [pp + 11*8];  //squarerax = *(uint64 *) (pp + 88)
+	squarerdx, squarerax = squarerax * [pp + 8*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 64);
+	cf, c3 += squarerax;  //cf? c3 += squarerax
+	cf, squarer4 += squarerdx + cf;  //cf? squarer4 += squarerdx + cf; 
+	cf, squarer5 += 0 + cf;  //cf? squarer5 += 0 + cf; 
+	cf, squarer6 += 0 + cf;  //cf? squarer6 += 0 + cf; 
+	_, squarer7 += 0 + cf;  // squarer7 += 0 + cf; 
+	cf, c1 += c1;  //cf? c1 += c1
+	cf, c2 += c2 + cf;  //cf? c2 += c2 + cf; 
+	cf, c3 += c3 + cf;  //cf? c3 += c3 + cf; 
+	cf, squarer4 += squarer4 + cf;  //cf? squarer4 += squarer4 + cf; 
+	cf, squarer5 += squarer5 + cf;  //cf? squarer5 += squarer5 + cf; 
+	cf, squarer6 += squarer6 + cf;  //cf? squarer6 += squarer6 + cf; 
+	_, squarer7 += squarer7 + cf;  //squarer7 += squarer7 + cf; 
+	squarerax = [pp + 8*8];  //squarerax = *(uint64 *) (pp + 64)
+	squarerdx, squarerax = squarerax * [pp + 8*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 64);
+	c0 = squarerax;  //c0 = squarerax
+	squaret1 = squarerdx;  //squaret1 = squarerdx
+	squarerax = [pp + 9*8];  //squarerax = *(uint64 *) (pp + 72)
+	squarerdx, squarerax = squarerax * [pp + 9*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 72);
+	squaret2 = squarerax;  //squaret2 = squarerax
+	squaret3 = squarerdx;  //squaret3 = squarerdx
+	squarerax = [pp + 10*8];  //squarerax = *(uint64 *) (pp + 80)
+	squarerdx, squarerax = squarerax * [pp + 10*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 80);
+	cf, c1 += squaret1;  //cf? c1 += squaret1
+	cf, c2 += squaret2 + cf;  //cf? c2 += squaret2 + cf; 
+	cf, c3 += squaret3 + cf;  //cf? c3 += squaret3 + cf; 
+	cf, squarer4 += squarerax + cf;  //cf? squarer4 += squarerax + cf; 
+	cf, squarer5 += squarerdx + cf;  //cf? squarer5 += squarerdx + cf; 
+	cf, squarer6 += 0 + cf;  //cf? squarer6 += 0 + cf; 
+	_, squarer7 += 0 + cf;  // squarer7 += 0 + cf; 
+	squarerax = [pp + 11*8];  //squarerax = *(uint64 *) (pp + 88)
+	squarerdx, squarerax = squarerax * [pp + 11*8];  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) (pp + 88);
+	cf, squarer6 += squarerax;  //cf? squarer6 += squarerax
+	_, squarer7 += squarerdx + cf;  //squarer7 += squarerdx + cf; 
+	squarerax = squarer4;  //squarerax = squarer4
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	squarer4 = squarerax;  //squarer4 = squarerax
+	squarerax = squarer5;  //squarerax = squarer5
+	squarer5 = squarerdx;  //squarer5 = squarerdx
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer5 += squarerax;  //cf? squarer5 += squarerax
+	squarerax = squarer6;  //squarerax = squarer6
+	squarer6 = 0;  //squarer6 = 0
+	_, squarer6 += squarerdx + cf;  //squarer6 += squarerdx + cf; 
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer6 += squarerax;  //cf? squarer6 += squarerax
+	squarerax = squarer7;  //squarerax = squarer7
+	squarer7 = 0;  //squarer7 = 0
+	_, squarer7 += squarerdx + cf;  //squarer7 += squarerdx + cf; 
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer7 += squarerax;  //cf? squarer7 += squarerax
+	squarer8 = 0;  //squarer8 = 0
+	_, squarer8 += squarerdx + cf;  //squarer8 += squarerdx + cf; 
+	cf, c0 += squarer4;  //cf? c0 += squarer4
+	cf, c1 += squarer5 + cf;  //cf? c1 += squarer5 + cf; 
+	cf, c2 += squarer6 + cf;  //cf? c2 += squarer6 + cf; 
+	cf, c3 += squarer7 + cf;  //cf? c3 += squarer7 + cf; 
+	squarezero = 0;  //squarezero = 0
+	_, squarer8 += squarezero + cf;  //squarer8 += squarezero + cf; 
+	squarer8 *= 38;  //squarer8 *= 38
+	cf, c0 += squarer8;  //cf? c0 += squarer8
+	cf, c1 += squarezero + cf;  //cf? c1 += squarezero + cf; 
+	cf, c2 += squarezero + cf;  //cf? c2 += squarezero + cf; 
+	cf, c3 += squarezero + cf;  //cf? c3 += squarezero + cf; 
+	_, squarezero += squarezero + cf;  //squarezero += squarezero + cf; 
+	squarezero *= 38;  //squarezero *= 38
+	c0 += squarezero;  //c0 += squarezero
+	cf, c0 += c0;  //cf? c0 += c0
+	cf, c1 += c1 + cf;  //cf? c1 += c1 + cf; 
+	cf, c2 += c2 + cf;  //cf? c2 += c2 + cf; 
+	cf, c3 += c3 + cf;  //cf? c3 += c3 + cf; 
+	addt0 = 0;  //addt0 = 0
+	addt1 = 38;  //addt1 = 38
+	addt1 = addt0 if !cf;  //addt1 = addt0 if !carry; 
+	cf, c0 += addt1;  //cf? c0 += addt1
+	cf, c1 += addt0 + cf;  //cf? c1 += addt0 + cf; 
+	cf, c2 += addt0 + cf;  //cf? c2 += addt0 + cf; 
+	cf, c3 += addt0 + cf;  //cf? c3 += addt0 + cf; 
+	addt0 = addt1 if cf;  //addt0 = addt1 if carry; 
+	c0 += addt0;  //c0 += addt0
+	c0_stack = c0;  //c0_stack = c0
+	c1_stack = c1;  //c1_stack = c1
+	c2_stack = c2;  //c2_stack = c2
+	c3_stack = c3;  //c3_stack = c3
+	d0 = 0;  //d0 = 0
+	d1 = 0;  //d1 = 0
+	d2 = 0;  //d2 = 0
+	d3 = 0;  //d3 = 0
+	cf, d0 -= a0_stack;  //cf? d0 -= a0_stack
+	cf, d1 -= a1_stack - cf;  //cf? d1 -= a1_stack - cf; 
+	cf, d2 -= a2_stack - cf;  //cf? d2 -= a2_stack - cf; 
+	cf, d3 -= a3_stack - cf;  //cf? d3 -= a3_stack - cf; 
+	subt0 = 0;  //subt0 = 0
+	subt1 = 38;  //subt1 = 38
+	subt1 = subt0 if !cf;  //subt1 = subt0 if !carry; 
+	cf, d0 -= subt1;  //cf? d0 -= subt1
+	cf, d1 -= subt0 - cf;  //cf? d1 -= subt0 - cf; 
+	cf, d2 -= subt0 - cf;  //cf? d2 -= subt0 - cf; 
+	cf, d3 -= subt0 - cf;  //cf? d3 -= subt0 - cf; 
+	subt0 = subt1 if cf;  //subt0 = subt1 if carry; 
+	d0 -= subt0;  //d0 -= subt0
+	d0_stack = d0;  //d0_stack = d0
+	d1_stack = d1;  //d1_stack = d1
+	d2_stack = d2;  //d2_stack = d2
+	d3_stack = d3;  //d3_stack = d3
+	e0 = 0;  //e0 = 0
+	e1 = 0;  //e1 = 0
+	e2 = 0;  //e2 = 0
+	e3 = 0;  //e3 = 0
+	cf, e0 -= b0_stack;  //cf? e0 -= b0_stack
+	cf, e1 -= b1_stack - cf;  //cf? e1 -= b1_stack - cf; 
+	cf, e2 -= b2_stack - cf;  //cf? e2 -= b2_stack - cf; 
+	cf, e3 -= b3_stack - cf;  //cf? e3 -= b3_stack - cf; 
+	subt0 = 0;  //subt0 = 0
+	subt1 = 38;  //subt1 = 38
+	subt1 = subt0 if !cf;  //subt1 = subt0 if !carry; 
+	cf, e0 -= subt1;  //cf? e0 -= subt1
+	cf, e1 -= subt0 - cf;  //cf? e1 -= subt0 - cf; 
+	cf, e2 -= subt0 - cf;  //cf? e2 -= subt0 - cf; 
+	cf, e3 -= subt0 - cf;  //cf? e3 -= subt0 - cf; 
+	subt0 = subt1 if cf;  //subt0 = subt1 if carry; 
+	e0 -= subt0;  //e0 -= subt0
+	e0_stack = e0;  //e0_stack = e0
+	e1_stack = e1;  //e1_stack = e1
+	e2_stack = e2;  //e2_stack = e2
+	e3_stack = e3;  //e3_stack = e3
+	rz0 = d0;  //rz0 = d0
+	rz1 = d1;  //rz1 = d1
+	rz2 = d2;  //rz2 = d2
+	rz3 = d3;  //rz3 = d3
+	cf, rz0 += b0_stack;  //cf? rz0 += b0_stack
+	cf, rz1 += b1_stack + cf;  //cf? rz1 += b1_stack + cf; 
+	cf, rz2 += b2_stack + cf;  //cf? rz2 += b2_stack + cf; 
+	cf, rz3 += b3_stack + cf;  //cf? rz3 += b3_stack + cf; 
+	addt0 = 0;  //addt0 = 0
+	addt1 = 38;  //addt1 = 38
+	addt1 = addt0 if !cf;  //addt1 = addt0 if !carry; 
+	cf, rz0 += addt1;  //cf? rz0 += addt1
+	cf, rz1 += addt0 + cf;  //cf? rz1 += addt0 + cf; 
+	cf, rz2 += addt0 + cf;  //cf? rz2 += addt0 + cf; 
+	cf, rz3 += addt0 + cf;  //cf? rz3 += addt0 + cf; 
+	addt0 = addt1 if cf;  //addt0 = addt1 if carry; 
+	rz0 += addt0;  //rz0 += addt0
+	[rp + 4*8] = rz0;  //*(uint64 *) (rp + 32) = rz0
+	[rp + 5*8] = rz1;  //*(uint64 *) (rp + 40) = rz1
+	[rp + 6*8] = rz2;  //*(uint64 *) (rp + 48) = rz2
+	[rp + 7*8] = rz3;  //*(uint64 *) (rp + 56) = rz3
+	cf, d0 -= b0_stack;  //cf? d0 -= b0_stack
+	cf, d1 -= b1_stack - cf;  //cf? d1 -= b1_stack - cf; 
+	cf, d2 -= b2_stack - cf;  //cf? d2 -= b2_stack - cf; 
+	cf, d3 -= b3_stack - cf;  //cf? d3 -= b3_stack - cf; 
+	subt0 = 0;  //subt0 = 0
+	subt1 = 38;  //subt1 = 38
+	subt1 = subt0 if !cf;  //subt1 = subt0 if !carry; 
+	cf, d0 -= subt1;  //cf? d0 -= subt1
+	cf, d1 -= subt0 - cf;  //cf? d1 -= subt0 - cf; 
+	cf, d2 -= subt0 - cf;  //cf? d2 -= subt0 - cf; 
+	cf, d3 -= subt0 - cf;  //cf? d3 -= subt0 - cf; 
+	subt0 = subt1 if cf;  //subt0 = subt1 if carry; 
+	d0 -= subt0;  //d0 -= subt0
+	[rp + 8*8] = d0;  //*(uint64 *) (rp + 64) = d0
+	[rp + 9*8] = d1;  //*(uint64 *) (rp + 72) = d1
+	[rp + 10*8] = d2;  //*(uint64 *) (rp + 80) = d2
+	[rp + 11*8] = d3;  //*(uint64 *) (rp + 88) = d3
+	cf, rz0 -= c0_stack;  //cf? rz0 -= c0_stack
+	cf, rz1 -= c1_stack - cf;  //cf? rz1 -= c1_stack - cf; 
+	cf, rz2 -= c2_stack - cf;  //cf? rz2 -= c2_stack - cf; 
+	cf, rz3 -= c3_stack - cf;  //cf? rz3 -= c3_stack - cf; 
+	subt0 = 0;  //subt0 = 0
+	subt1 = 38;  //subt1 = 38
+	subt1 = subt0 if !cf;  //subt1 = subt0 if !carry; 
+	cf, rz0 -= subt1;  //cf? rz0 -= subt1
+	cf, rz1 -= subt0 - cf;  //cf? rz1 -= subt0 - cf; 
+	cf, rz2 -= subt0 - cf;  //cf? rz2 -= subt0 - cf; 
+	cf, rz3 -= subt0 - cf;  //cf? rz3 -= subt0 - cf; 
+	subt0 = subt1 if cf;  //subt0 = subt1 if carry; 
+	rz0 -= subt0;  //rz0 -= subt0
+	[rp + 12*8] = rz0;  //*(uint64 *) (rp + 96) = rz0
+	[rp + 13*8] = rz1;  //*(uint64 *) (rp + 104) = rz1
+	[rp + 14*8] = rz2;  //*(uint64 *) (rp + 112) = rz2
+	[rp + 15*8] = rz3;  //*(uint64 *) (rp + 120) = rz3
+	rx0 = [pp + 0*8];  //rx0 = *(uint64 *) (pp + 0)
+	rx1 = [pp + 1*8];  //rx1 = *(uint64 *) (pp + 8)
+	rx2 = [pp + 2*8];  //rx2 = *(uint64 *) (pp + 16)
+	rx3 = [pp + 3*8];  //rx3 = *(uint64 *) (pp + 24)
+	cf, rx0 += [pp + 4*8];  //cf? rx0 += *(uint64 *) (pp + 32)
+	cf, rx1 += [pp + 5*8] + cf;  //cf? rx1 += *(uint64 *) (pp + 40) + cf;
+	cf, rx2 += [pp + 6*8] + cf;  //cf? rx2 += *(uint64 *) (pp + 48) + cf;
+	cf, rx3 += [pp + 7*8] + cf;  //cf? rx3 += *(uint64 *) (pp + 56) + cf;
+	addt0 = 0;  //addt0 = 0
+	addt1 = 38;  //addt1 = 38
+	addt1 = addt0 if !cf;  //addt1 = addt0 if !carry; 
+	cf, rx0 += addt1;  //cf? rx0 += addt1
+	cf, rx1 += addt0 + cf;  //cf? rx1 += addt0 + cf; 
+	cf, rx2 += addt0 + cf;  //cf? rx2 += addt0 + cf; 
+	cf, rx3 += addt0 + cf;  //cf? rx3 += addt0 + cf; 
+	addt0 = addt1 if cf;  //addt0 = addt1 if carry; 
+	rx0 += addt0;  //rx0 += addt0
+	rx0_stack = rx0;  //rx0_stack = rx0
+	rx1_stack = rx1;  //rx1_stack = rx1
+	rx2_stack = rx2;  //rx2_stack = rx2
+	rx3_stack = rx3;  //rx3_stack = rx3
+	squarer7 = 0;  //squarer7 = 0
+	squarerax = rx1_stack;  //squarerax = rx1_stack
+	squarerdx, squarerax = squarerax * rx0_stack;  //(uint128) squarerdx squarerax = squarerax * rx0_stack
+	rx1 = squarerax;  //rx1 = squarerax
+	rx2 = squarerdx;  //rx2 = squarerdx
+	squarerax = rx2_stack;  //squarerax = rx2_stack
+	squarerdx, squarerax = squarerax * rx1_stack;  //(uint128) squarerdx squarerax = squarerax * rx1_stack
+	rx3 = squarerax;  //rx3 = squarerax
+	squarer4 = squarerdx;  //squarer4 = squarerdx
+	squarerax = rx3_stack;  //squarerax = rx3_stack
+	squarerdx, squarerax = squarerax * rx2_stack;  //(uint128) squarerdx squarerax = squarerax * rx2_stack
+	squarer5 = squarerax;  //squarer5 = squarerax
+	squarer6 = squarerdx;  //squarer6 = squarerdx
+	squarerax = rx2_stack;  //squarerax = rx2_stack
+	squarerdx, squarerax = squarerax * rx0_stack;  //(uint128) squarerdx squarerax = squarerax * rx0_stack
+	cf, rx2 += squarerax;  //cf? rx2 += squarerax
+	cf, rx3 += squarerdx + cf;  //cf? rx3 += squarerdx + cf; 
+	_, squarer4 += 0 + cf;  // squarer4 += 0 + cf; 
+	squarerax = rx3_stack;  //squarerax = rx3_stack
+	squarerdx, squarerax = squarerax * rx1_stack;  //(uint128) squarerdx squarerax = squarerax * rx1_stack
+	cf, squarer4 += squarerax;  //cf? squarer4 += squarerax
+	cf, squarer5 += squarerdx + cf;  //cf? squarer5 += squarerdx + cf; 
+	_, squarer6 += 0 + cf;  // squarer6 += 0 + cf; 
+	squarerax = rx3_stack;  //squarerax = rx3_stack
+	squarerdx, squarerax = squarerax * rx0_stack;  //(uint128) squarerdx squarerax = squarerax * rx0_stack
+	cf, rx3 += squarerax;  //cf? rx3 += squarerax
+	cf, squarer4 += squarerdx + cf;  //cf? squarer4 += squarerdx + cf; 
+	cf, squarer5 += 0 + cf;  //cf? squarer5 += 0 + cf; 
+	cf, squarer6 += 0 + cf;  //cf? squarer6 += 0 + cf; 
+	_, squarer7 += 0 + cf;  // squarer7 += 0 + cf; 
+	cf, rx1 += rx1;  //cf? rx1 += rx1
+	cf, rx2 += rx2 + cf;  //cf? rx2 += rx2 + cf; 
+	cf, rx3 += rx3 + cf;  //cf? rx3 += rx3 + cf; 
+	cf, squarer4 += squarer4 + cf;  //cf? squarer4 += squarer4 + cf; 
+	cf, squarer5 += squarer5 + cf;  //cf? squarer5 += squarer5 + cf; 
+	cf, squarer6 += squarer6 + cf;  //cf? squarer6 += squarer6 + cf; 
+	_, squarer7 += squarer7 + cf;  //squarer7 += squarer7 + cf; 
+	squarerax = rx0_stack;  //squarerax = rx0_stack
+	squarerdx, squarerax = squarerax * rx0_stack;  //(uint128) squarerdx squarerax = squarerax * rx0_stack
+	rx0 = squarerax;  //rx0 = squarerax
+	squaret1 = squarerdx;  //squaret1 = squarerdx
+	squarerax = rx1_stack;  //squarerax = rx1_stack
+	squarerdx, squarerax = squarerax * rx1_stack;  //(uint128) squarerdx squarerax = squarerax * rx1_stack
+	squaret2 = squarerax;  //squaret2 = squarerax
+	squaret3 = squarerdx;  //squaret3 = squarerdx
+	squarerax = rx2_stack;  //squarerax = rx2_stack
+	squarerdx, squarerax = squarerax * rx2_stack;  //(uint128) squarerdx squarerax = squarerax * rx2_stack
+	cf, rx1 += squaret1;  //cf? rx1 += squaret1
+	cf, rx2 += squaret2 + cf;  //cf? rx2 += squaret2 + cf; 
+	cf, rx3 += squaret3 + cf;  //cf? rx3 += squaret3 + cf; 
+	cf, squarer4 += squarerax + cf;  //cf? squarer4 += squarerax + cf; 
+	cf, squarer5 += squarerdx + cf;  //cf? squarer5 += squarerdx + cf; 
+	cf, squarer6 += 0 + cf;  //cf? squarer6 += 0 + cf; 
+	_, squarer7 += 0 + cf;  // squarer7 += 0 + cf; 
+	squarerax = rx3_stack;  //squarerax = rx3_stack
+	squarerdx, squarerax = squarerax * rx3_stack;  //(uint128) squarerdx squarerax = squarerax * rx3_stack
+	cf, squarer6 += squarerax;  //cf? squarer6 += squarerax
+	_, squarer7 += squarerdx + cf;  //squarer7 += squarerdx + cf; 
+	squarerax = squarer4;  //squarerax = squarer4
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	squarer4 = squarerax;  //squarer4 = squarerax
+	squarerax = squarer5;  //squarerax = squarer5
+	squarer5 = squarerdx;  //squarer5 = squarerdx
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer5 += squarerax;  //cf? squarer5 += squarerax
+	squarerax = squarer6;  //squarerax = squarer6
+	squarer6 = 0;  //squarer6 = 0
+	_, squarer6 += squarerdx + cf;  //squarer6 += squarerdx + cf; 
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer6 += squarerax;  //cf? squarer6 += squarerax
+	squarerax = squarer7;  //squarerax = squarer7
+	squarer7 = 0;  //squarer7 = 0
+	_, squarer7 += squarerdx + cf;  //squarer7 += squarerdx + cf; 
+	squarerdx, squarerax = squarerax * crypto_sign_ed25519_amd64_64_38;  //(uint128) squarerdx squarerax = squarerax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, squarer7 += squarerax;  //cf? squarer7 += squarerax
+	squarer8 = 0;  //squarer8 = 0
+	_, squarer8 += squarerdx + cf;  //squarer8 += squarerdx + cf; 
+	cf, rx0 += squarer4;  //cf? rx0 += squarer4
+	cf, rx1 += squarer5 + cf;  //cf? rx1 += squarer5 + cf; 
+	cf, rx2 += squarer6 + cf;  //cf? rx2 += squarer6 + cf; 
+	cf, rx3 += squarer7 + cf;  //cf? rx3 += squarer7 + cf; 
+	squarezero = 0;  //squarezero = 0
+	_, squarer8 += squarezero + cf;  //squarer8 += squarezero + cf; 
+	squarer8 *= 38;  //squarer8 *= 38
+	cf, rx0 += squarer8;  //cf? rx0 += squarer8
+	cf, rx1 += squarezero + cf;  //cf? rx1 += squarezero + cf; 
+	cf, rx2 += squarezero + cf;  //cf? rx2 += squarezero + cf; 
+	cf, rx3 += squarezero + cf;  //cf? rx3 += squarezero + cf; 
+	_, squarezero += squarezero + cf;  //squarezero += squarezero + cf; 
+	squarezero *= 38;  //squarezero *= 38
+	rx0 += squarezero;  //rx0 += squarezero
+	cf, rx0 += d0_stack;  //cf? rx0 += d0_stack
+	cf, rx1 += d1_stack + cf;  //cf? rx1 += d1_stack + cf; 
+	cf, rx2 += d2_stack + cf;  //cf? rx2 += d2_stack + cf; 
+	cf, rx3 += d3_stack + cf;  //cf? rx3 += d3_stack + cf; 
+	addt0 = 0;  //addt0 = 0
+	addt1 = 38;  //addt1 = 38
+	addt1 = addt0 if !cf;  //addt1 = addt0 if !carry; 
+	cf, rx0 += addt1;  //cf? rx0 += addt1
+	cf, rx1 += addt0 + cf;  //cf? rx1 += addt0 + cf; 
+	cf, rx2 += addt0 + cf;  //cf? rx2 += addt0 + cf; 
+	cf, rx3 += addt0 + cf;  //cf? rx3 += addt0 + cf; 
+	addt0 = addt1 if cf;  //addt0 = addt1 if carry; 
+	rx0 += addt0;  //rx0 += addt0
+	cf, rx0 += e0_stack;  //cf? rx0 += e0_stack
+	cf, rx1 += e1_stack + cf;  //cf? rx1 += e1_stack + cf; 
+	cf, rx2 += e2_stack + cf;  //cf? rx2 += e2_stack + cf; 
+	cf, rx3 += e3_stack + cf;  //cf? rx3 += e3_stack + cf; 
+	addt0 = 0;  //addt0 = 0
+	addt1 = 38;  //addt1 = 38
+	addt1 = addt0 if !cf;  //addt1 = addt0 if !carry; 
+	cf, rx0 += addt1;  //cf? rx0 += addt1
+	cf, rx1 += addt0 + cf;  //cf? rx1 += addt0 + cf; 
+	cf, rx2 += addt0 + cf;  //cf? rx2 += addt0 + cf; 
+	cf, rx3 += addt0 + cf;  //cf? rx3 += addt0 + cf; 
+	addt0 = addt1 if cf;  //addt0 = addt1 if carry; 
+	rx0 += addt0;  //rx0 += addt0
+	[rp + 0*8] = rx0;  //*(uint64 *) (rp + 0) = rx0
+	[rp + 1*8] = rx1;  //*(uint64 *) (rp + 8) = rx1
+	[rp + 2*8] = rx2;  //*(uint64 *) (rp + 16) = rx2
+	[rp + 3*8] = rx3;  //*(uint64 *) (rp + 24) = rx3
+	return;
+}
+
+

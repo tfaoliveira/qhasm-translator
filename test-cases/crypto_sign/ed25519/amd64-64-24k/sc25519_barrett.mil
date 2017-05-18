@@ -1,0 +1,268 @@
+param int crypto_sign_ed25519_amd64_64_MU0 = 0xED9CE5A30A2C131B;
+param int crypto_sign_ed25519_amd64_64_MU1 = 0x2106215D086329A7;
+param int crypto_sign_ed25519_amd64_64_MU2 = 0xFFFFFFFFFFFFFFEB;
+param int crypto_sign_ed25519_amd64_64_MU3 = 0xFFFFFFFFFFFFFFFF;
+param int crypto_sign_ed25519_amd64_64_MU4 = 0x000000000000000F;
+param int crypto_sign_ed25519_amd64_64_ORDER0 = 0x5812631A5CF5D3ED;
+param int crypto_sign_ed25519_amd64_64_ORDER1 = 0x14DEF9DEA2F79CD6;
+param int crypto_sign_ed25519_amd64_64_ORDER2 = 0x0000000000000000;
+param int crypto_sign_ed25519_amd64_64_ORDER3 = 0x1000000000000000;
+export fn crypto_sign_ed25519_amd64_64_sc25519_barrett(reg u64 rp, reg u64 xp){
+	 reg u64 c;
+	 reg bool cf;
+	 reg u64 q23;
+	 reg u64 q24;
+	 reg u64 q30;
+	 stack u64 q30_stack;
+	 reg u64 q31;
+	 stack u64 q31_stack;
+	 reg u64 q32;
+	 stack u64 q32_stack;
+	 reg u64 q33;
+	 stack u64 q33_stack;
+	 reg u64 r0;
+	 reg u64 r1;
+	 reg u64 r2;
+	 reg u64 r20;
+	 reg u64 r21;
+	 reg u64 r22;
+	 reg u64 r23;
+	 reg u64 r3;
+	 reg u64 rax;
+	 reg u64 rdx;
+	 reg u64 t0;
+	 reg u64 t1;
+	 reg u64 t2;
+	 reg u64 t3;
+	 reg u64 zero;
+
+	zero ^= zero;  //zero ^= zero
+	q30 ^= q30;  //q30 ^= q30
+	q31 ^= q31;  //q31 ^= q31
+	q32 ^= q32;  //q32 ^= q32
+	q33 ^= q33;  //q33 ^= q33
+	rax = [xp + 3*8];  //rax = *(uint64 *) (xp + 24)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU3;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU3
+	q23 = rax;  //q23 = rax
+	c = rdx;  //c = rdx
+	rax = [xp + 3*8];  //rax = *(uint64 *) (xp + 24)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU4;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU4
+	q24 = rax;  //q24 = rax
+	cf, q24 += c;  //cf? q24 += c
+	_, q30 += rdx + cf;  //q30 += rdx + cf; 
+	rax = [xp + 4*8];  //rax = *(uint64 *) (xp + 32)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU2;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU2
+	cf, q23 += rax;  //cf? q23 += rax
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 4*8];  //rax = *(uint64 *) (xp + 32)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU3;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU3
+	cf, q24 += rax;  //cf? q24 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q24 += c;  //cf? q24 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 4*8];  //rax = *(uint64 *) (xp + 32)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU4;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU4
+	cf, q30 += rax;  //cf? q30 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q30 += c;  //cf? q30 += c
+	_, q31 += rdx + cf;  //q31 += rdx + cf; 
+	rax = [xp + 5*8];  //rax = *(uint64 *) (xp + 40)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU1;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU1
+	cf, q23 += rax;  //cf? q23 += rax
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 5*8];  //rax = *(uint64 *) (xp + 40)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU2;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU2
+	cf, q24 += rax;  //cf? q24 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q24 += c;  //cf? q24 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 5*8];  //rax = *(uint64 *) (xp + 40)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU3;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU3
+	cf, q30 += rax;  //cf? q30 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q30 += c;  //cf? q30 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 5*8];  //rax = *(uint64 *) (xp + 40)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU4;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU4
+	cf, q31 += rax;  //cf? q31 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q31 += c;  //cf? q31 += c
+	_, q32 += rdx + cf;  //q32 += rdx + cf; 
+	rax = [xp + 6*8];  //rax = *(uint64 *) (xp + 48)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU0;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU0
+	cf, q23 += rax;  //cf? q23 += rax
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 6*8];  //rax = *(uint64 *) (xp + 48)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU1;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU1
+	cf, q24 += rax;  //cf? q24 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q24 += c;  //cf? q24 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 6*8];  //rax = *(uint64 *) (xp + 48)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU2;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU2
+	cf, q30 += rax;  //cf? q30 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q30 += c;  //cf? q30 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 6*8];  //rax = *(uint64 *) (xp + 48)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU3;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU3
+	cf, q31 += rax;  //cf? q31 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q31 += c;  //cf? q31 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 6*8];  //rax = *(uint64 *) (xp + 48)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU4;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU4
+	cf, q32 += rax;  //cf? q32 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q32 += c;  //cf? q32 += c
+	_, q33 += rdx + cf;  //q33 += rdx + cf; 
+	rax = [xp + 7*8];  //rax = *(uint64 *) (xp + 56)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU0;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU0
+	cf, q24 += rax;  //cf? q24 += rax
+	//free q24
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = [xp + 7*8];  //rax = *(uint64 *) (xp + 56)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU1;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU1
+	cf, q30 += rax;  //cf? q30 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q30 += c;  //cf? q30 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	q30_stack = q30;  //q30_stack = q30
+	rax = [xp + 7*8];  //rax = *(uint64 *) (xp + 56)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU2;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU2
+	cf, q31 += rax;  //cf? q31 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q31 += c;  //cf? q31 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	q31_stack = q31;  //q31_stack = q31
+	rax = [xp + 7*8];  //rax = *(uint64 *) (xp + 56)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU3;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU3
+	cf, q32 += rax;  //cf? q32 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, q32 += c;  //cf? q32 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	q32_stack = q32;  //q32_stack = q32
+	rax = [xp + 7*8];  //rax = *(uint64 *) (xp + 56)
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_MU4;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_MU4
+	cf, q33 += rax;  //cf? q33 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	q33 += c;  //q33 += c
+	q33_stack = q33;  //q33_stack = q33
+	rax = q30_stack;  //rax = q30_stack
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_ORDER0;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER0
+	r20 = rax;  //r20 = rax
+	c = rdx;  //c = rdx
+	rax = q30_stack;  //rax = q30_stack
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_ORDER1;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER1
+	r21 = rax;  //r21 = rax
+	cf, r21 += c;  //cf? r21 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = q30_stack;  //rax = q30_stack
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_ORDER2;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER2
+	r22 = rax;  //r22 = rax
+	cf, r22 += c;  //cf? r22 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = q30_stack;  //rax = q30_stack
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_ORDER3;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER3
+	//free rdx
+	r23 = rax;  //r23 = rax
+	r23 += c;  //r23 += c
+	rax = q31_stack;  //rax = q31_stack
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_ORDER0;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER0
+	cf, r21 += rax;  //cf? r21 += rax
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = q31_stack;  //rax = q31_stack
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_ORDER1;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER1
+	cf, r22 += rax;  //cf? r22 += rax
+	_, rdx += zero + cf;  //rdx += zero + cf; 
+	cf, r22 += c;  //cf? r22 += c
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = q31_stack;  //rax = q31_stack
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_ORDER2;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER2
+	//free rdx
+	r23 += rax;  //r23 += rax
+	r23 += c;  //r23 += c
+	rax = q32_stack;  //rax = q32_stack
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_ORDER0;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER0
+	cf, r22 += rax;  //cf? r22 += rax
+	c = 0;  //c = 0
+	_, c += rdx + cf;  //c += rdx + cf; 
+	rax = q32_stack;  //rax = q32_stack
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_ORDER1;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER1
+	//free rdx
+	r23 += rax;  //r23 += rax
+	r23 += c;  //r23 += c
+	rax = q33_stack;  //rax = q33_stack
+	rdx, rax = rax * crypto_sign_ed25519_amd64_64_ORDER0;  //(uint128) rdx rax = rax * *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER0
+	//free rdx
+	r23 += rax;  //r23 += rax
+	r0 = [xp + 0*8];  //r0 = *(uint64 *) (xp + 0)
+	cf, r0 -= r20;  //cf? r0 -= r20
+	t0 = r0;  //t0 = r0
+	r1 = [xp + 1*8];  //r1 = *(uint64 *) (xp + 8)
+	cf, r1 -= r21 - cf;  //cf? r1 -= r21 - cf; 
+	t1 = r1;  //t1 = r1
+	r2 = [xp + 2*8];  //r2 = *(uint64 *) (xp + 16)
+	cf, r2 -= r22 - cf;  //cf? r2 -= r22 - cf; 
+	t2 = r2;  //t2 = r2
+	r3 = [xp + 3*8];  //r3 = *(uint64 *) (xp + 24)
+	_, r3 -= r23 - cf;  // r3 -= r23 - cf; 
+	t3 = r3;  //t3 = r3
+	cf, t0 -= crypto_sign_ed25519_amd64_64_ORDER0; //cf? t0 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER0
+	cf, t1 -= crypto_sign_ed25519_amd64_64_ORDER1 - cf;  // cf? t1 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER1 - cf; 
+	cf, t2 -= crypto_sign_ed25519_amd64_64_ORDER2 - cf;  // cf? t2 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER2 - cf; 
+	cf, t3 -= crypto_sign_ed25519_amd64_64_ORDER3 - cf;  // cf? t3 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER3 - cf; 
+	r0 = t0 if !cf;  //r0 = t0 if !carry; 
+	t0 = r0;  //t0 = r0
+	r1 = t1 if !cf;  //r1 = t1 if !carry; 
+	t1 = r1;  //t1 = r1
+	r2 = t2 if !cf;  //r2 = t2 if !carry; 
+	t2 = r2;  //t2 = r2
+	r3 = t3 if !cf;  //r3 = t3 if !carry; 
+	//unsigned<? t3 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER3 - carry
+	//r0 = t0 if !unsigned<
+	//t0 = r0
+	//r1 = t1 if !unsigned<
+	//t1 = r1
+	//r2 = t2 if !unsigned<
+	//t2 = r2
+	//r3 = t3 if !unsigned<
+	t3 = r3;  //t3 = r3
+	cf, t0 -= crypto_sign_ed25519_amd64_64_ORDER0; //cf? t0 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER0
+	cf, t1 -= crypto_sign_ed25519_amd64_64_ORDER1 - cf;  // cf? t1 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER1 - cf; 
+	cf, t2 -= crypto_sign_ed25519_amd64_64_ORDER2 - cf;  // cf? t2 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER2 - cf; 
+	cf, t3 -= crypto_sign_ed25519_amd64_64_ORDER3 - cf;  // cf? t3 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER3 - cf; 
+	r0 = t0 if !cf;  //r0 = t0 if !carry; 
+	r1 = t1 if !cf;  //r1 = t1 if !carry; 
+	r2 = t2 if !cf;  //r2 = t2 if !carry; 
+	r3 = t3 if !cf;  //r3 = t3 if !carry; 
+	//unsigned<? t3 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER3 - carry
+	//r0 = t0 if !unsigned<
+	//r1 = t1 if !unsigned<
+	//r2 = t2 if !unsigned<
+	//r3 = t3 if !unsigned<
+	[rp + 0*8] = r0;  //*(uint64 *) (rp + 0) = r0
+	[rp + 1*8] = r1;  //*(uint64 *) (rp + 8) = r1
+	[rp + 2*8] = r2;  //*(uint64 *) (rp + 16) = r2
+	[rp + 3*8] = r3;  //*(uint64 *) (rp + 24) = r3
+	return;
+}
+
+

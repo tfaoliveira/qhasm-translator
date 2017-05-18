@@ -356,7 +356,8 @@ sub search_while
 
   if( ($up - $down) >= 4                                    &&
       $stack_ref->[$up]->{type}       eq "label"                  &&
-      $stack_ref->[$up-1]->{type}     eq "test"                  &&
+      $stack_ref->[$up-1]->{type}     eq "test"                   &&
+      ($stack_ref->[$up-1]->{line} - $stack_ref->[$up]->{line}) == 1 &&
       $stack_ref->[$up-2]->{type}     eq "gotoif"                 &&
       $stack_ref->[$down]->{type}     eq "label"                  &&
       $stack_ref->[$down+1]->{type}   eq "goto"                   &&

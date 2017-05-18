@@ -30,35 +30,48 @@ int64 t3
   stack64 caller5_stack
   stack64 caller6_stack
   stack64 caller7_stack
+
 enter crypto_sign_ed25519_amd64_64_sc25519_add
-caller4_stack = caller4
-caller5_stack = caller5
-caller6_stack = caller6
-r0 = *(uint64 *)(xp +  0)
-r1 = *(uint64 *)(xp +  8)
-r2 = *(uint64 *)(xp + 16)
-r3 = *(uint64 *)(xp + 24)
-carry? r0 += *(uint64 *)(yp +  0)
-carry? r1 += *(uint64 *)(yp +  8) + carry
-carry? r2 += *(uint64 *)(yp + 16) + carry
-r3 += *(uint64 *)(yp + 24) + carry
-t0 = r0
-t1 = r1
-t2 = r2
-t3 = r3
-carry? t0 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER0
-carry? t1 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER1 - carry
-carry? t2 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER2 - carry
-unsigned<? t3 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER3 - carry
-r0 = t0 if !unsigned<
-r1 = t1 if !unsigned<
-r2 = t2 if !unsigned<
-r3 = t3 if !unsigned<
-*(uint64 *)(rp +  0) = r0
-*(uint64 *)(rp +  8) = r1
-*(uint64 *)(rp + 16) = r2
-*(uint64 *)(rp + 24) = r3
-caller4 = caller4_stack
-caller5 = caller5_stack
-caller6 = caller6_stack
+
+  caller4_stack = caller4
+  caller5_stack = caller5
+  caller6_stack = caller6
+
+  r0 = *(uint64 *)(xp +  0)
+  r1 = *(uint64 *)(xp +  8)
+  r2 = *(uint64 *)(xp + 16)
+  r3 = *(uint64 *)(xp + 24)
+  carry? r0 += *(uint64 *)(yp +  0)
+  carry? r1 += *(uint64 *)(yp +  8) + carry
+  carry? r2 += *(uint64 *)(yp + 16) + carry
+  r3 += *(uint64 *)(yp + 24) + carry
+  t0 = r0
+  t1 = r1
+  t2 = r2
+  t3 = r3
+  carry? t0 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER0
+  carry? t1 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER1 - carry
+  carry? t2 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER2 - carry
+
+  carry? t3 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER3 - carry
+  r0 = t0 if !carry
+  r1 = t1 if !carry
+  r2 = t2 if !carry
+  r3 = t3 if !carry
+
+  #  unsigned<? t3 -= *(uint64 *) &crypto_sign_ed25519_amd64_64_ORDER3 - carry
+  #  r0 = t0 if !unsigned<
+  #  r1 = t1 if !unsigned<
+  #  r2 = t2 if !unsigned<
+  #  r3 = t3 if !unsigned<
+
+  *(uint64 *)(rp +  0) = r0
+  *(uint64 *)(rp +  8) = r1
+  *(uint64 *)(rp + 16) = r2
+  *(uint64 *)(rp + 24) = r3
+
+  caller4 = caller4_stack
+  caller5 = caller5_stack
+  caller6 = caller6_stack
+
 leave

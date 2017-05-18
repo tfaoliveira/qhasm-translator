@@ -1,0 +1,1186 @@
+param int crypto_sign_ed25519_amd64_64_38 = 38;
+export fn crypto_sign_ed25519_amd64_64_ge25519_nielsadd2(reg u64 rp, reg u64 qp){
+	 reg u64 a0;
+	 stack u64 a0_stack;
+	 reg u64 a1;
+	 stack u64 a1_stack;
+	 reg u64 a2;
+	 stack u64 a2_stack;
+	 reg u64 a3;
+	 stack u64 a3_stack;
+	 reg u64 addt0;
+	 reg u64 addt1;
+	 reg u64 b0;
+	 stack u64 b0_stack;
+	 reg u64 b1;
+	 stack u64 b1_stack;
+	 reg u64 b2;
+	 stack u64 b2_stack;
+	 reg u64 b3;
+	 stack u64 b3_stack;
+	 reg u64 c0;
+	 reg u64 c1;
+	 reg u64 c2;
+	 reg u64 c3;
+	 reg bool cf;
+	 reg u64 e0;
+	 stack u64 e0_stack;
+	 reg u64 e1;
+	 stack u64 e1_stack;
+	 reg u64 e2;
+	 stack u64 e2_stack;
+	 reg u64 e3;
+	 stack u64 e3_stack;
+	 reg u64 f0;
+	 stack u64 f0_stack;
+	 reg u64 f1;
+	 stack u64 f1_stack;
+	 reg u64 f2;
+	 stack u64 f2_stack;
+	 reg u64 f3;
+	 stack u64 f3_stack;
+	 reg u64 g0;
+	 stack u64 g0_stack;
+	 reg u64 g1;
+	 stack u64 g1_stack;
+	 reg u64 g2;
+	 stack u64 g2_stack;
+	 reg u64 g3;
+	 stack u64 g3_stack;
+	 reg u64 h0;
+	 stack u64 h0_stack;
+	 reg u64 h1;
+	 stack u64 h1_stack;
+	 reg u64 h2;
+	 stack u64 h2_stack;
+	 reg u64 h3;
+	 stack u64 h3_stack;
+	 reg u64 mulc;
+	 reg u64 mulr4;
+	 reg u64 mulr5;
+	 reg u64 mulr6;
+	 reg u64 mulr7;
+	 reg u64 mulr8;
+	 reg u64 mulrax;
+	 reg u64 mulrdx;
+	 reg u64 mulx0;
+	 reg u64 mulx1;
+	 reg u64 mulx2;
+	 reg u64 mulx3;
+	 reg u64 mulzero;
+	 reg u64 rt0;
+	 reg u64 rt1;
+	 reg u64 rt2;
+	 reg u64 rt3;
+	 reg u64 rx0;
+	 reg u64 rx1;
+	 reg u64 rx2;
+	 reg u64 rx3;
+	 reg u64 ry0;
+	 reg u64 ry1;
+	 reg u64 ry2;
+	 reg u64 ry3;
+	 reg u64 rz0;
+	 reg u64 rz1;
+	 reg u64 rz2;
+	 reg u64 rz3;
+	 reg u64 subt0;
+	 reg u64 subt1;
+
+	a0 = [rp + 4*8];  //a0 = *(uint64 *) (rp + 32)
+	a1 = [rp + 5*8];  //a1 = *(uint64 *) (rp + 40)
+	a2 = [rp + 6*8];  //a2 = *(uint64 *) (rp + 48)
+	a3 = [rp + 7*8];  //a3 = *(uint64 *) (rp + 56)
+	b0 = a0;  //b0 = a0
+	b1 = a1;  //b1 = a1
+	b2 = a2;  //b2 = a2
+	b3 = a3;  //b3 = a3
+	cf, a0 -= [rp + 0*8];  //cf? a0 -= *(uint64 *) (rp + 0)
+	cf, a1 -= [rp + 1*8] - cf;  //cf? a1 -= *(uint64 *) (rp + 8) - cf; 
+	cf, a2 -= [rp + 2*8] - cf;  //cf? a2 -= *(uint64 *) (rp + 16) - cf; 
+	cf, a3 -= [rp + 3*8] - cf;  //cf? a3 -= *(uint64 *) (rp + 24) - cf; 
+	subt0 = 0;  //subt0 = 0
+	subt1 = 38;  //subt1 = 38
+	subt1 = subt0 if !cf;  //subt1 = subt0 if !carry; 
+	cf, a0 -= subt1;  //cf? a0 -= subt1
+	cf, a1 -= subt0 - cf;  //cf? a1 -= subt0 - cf; 
+	cf, a2 -= subt0 - cf;  //cf? a2 -= subt0 - cf; 
+	cf, a3 -= subt0 - cf;  //cf? a3 -= subt0 - cf; 
+	subt0 = subt1 if cf;  //subt0 = subt1 if carry; 
+	a0 -= subt0;  //a0 -= subt0
+	cf, b0 += [rp + 0*8];  //cf? b0 += *(uint64 *) (rp + 0)
+	cf, b1 += [rp + 1*8] + cf;  //cf? b1 += *(uint64 *) (rp + 8) + cf;
+	cf, b2 += [rp + 2*8] + cf;  //cf? b2 += *(uint64 *) (rp + 16) + cf;
+	cf, b3 += [rp + 3*8] + cf;  //cf? b3 += *(uint64 *) (rp + 24) + cf;
+	addt0 = 0;  //addt0 = 0
+	addt1 = 38;  //addt1 = 38
+	addt1 = addt0 if !cf;  //addt1 = addt0 if !carry; 
+	cf, b0 += addt1;  //cf? b0 += addt1
+	cf, b1 += addt0 + cf;  //cf? b1 += addt0 + cf; 
+	cf, b2 += addt0 + cf;  //cf? b2 += addt0 + cf; 
+	cf, b3 += addt0 + cf;  //cf? b3 += addt0 + cf; 
+	addt0 = addt1 if cf;  //addt0 = addt1 if carry; 
+	b0 += addt0;  //b0 += addt0
+	a0_stack = a0;  //a0_stack = a0
+	a1_stack = a1;  //a1_stack = a1
+	a2_stack = a2;  //a2_stack = a2
+	a3_stack = a3;  //a3_stack = a3
+	b0_stack = b0;  //b0_stack = b0
+	b1_stack = b1;  //b1_stack = b1
+	b2_stack = b2;  //b2_stack = b2
+	b3_stack = b3;  //b3_stack = b3
+	mulr4 = 0;  //mulr4 = 0
+	mulr5 = 0;  //mulr5 = 0
+	mulr6 = 0;  //mulr6 = 0
+	mulr7 = 0;  //mulr7 = 0
+	mulx0 = a0_stack;  //mulx0 = a0_stack
+	mulrax = [qp + 0*8];  //mulrax = *(uint64 *) (qp + 0)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	a0 = mulrax;  //a0 = mulrax
+	a1 = mulrdx;  //a1 = mulrdx
+	mulrax = [qp + 1*8];  //mulrax = *(uint64 *) (qp + 8)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, a1 += mulrax;  //cf? a1 += mulrax
+	a2 = 0;  //a2 = 0
+	_, a2 += mulrdx + cf;  //a2 += mulrdx + cf; 
+	mulrax = [qp + 2*8];  //mulrax = *(uint64 *) (qp + 16)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, a2 += mulrax;  //cf? a2 += mulrax
+	a3 = 0;  //a3 = 0
+	_, a3 += mulrdx + cf;  //a3 += mulrdx + cf; 
+	mulrax = [qp + 3*8];  //mulrax = *(uint64 *) (qp + 24)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, a3 += mulrax;  //cf? a3 += mulrax
+	_, mulr4 += mulrdx + cf;  //mulr4 += mulrdx + cf; 
+	mulx1 = a1_stack;  //mulx1 = a1_stack
+	mulrax = [qp + 0*8];  //mulrax = *(uint64 *) (qp + 0)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, a1 += mulrax;  //cf? a1 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 1*8];  //mulrax = *(uint64 *) (qp + 8)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, a2 += mulrax;  //cf? a2 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, a2 += mulc;  //cf? a2 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 2*8];  //mulrax = *(uint64 *) (qp + 16)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, a3 += mulrax;  //cf? a3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, a3 += mulc;  //cf? a3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 3*8];  //mulrax = *(uint64 *) (qp + 24)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	_, mulr5 += mulrdx + cf;  //mulr5 += mulrdx + cf; 
+	mulx2 = a2_stack;  //mulx2 = a2_stack
+	mulrax = [qp + 0*8];  //mulrax = *(uint64 *) (qp + 0)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, a2 += mulrax;  //cf? a2 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 1*8];  //mulrax = *(uint64 *) (qp + 8)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, a3 += mulrax;  //cf? a3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, a3 += mulc;  //cf? a3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 2*8];  //mulrax = *(uint64 *) (qp + 16)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 3*8];  //mulrax = *(uint64 *) (qp + 24)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulx3 = a3_stack;  //mulx3 = a3_stack
+	mulrax = [qp + 0*8];  //mulrax = *(uint64 *) (qp + 0)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, a3 += mulrax;  //cf? a3 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 1*8];  //mulrax = *(uint64 *) (qp + 8)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 2*8];  //mulrax = *(uint64 *) (qp + 16)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 3*8];  //mulrax = *(uint64 *) (qp + 24)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr6 += mulc;  //cf? mulr6 += mulc
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrax = mulr4;  //mulrax = mulr4
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	mulr4 = mulrax;  //mulr4 = mulrax
+	mulrax = mulr5;  //mulrax = mulr5
+	mulr5 = mulrdx;  //mulr5 = mulrdx
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	mulrax = mulr6;  //mulrax = mulr6
+	mulr6 = 0;  //mulr6 = 0
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	mulrax = mulr7;  //mulrax = mulr7
+	mulr7 = 0;  //mulr7 = 0
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr7 += mulrax;  //cf? mulr7 += mulrax
+	mulr8 = 0;  //mulr8 = 0
+	_, mulr8 += mulrdx + cf;  //mulr8 += mulrdx + cf; 
+	cf, a0 += mulr4;  //cf? a0 += mulr4
+	cf, a1 += mulr5 + cf;  //cf? a1 += mulr5 + cf; 
+	cf, a2 += mulr6 + cf;  //cf? a2 += mulr6 + cf; 
+	cf, a3 += mulr7 + cf;  //cf? a3 += mulr7 + cf; 
+	mulzero = 0;  //mulzero = 0
+	_, mulr8 += mulzero + cf;  //mulr8 += mulzero + cf; 
+	mulr8 *= 38;  //mulr8 *= 38
+	cf, a0 += mulr8;  //cf? a0 += mulr8
+	cf, a1 += mulzero + cf;  //cf? a1 += mulzero + cf; 
+	cf, a2 += mulzero + cf;  //cf? a2 += mulzero + cf; 
+	cf, a3 += mulzero + cf;  //cf? a3 += mulzero + cf; 
+	_, mulzero += mulzero + cf;  //mulzero += mulzero + cf; 
+	mulzero *= 38;  //mulzero *= 38
+	a0 += mulzero;  //a0 += mulzero
+	a0_stack = a0;  //a0_stack = a0
+	a1_stack = a1;  //a1_stack = a1
+	a2_stack = a2;  //a2_stack = a2
+	a3_stack = a3;  //a3_stack = a3
+	mulr4 = 0;  //mulr4 = 0
+	mulr5 = 0;  //mulr5 = 0
+	mulr6 = 0;  //mulr6 = 0
+	mulr7 = 0;  //mulr7 = 0
+	mulx0 = b0_stack;  //mulx0 = b0_stack
+	mulrax = [qp + 4*8];  //mulrax = *(uint64 *) (qp + 32)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	e0 = mulrax;  //e0 = mulrax
+	e1 = mulrdx;  //e1 = mulrdx
+	mulrax = [qp + 5*8];  //mulrax = *(uint64 *) (qp + 40)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, e1 += mulrax;  //cf? e1 += mulrax
+	e2 = 0;  //e2 = 0
+	_, e2 += mulrdx + cf;  //e2 += mulrdx + cf; 
+	mulrax = [qp + 6*8];  //mulrax = *(uint64 *) (qp + 48)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, e2 += mulrax;  //cf? e2 += mulrax
+	e3 = 0;  //e3 = 0
+	_, e3 += mulrdx + cf;  //e3 += mulrdx + cf; 
+	mulrax = [qp + 7*8];  //mulrax = *(uint64 *) (qp + 56)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, e3 += mulrax;  //cf? e3 += mulrax
+	_, mulr4 += mulrdx + cf;  //mulr4 += mulrdx + cf; 
+	mulx1 = b1_stack;  //mulx1 = b1_stack
+	mulrax = [qp + 4*8];  //mulrax = *(uint64 *) (qp + 32)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, e1 += mulrax;  //cf? e1 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 5*8];  //mulrax = *(uint64 *) (qp + 40)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, e2 += mulrax;  //cf? e2 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, e2 += mulc;  //cf? e2 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 6*8];  //mulrax = *(uint64 *) (qp + 48)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, e3 += mulrax;  //cf? e3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, e3 += mulc;  //cf? e3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 7*8];  //mulrax = *(uint64 *) (qp + 56)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	_, mulr5 += mulrdx + cf;  //mulr5 += mulrdx + cf; 
+	mulx2 = b2_stack;  //mulx2 = b2_stack
+	mulrax = [qp + 4*8];  //mulrax = *(uint64 *) (qp + 32)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, e2 += mulrax;  //cf? e2 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 5*8];  //mulrax = *(uint64 *) (qp + 40)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, e3 += mulrax;  //cf? e3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, e3 += mulc;  //cf? e3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 6*8];  //mulrax = *(uint64 *) (qp + 48)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 7*8];  //mulrax = *(uint64 *) (qp + 56)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulx3 = b3_stack;  //mulx3 = b3_stack
+	mulrax = [qp + 4*8];  //mulrax = *(uint64 *) (qp + 32)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, e3 += mulrax;  //cf? e3 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 5*8];  //mulrax = *(uint64 *) (qp + 40)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 6*8];  //mulrax = *(uint64 *) (qp + 48)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 7*8];  //mulrax = *(uint64 *) (qp + 56)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr6 += mulc;  //cf? mulr6 += mulc
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrax = mulr4;  //mulrax = mulr4
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	mulr4 = mulrax;  //mulr4 = mulrax
+	mulrax = mulr5;  //mulrax = mulr5
+	mulr5 = mulrdx;  //mulr5 = mulrdx
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	mulrax = mulr6;  //mulrax = mulr6
+	mulr6 = 0;  //mulr6 = 0
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	mulrax = mulr7;  //mulrax = mulr7
+	mulr7 = 0;  //mulr7 = 0
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr7 += mulrax;  //cf? mulr7 += mulrax
+	mulr8 = 0;  //mulr8 = 0
+	_, mulr8 += mulrdx + cf;  //mulr8 += mulrdx + cf; 
+	cf, e0 += mulr4;  //cf? e0 += mulr4
+	cf, e1 += mulr5 + cf;  //cf? e1 += mulr5 + cf; 
+	cf, e2 += mulr6 + cf;  //cf? e2 += mulr6 + cf; 
+	cf, e3 += mulr7 + cf;  //cf? e3 += mulr7 + cf; 
+	mulzero = 0;  //mulzero = 0
+	_, mulr8 += mulzero + cf;  //mulr8 += mulzero + cf; 
+	mulr8 *= 38;  //mulr8 *= 38
+	cf, e0 += mulr8;  //cf? e0 += mulr8
+	cf, e1 += mulzero + cf;  //cf? e1 += mulzero + cf; 
+	cf, e2 += mulzero + cf;  //cf? e2 += mulzero + cf; 
+	cf, e3 += mulzero + cf;  //cf? e3 += mulzero + cf; 
+	_, mulzero += mulzero + cf;  //mulzero += mulzero + cf; 
+	mulzero *= 38;  //mulzero *= 38
+	e0 += mulzero;  //e0 += mulzero
+	h0 = e0;  //h0 = e0
+	h1 = e1;  //h1 = e1
+	h2 = e2;  //h2 = e2
+	h3 = e3;  //h3 = e3
+	cf, e0 -= a0_stack;  //cf? e0 -= a0_stack
+	cf, e1 -= a1_stack - cf;  //cf? e1 -= a1_stack - cf; 
+	cf, e2 -= a2_stack - cf;  //cf? e2 -= a2_stack - cf; 
+	cf, e3 -= a3_stack - cf;  //cf? e3 -= a3_stack - cf; 
+	subt0 = 0;  //subt0 = 0
+	subt1 = 38;  //subt1 = 38
+	subt1 = subt0 if !cf;  //subt1 = subt0 if !carry; 
+	cf, e0 -= subt1;  //cf? e0 -= subt1
+	cf, e1 -= subt0 - cf;  //cf? e1 -= subt0 - cf; 
+	cf, e2 -= subt0 - cf;  //cf? e2 -= subt0 - cf; 
+	cf, e3 -= subt0 - cf;  //cf? e3 -= subt0 - cf; 
+	subt0 = subt1 if cf;  //subt0 = subt1 if carry; 
+	e0 -= subt0;  //e0 -= subt0
+	cf, h0 += a0_stack;  //cf? h0 += a0_stack
+	cf, h1 += a1_stack + cf;  //cf? h1 += a1_stack + cf; 
+	cf, h2 += a2_stack + cf;  //cf? h2 += a2_stack + cf; 
+	cf, h3 += a3_stack + cf;  //cf? h3 += a3_stack + cf; 
+	addt0 = 0;  //addt0 = 0
+	addt1 = 38;  //addt1 = 38
+	addt1 = addt0 if !cf;  //addt1 = addt0 if !carry; 
+	cf, h0 += addt1;  //cf? h0 += addt1
+	cf, h1 += addt0 + cf;  //cf? h1 += addt0 + cf; 
+	cf, h2 += addt0 + cf;  //cf? h2 += addt0 + cf; 
+	cf, h3 += addt0 + cf;  //cf? h3 += addt0 + cf; 
+	addt0 = addt1 if cf;  //addt0 = addt1 if carry; 
+	h0 += addt0;  //h0 += addt0
+	h0_stack = h0;  //h0_stack = h0
+	h1_stack = h1;  //h1_stack = h1
+	h2_stack = h2;  //h2_stack = h2
+	h3_stack = h3;  //h3_stack = h3
+	e0_stack = e0;  //e0_stack = e0
+	e1_stack = e1;  //e1_stack = e1
+	e2_stack = e2;  //e2_stack = e2
+	e3_stack = e3;  //e3_stack = e3
+	mulr4 = 0;  //mulr4 = 0
+	mulr5 = 0;  //mulr5 = 0
+	mulr6 = 0;  //mulr6 = 0
+	mulr7 = 0;  //mulr7 = 0
+	mulx0 = [rp + 12*8];  //mulx0 = *(uint64 *) (rp + 96)
+	mulrax = [qp + 8*8];  //mulrax = *(uint64 *) (qp + 64)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	c0 = mulrax;  //c0 = mulrax
+	c1 = mulrdx;  //c1 = mulrdx
+	mulrax = [qp + 9*8];  //mulrax = *(uint64 *) (qp + 72)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, c1 += mulrax;  //cf? c1 += mulrax
+	c2 = 0;  //c2 = 0
+	_, c2 += mulrdx + cf;  //c2 += mulrdx + cf; 
+	mulrax = [qp + 10*8];  //mulrax = *(uint64 *) (qp + 80)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, c2 += mulrax;  //cf? c2 += mulrax
+	c3 = 0;  //c3 = 0
+	_, c3 += mulrdx + cf;  //c3 += mulrdx + cf; 
+	mulrax = [qp + 11*8];  //mulrax = *(uint64 *) (qp + 88)
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, c3 += mulrax;  //cf? c3 += mulrax
+	_, mulr4 += mulrdx + cf;  //mulr4 += mulrdx + cf; 
+	mulx1 = [rp + 13*8];  //mulx1 = *(uint64 *) (rp + 104)
+	mulrax = [qp + 8*8];  //mulrax = *(uint64 *) (qp + 64)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, c1 += mulrax;  //cf? c1 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 9*8];  //mulrax = *(uint64 *) (qp + 72)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, c2 += mulrax;  //cf? c2 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, c2 += mulc;  //cf? c2 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 10*8];  //mulrax = *(uint64 *) (qp + 80)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, c3 += mulrax;  //cf? c3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, c3 += mulc;  //cf? c3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 11*8];  //mulrax = *(uint64 *) (qp + 88)
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	_, mulr5 += mulrdx + cf;  //mulr5 += mulrdx + cf; 
+	mulx2 = [rp + 14*8];  //mulx2 = *(uint64 *) (rp + 112)
+	mulrax = [qp + 8*8];  //mulrax = *(uint64 *) (qp + 64)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, c2 += mulrax;  //cf? c2 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 9*8];  //mulrax = *(uint64 *) (qp + 72)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, c3 += mulrax;  //cf? c3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, c3 += mulc;  //cf? c3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 10*8];  //mulrax = *(uint64 *) (qp + 80)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 11*8];  //mulrax = *(uint64 *) (qp + 88)
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulx3 = [rp + 15*8];  //mulx3 = *(uint64 *) (rp + 120)
+	mulrax = [qp + 8*8];  //mulrax = *(uint64 *) (qp + 64)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, c3 += mulrax;  //cf? c3 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 9*8];  //mulrax = *(uint64 *) (qp + 72)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 10*8];  //mulrax = *(uint64 *) (qp + 80)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = [qp + 11*8];  //mulrax = *(uint64 *) (qp + 88)
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr6 += mulc;  //cf? mulr6 += mulc
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrax = mulr4;  //mulrax = mulr4
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	mulr4 = mulrax;  //mulr4 = mulrax
+	mulrax = mulr5;  //mulrax = mulr5
+	mulr5 = mulrdx;  //mulr5 = mulrdx
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	mulrax = mulr6;  //mulrax = mulr6
+	mulr6 = 0;  //mulr6 = 0
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	mulrax = mulr7;  //mulrax = mulr7
+	mulr7 = 0;  //mulr7 = 0
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr7 += mulrax;  //cf? mulr7 += mulrax
+	mulr8 = 0;  //mulr8 = 0
+	_, mulr8 += mulrdx + cf;  //mulr8 += mulrdx + cf; 
+	cf, c0 += mulr4;  //cf? c0 += mulr4
+	cf, c1 += mulr5 + cf;  //cf? c1 += mulr5 + cf; 
+	cf, c2 += mulr6 + cf;  //cf? c2 += mulr6 + cf; 
+	cf, c3 += mulr7 + cf;  //cf? c3 += mulr7 + cf; 
+	mulzero = 0;  //mulzero = 0
+	_, mulr8 += mulzero + cf;  //mulr8 += mulzero + cf; 
+	mulr8 *= 38;  //mulr8 *= 38
+	cf, c0 += mulr8;  //cf? c0 += mulr8
+	cf, c1 += mulzero + cf;  //cf? c1 += mulzero + cf; 
+	cf, c2 += mulzero + cf;  //cf? c2 += mulzero + cf; 
+	cf, c3 += mulzero + cf;  //cf? c3 += mulzero + cf; 
+	_, mulzero += mulzero + cf;  //mulzero += mulzero + cf; 
+	mulzero *= 38;  //mulzero *= 38
+	c0 += mulzero;  //c0 += mulzero
+	f0 = [rp + 8*8];  //f0 = *(uint64 *) (rp + 64)
+	f1 = [rp + 9*8];  //f1 = *(uint64 *) (rp + 72)
+	f2 = [rp + 10*8];  //f2 = *(uint64 *) (rp + 80)
+	f3 = [rp + 11*8];  //f3 = *(uint64 *) (rp + 88)
+	cf, f0 += f0;  //cf? f0 += f0
+	cf, f1 += f1 + cf;  //cf? f1 += f1 + cf; 
+	cf, f2 += f2 + cf;  //cf? f2 += f2 + cf; 
+	cf, f3 += f3 + cf;  //cf? f3 += f3 + cf; 
+	addt0 = 0;  //addt0 = 0
+	addt1 = 38;  //addt1 = 38
+	addt1 = addt0 if !cf;  //addt1 = addt0 if !carry; 
+	cf, f0 += addt1;  //cf? f0 += addt1
+	cf, f1 += addt0 + cf;  //cf? f1 += addt0 + cf; 
+	cf, f2 += addt0 + cf;  //cf? f2 += addt0 + cf; 
+	cf, f3 += addt0 + cf;  //cf? f3 += addt0 + cf; 
+	addt0 = addt1 if cf;  //addt0 = addt1 if carry; 
+	f0 += addt0;  //f0 += addt0
+	g0 = f0;  //g0 = f0
+	g1 = f1;  //g1 = f1
+	g2 = f2;  //g2 = f2
+	g3 = f3;  //g3 = f3
+	cf, f0 -= c0;  //cf? f0 -= c0
+	cf, f1 -= c1 - cf;  //cf? f1 -= c1 - cf; 
+	cf, f2 -= c2 - cf;  //cf? f2 -= c2 - cf; 
+	cf, f3 -= c3 - cf;  //cf? f3 -= c3 - cf; 
+	subt0 = 0;  //subt0 = 0
+	subt1 = 38;  //subt1 = 38
+	subt1 = subt0 if !cf;  //subt1 = subt0 if !carry; 
+	cf, f0 -= subt1;  //cf? f0 -= subt1
+	cf, f1 -= subt0 - cf;  //cf? f1 -= subt0 - cf; 
+	cf, f2 -= subt0 - cf;  //cf? f2 -= subt0 - cf; 
+	cf, f3 -= subt0 - cf;  //cf? f3 -= subt0 - cf; 
+	subt0 = subt1 if cf;  //subt0 = subt1 if carry; 
+	f0 -= subt0;  //f0 -= subt0
+	cf, g0 += c0;  //cf? g0 += c0
+	cf, g1 += c1 + cf;  //cf? g1 += c1 + cf; 
+	cf, g2 += c2 + cf;  //cf? g2 += c2 + cf; 
+	cf, g3 += c3 + cf;  //cf? g3 += c3 + cf; 
+	addt0 = 0;  //addt0 = 0
+	addt1 = 38;  //addt1 = 38
+	addt1 = addt0 if !cf;  //addt1 = addt0 if !carry; 
+	cf, g0 += addt1;  //cf? g0 += addt1
+	cf, g1 += addt0 + cf;  //cf? g1 += addt0 + cf; 
+	cf, g2 += addt0 + cf;  //cf? g2 += addt0 + cf; 
+	cf, g3 += addt0 + cf;  //cf? g3 += addt0 + cf; 
+	addt0 = addt1 if cf;  //addt0 = addt1 if carry; 
+	g0 += addt0;  //g0 += addt0
+	g0_stack = g0;  //g0_stack = g0
+	g1_stack = g1;  //g1_stack = g1
+	g2_stack = g2;  //g2_stack = g2
+	g3_stack = g3;  //g3_stack = g3
+	f0_stack = f0;  //f0_stack = f0
+	f1_stack = f1;  //f1_stack = f1
+	f2_stack = f2;  //f2_stack = f2
+	f3_stack = f3;  //f3_stack = f3
+	mulr4 = 0;  //mulr4 = 0
+	mulr5 = 0;  //mulr5 = 0
+	mulr6 = 0;  //mulr6 = 0
+	mulr7 = 0;  //mulr7 = 0
+	mulx0 = e0_stack;  //mulx0 = e0_stack
+	mulrax = f0_stack;  //mulrax = f0_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	rx0 = mulrax;  //rx0 = mulrax
+	rx1 = mulrdx;  //rx1 = mulrdx
+	mulrax = f1_stack;  //mulrax = f1_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, rx1 += mulrax;  //cf? rx1 += mulrax
+	rx2 = 0;  //rx2 = 0
+	_, rx2 += mulrdx + cf;  //rx2 += mulrdx + cf; 
+	mulrax = f2_stack;  //mulrax = f2_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, rx2 += mulrax;  //cf? rx2 += mulrax
+	rx3 = 0;  //rx3 = 0
+	_, rx3 += mulrdx + cf;  //rx3 += mulrdx + cf; 
+	mulrax = f3_stack;  //mulrax = f3_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, rx3 += mulrax;  //cf? rx3 += mulrax
+	_, mulr4 += mulrdx + cf;  //mulr4 += mulrdx + cf; 
+	mulx1 = e1_stack;  //mulx1 = e1_stack
+	mulrax = f0_stack;  //mulrax = f0_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, rx1 += mulrax;  //cf? rx1 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f1_stack;  //mulrax = f1_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, rx2 += mulrax;  //cf? rx2 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, rx2 += mulc;  //cf? rx2 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f2_stack;  //mulrax = f2_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, rx3 += mulrax;  //cf? rx3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, rx3 += mulc;  //cf? rx3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f3_stack;  //mulrax = f3_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	_, mulr5 += mulrdx + cf;  //mulr5 += mulrdx + cf; 
+	mulx2 = e2_stack;  //mulx2 = e2_stack
+	mulrax = f0_stack;  //mulrax = f0_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, rx2 += mulrax;  //cf? rx2 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f1_stack;  //mulrax = f1_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, rx3 += mulrax;  //cf? rx3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, rx3 += mulc;  //cf? rx3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f2_stack;  //mulrax = f2_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f3_stack;  //mulrax = f3_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulx3 = e3_stack;  //mulx3 = e3_stack
+	mulrax = f0_stack;  //mulrax = f0_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, rx3 += mulrax;  //cf? rx3 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f1_stack;  //mulrax = f1_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f2_stack;  //mulrax = f2_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f3_stack;  //mulrax = f3_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr6 += mulc;  //cf? mulr6 += mulc
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrax = mulr4;  //mulrax = mulr4
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	mulr4 = mulrax;  //mulr4 = mulrax
+	mulrax = mulr5;  //mulrax = mulr5
+	mulr5 = mulrdx;  //mulr5 = mulrdx
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	mulrax = mulr6;  //mulrax = mulr6
+	mulr6 = 0;  //mulr6 = 0
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	mulrax = mulr7;  //mulrax = mulr7
+	mulr7 = 0;  //mulr7 = 0
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr7 += mulrax;  //cf? mulr7 += mulrax
+	mulr8 = 0;  //mulr8 = 0
+	_, mulr8 += mulrdx + cf;  //mulr8 += mulrdx + cf; 
+	cf, rx0 += mulr4;  //cf? rx0 += mulr4
+	cf, rx1 += mulr5 + cf;  //cf? rx1 += mulr5 + cf; 
+	cf, rx2 += mulr6 + cf;  //cf? rx2 += mulr6 + cf; 
+	cf, rx3 += mulr7 + cf;  //cf? rx3 += mulr7 + cf; 
+	mulzero = 0;  //mulzero = 0
+	_, mulr8 += mulzero + cf;  //mulr8 += mulzero + cf; 
+	mulr8 *= 38;  //mulr8 *= 38
+	cf, rx0 += mulr8;  //cf? rx0 += mulr8
+	cf, rx1 += mulzero + cf;  //cf? rx1 += mulzero + cf; 
+	cf, rx2 += mulzero + cf;  //cf? rx2 += mulzero + cf; 
+	cf, rx3 += mulzero + cf;  //cf? rx3 += mulzero + cf; 
+	_, mulzero += mulzero + cf;  //mulzero += mulzero + cf; 
+	mulzero *= 38;  //mulzero *= 38
+	rx0 += mulzero;  //rx0 += mulzero
+	[rp + 0*8] = rx0;  //*(uint64 *) (rp + 0) = rx0
+	[rp + 1*8] = rx1;  //*(uint64 *) (rp + 8) = rx1
+	[rp + 2*8] = rx2;  //*(uint64 *) (rp + 16) = rx2
+	[rp + 3*8] = rx3;  //*(uint64 *) (rp + 24) = rx3
+	mulr4 = 0;  //mulr4 = 0
+	mulr5 = 0;  //mulr5 = 0
+	mulr6 = 0;  //mulr6 = 0
+	mulr7 = 0;  //mulr7 = 0
+	mulx0 = h0_stack;  //mulx0 = h0_stack
+	mulrax = g0_stack;  //mulrax = g0_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	ry0 = mulrax;  //ry0 = mulrax
+	ry1 = mulrdx;  //ry1 = mulrdx
+	mulrax = g1_stack;  //mulrax = g1_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, ry1 += mulrax;  //cf? ry1 += mulrax
+	ry2 = 0;  //ry2 = 0
+	_, ry2 += mulrdx + cf;  //ry2 += mulrdx + cf; 
+	mulrax = g2_stack;  //mulrax = g2_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, ry2 += mulrax;  //cf? ry2 += mulrax
+	ry3 = 0;  //ry3 = 0
+	_, ry3 += mulrdx + cf;  //ry3 += mulrdx + cf; 
+	mulrax = g3_stack;  //mulrax = g3_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, ry3 += mulrax;  //cf? ry3 += mulrax
+	_, mulr4 += mulrdx + cf;  //mulr4 += mulrdx + cf; 
+	mulx1 = h1_stack;  //mulx1 = h1_stack
+	mulrax = g0_stack;  //mulrax = g0_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, ry1 += mulrax;  //cf? ry1 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = g1_stack;  //mulrax = g1_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, ry2 += mulrax;  //cf? ry2 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, ry2 += mulc;  //cf? ry2 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = g2_stack;  //mulrax = g2_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, ry3 += mulrax;  //cf? ry3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, ry3 += mulc;  //cf? ry3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = g3_stack;  //mulrax = g3_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	_, mulr5 += mulrdx + cf;  //mulr5 += mulrdx + cf; 
+	mulx2 = h2_stack;  //mulx2 = h2_stack
+	mulrax = g0_stack;  //mulrax = g0_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, ry2 += mulrax;  //cf? ry2 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = g1_stack;  //mulrax = g1_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, ry3 += mulrax;  //cf? ry3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, ry3 += mulc;  //cf? ry3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = g2_stack;  //mulrax = g2_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = g3_stack;  //mulrax = g3_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulx3 = h3_stack;  //mulx3 = h3_stack
+	mulrax = g0_stack;  //mulrax = g0_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, ry3 += mulrax;  //cf? ry3 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = g1_stack;  //mulrax = g1_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = g2_stack;  //mulrax = g2_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = g3_stack;  //mulrax = g3_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr6 += mulc;  //cf? mulr6 += mulc
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrax = mulr4;  //mulrax = mulr4
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	mulr4 = mulrax;  //mulr4 = mulrax
+	mulrax = mulr5;  //mulrax = mulr5
+	mulr5 = mulrdx;  //mulr5 = mulrdx
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	mulrax = mulr6;  //mulrax = mulr6
+	mulr6 = 0;  //mulr6 = 0
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	mulrax = mulr7;  //mulrax = mulr7
+	mulr7 = 0;  //mulr7 = 0
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr7 += mulrax;  //cf? mulr7 += mulrax
+	mulr8 = 0;  //mulr8 = 0
+	_, mulr8 += mulrdx + cf;  //mulr8 += mulrdx + cf; 
+	cf, ry0 += mulr4;  //cf? ry0 += mulr4
+	cf, ry1 += mulr5 + cf;  //cf? ry1 += mulr5 + cf; 
+	cf, ry2 += mulr6 + cf;  //cf? ry2 += mulr6 + cf; 
+	cf, ry3 += mulr7 + cf;  //cf? ry3 += mulr7 + cf; 
+	mulzero = 0;  //mulzero = 0
+	_, mulr8 += mulzero + cf;  //mulr8 += mulzero + cf; 
+	mulr8 *= 38;  //mulr8 *= 38
+	cf, ry0 += mulr8;  //cf? ry0 += mulr8
+	cf, ry1 += mulzero + cf;  //cf? ry1 += mulzero + cf; 
+	cf, ry2 += mulzero + cf;  //cf? ry2 += mulzero + cf; 
+	cf, ry3 += mulzero + cf;  //cf? ry3 += mulzero + cf; 
+	_, mulzero += mulzero + cf;  //mulzero += mulzero + cf; 
+	mulzero *= 38;  //mulzero *= 38
+	ry0 += mulzero;  //ry0 += mulzero
+	[rp + 4*8] = ry0;  //*(uint64 *) (rp + 32) = ry0
+	[rp + 5*8] = ry1;  //*(uint64 *) (rp + 40) = ry1
+	[rp + 6*8] = ry2;  //*(uint64 *) (rp + 48) = ry2
+	[rp + 7*8] = ry3;  //*(uint64 *) (rp + 56) = ry3
+	mulr4 = 0;  //mulr4 = 0
+	mulr5 = 0;  //mulr5 = 0
+	mulr6 = 0;  //mulr6 = 0
+	mulr7 = 0;  //mulr7 = 0
+	mulx0 = g0_stack;  //mulx0 = g0_stack
+	mulrax = f0_stack;  //mulrax = f0_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	rz0 = mulrax;  //rz0 = mulrax
+	rz1 = mulrdx;  //rz1 = mulrdx
+	mulrax = f1_stack;  //mulrax = f1_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, rz1 += mulrax;  //cf? rz1 += mulrax
+	rz2 = 0;  //rz2 = 0
+	_, rz2 += mulrdx + cf;  //rz2 += mulrdx + cf; 
+	mulrax = f2_stack;  //mulrax = f2_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, rz2 += mulrax;  //cf? rz2 += mulrax
+	rz3 = 0;  //rz3 = 0
+	_, rz3 += mulrdx + cf;  //rz3 += mulrdx + cf; 
+	mulrax = f3_stack;  //mulrax = f3_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, rz3 += mulrax;  //cf? rz3 += mulrax
+	_, mulr4 += mulrdx + cf;  //mulr4 += mulrdx + cf; 
+	mulx1 = g1_stack;  //mulx1 = g1_stack
+	mulrax = f0_stack;  //mulrax = f0_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, rz1 += mulrax;  //cf? rz1 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f1_stack;  //mulrax = f1_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, rz2 += mulrax;  //cf? rz2 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, rz2 += mulc;  //cf? rz2 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f2_stack;  //mulrax = f2_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, rz3 += mulrax;  //cf? rz3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, rz3 += mulc;  //cf? rz3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f3_stack;  //mulrax = f3_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	_, mulr5 += mulrdx + cf;  //mulr5 += mulrdx + cf; 
+	mulx2 = g2_stack;  //mulx2 = g2_stack
+	mulrax = f0_stack;  //mulrax = f0_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, rz2 += mulrax;  //cf? rz2 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f1_stack;  //mulrax = f1_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, rz3 += mulrax;  //cf? rz3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, rz3 += mulc;  //cf? rz3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f2_stack;  //mulrax = f2_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f3_stack;  //mulrax = f3_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulx3 = g3_stack;  //mulx3 = g3_stack
+	mulrax = f0_stack;  //mulrax = f0_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, rz3 += mulrax;  //cf? rz3 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f1_stack;  //mulrax = f1_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f2_stack;  //mulrax = f2_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = f3_stack;  //mulrax = f3_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr6 += mulc;  //cf? mulr6 += mulc
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrax = mulr4;  //mulrax = mulr4
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	mulr4 = mulrax;  //mulr4 = mulrax
+	mulrax = mulr5;  //mulrax = mulr5
+	mulr5 = mulrdx;  //mulr5 = mulrdx
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	mulrax = mulr6;  //mulrax = mulr6
+	mulr6 = 0;  //mulr6 = 0
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	mulrax = mulr7;  //mulrax = mulr7
+	mulr7 = 0;  //mulr7 = 0
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr7 += mulrax;  //cf? mulr7 += mulrax
+	mulr8 = 0;  //mulr8 = 0
+	_, mulr8 += mulrdx + cf;  //mulr8 += mulrdx + cf; 
+	cf, rz0 += mulr4;  //cf? rz0 += mulr4
+	cf, rz1 += mulr5 + cf;  //cf? rz1 += mulr5 + cf; 
+	cf, rz2 += mulr6 + cf;  //cf? rz2 += mulr6 + cf; 
+	cf, rz3 += mulr7 + cf;  //cf? rz3 += mulr7 + cf; 
+	mulzero = 0;  //mulzero = 0
+	_, mulr8 += mulzero + cf;  //mulr8 += mulzero + cf; 
+	mulr8 *= 38;  //mulr8 *= 38
+	cf, rz0 += mulr8;  //cf? rz0 += mulr8
+	cf, rz1 += mulzero + cf;  //cf? rz1 += mulzero + cf; 
+	cf, rz2 += mulzero + cf;  //cf? rz2 += mulzero + cf; 
+	cf, rz3 += mulzero + cf;  //cf? rz3 += mulzero + cf; 
+	_, mulzero += mulzero + cf;  //mulzero += mulzero + cf; 
+	mulzero *= 38;  //mulzero *= 38
+	rz0 += mulzero;  //rz0 += mulzero
+	[rp + 8*8] = rz0;  //*(uint64 *) (rp + 64) = rz0
+	[rp + 9*8] = rz1;  //*(uint64 *) (rp + 72) = rz1
+	[rp + 10*8] = rz2;  //*(uint64 *) (rp + 80) = rz2
+	[rp + 11*8] = rz3;  //*(uint64 *) (rp + 88) = rz3
+	mulr4 = 0;  //mulr4 = 0
+	mulr5 = 0;  //mulr5 = 0
+	mulr6 = 0;  //mulr6 = 0
+	mulr7 = 0;  //mulr7 = 0
+	mulx0 = e0_stack;  //mulx0 = e0_stack
+	mulrax = h0_stack;  //mulrax = h0_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	rt0 = mulrax;  //rt0 = mulrax
+	rt1 = mulrdx;  //rt1 = mulrdx
+	mulrax = h1_stack;  //mulrax = h1_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, rt1 += mulrax;  //cf? rt1 += mulrax
+	rt2 = 0;  //rt2 = 0
+	_, rt2 += mulrdx + cf;  //rt2 += mulrdx + cf; 
+	mulrax = h2_stack;  //mulrax = h2_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, rt2 += mulrax;  //cf? rt2 += mulrax
+	rt3 = 0;  //rt3 = 0
+	_, rt3 += mulrdx + cf;  //rt3 += mulrdx + cf; 
+	mulrax = h3_stack;  //mulrax = h3_stack
+	mulrdx, mulrax = mulrax * mulx0;  //(uint128) mulrdx mulrax = mulrax * mulx0
+	cf, rt3 += mulrax;  //cf? rt3 += mulrax
+	_, mulr4 += mulrdx + cf;  //mulr4 += mulrdx + cf; 
+	mulx1 = e1_stack;  //mulx1 = e1_stack
+	mulrax = h0_stack;  //mulrax = h0_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, rt1 += mulrax;  //cf? rt1 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = h1_stack;  //mulrax = h1_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, rt2 += mulrax;  //cf? rt2 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, rt2 += mulc;  //cf? rt2 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = h2_stack;  //mulrax = h2_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, rt3 += mulrax;  //cf? rt3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, rt3 += mulc;  //cf? rt3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = h3_stack;  //mulrax = h3_stack
+	mulrdx, mulrax = mulrax * mulx1;  //(uint128) mulrdx mulrax = mulrax * mulx1
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	_, mulr5 += mulrdx + cf;  //mulr5 += mulrdx + cf; 
+	mulx2 = e2_stack;  //mulx2 = e2_stack
+	mulrax = h0_stack;  //mulrax = h0_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, rt2 += mulrax;  //cf? rt2 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = h1_stack;  //mulrax = h1_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, rt3 += mulrax;  //cf? rt3 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, rt3 += mulc;  //cf? rt3 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = h2_stack;  //mulrax = h2_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = h3_stack;  //mulrax = h3_stack
+	mulrdx, mulrax = mulrax * mulx2;  //(uint128) mulrdx mulrax = mulrax * mulx2
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulx3 = e3_stack;  //mulx3 = e3_stack
+	mulrax = h0_stack;  //mulrax = h0_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, rt3 += mulrax;  //cf? rt3 += mulrax
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = h1_stack;  //mulrax = h1_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr4 += mulrax;  //cf? mulr4 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr4 += mulc;  //cf? mulr4 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = h2_stack;  //mulrax = h2_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr5 += mulc;  //cf? mulr5 += mulc
+	mulc = 0;  //mulc = 0
+	_, mulc += mulrdx + cf;  //mulc += mulrdx + cf; 
+	mulrax = h3_stack;  //mulrax = h3_stack
+	mulrdx, mulrax = mulrax * mulx3;  //(uint128) mulrdx mulrax = mulrax * mulx3
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	_, mulrdx += 0 + cf;  // mulrdx += 0 + cf; 
+	cf, mulr6 += mulc;  //cf? mulr6 += mulc
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrax = mulr4;  //mulrax = mulr4
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	mulr4 = mulrax;  //mulr4 = mulrax
+	mulrax = mulr5;  //mulrax = mulr5
+	mulr5 = mulrdx;  //mulr5 = mulrdx
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr5 += mulrax;  //cf? mulr5 += mulrax
+	mulrax = mulr6;  //mulrax = mulr6
+	mulr6 = 0;  //mulr6 = 0
+	_, mulr6 += mulrdx + cf;  //mulr6 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr6 += mulrax;  //cf? mulr6 += mulrax
+	mulrax = mulr7;  //mulrax = mulr7
+	mulr7 = 0;  //mulr7 = 0
+	_, mulr7 += mulrdx + cf;  //mulr7 += mulrdx + cf; 
+	mulrdx, mulrax = mulrax * crypto_sign_ed25519_amd64_64_38;  //(uint128) mulrdx mulrax = mulrax * *(uint64 *) &crypto_sign_ed25519_amd64_64_38
+	cf, mulr7 += mulrax;  //cf? mulr7 += mulrax
+	mulr8 = 0;  //mulr8 = 0
+	_, mulr8 += mulrdx + cf;  //mulr8 += mulrdx + cf; 
+	cf, rt0 += mulr4;  //cf? rt0 += mulr4
+	cf, rt1 += mulr5 + cf;  //cf? rt1 += mulr5 + cf; 
+	cf, rt2 += mulr6 + cf;  //cf? rt2 += mulr6 + cf; 
+	cf, rt3 += mulr7 + cf;  //cf? rt3 += mulr7 + cf; 
+	mulzero = 0;  //mulzero = 0
+	_, mulr8 += mulzero + cf;  //mulr8 += mulzero + cf; 
+	mulr8 *= 38;  //mulr8 *= 38
+	cf, rt0 += mulr8;  //cf? rt0 += mulr8
+	cf, rt1 += mulzero + cf;  //cf? rt1 += mulzero + cf; 
+	cf, rt2 += mulzero + cf;  //cf? rt2 += mulzero + cf; 
+	cf, rt3 += mulzero + cf;  //cf? rt3 += mulzero + cf; 
+	_, mulzero += mulzero + cf;  //mulzero += mulzero + cf; 
+	mulzero *= 38;  //mulzero *= 38
+	rt0 += mulzero;  //rt0 += mulzero
+	[rp + 12*8] = rt0;  //*(uint64 *) (rp + 96) = rt0
+	[rp + 13*8] = rt1;  //*(uint64 *) (rp + 104) = rt1
+	[rp + 14*8] = rt2;  //*(uint64 *) (rp + 112) = rt2
+	[rp + 15*8] = rt3;  //*(uint64 *) (rp + 120) = rt3
+	return;
+}
+
+

@@ -59,7 +59,15 @@ inst: $r $o *(float64 *) &$s
 in: float80 r, op o, stack64 s
 tr: $r $o *(float64 *) &$s;//$r $o *(float64 *) &$s---$r:rfloat80;$s:ui64
 
+## IMM + VAR ###
+inst: $r $o *(uint64 *) ($s + $n + $t)
+in: int64 r, op o, int64 s, ii n, int64 t
+tr: $r $o *(uint64_t *) (((void*)$s) + $n + $t); //$r $o *(uint64 *) ($s + $n + $t)---$r:rui64;$s:rui64p;$t:rui64;
 
+inst: $r = *(uint64 *) ($s + $t * 8)
+in: int64 r, int64 s, int64 t
+tr: $r = $s[$t]; //$r = *(uint64 *) ($s + $t * 8)---$r:rui64;$s:rui64p;$t:rui64;
+tr: $r = $s[$t]; //$r = *(uint64 *) ($s + $t * 8)---$r:rui64p;$s:rui64pp;$t:rui64;
 
 ##
 ##
@@ -108,6 +116,16 @@ tr: *(uint64_t *) ($s + $t) $o $r;//*(uint64 *) ($s + $t) $o $r---$s:rvp;$t:rui6
 inst: *(float64 *) &$s $o $r
 in: stack64 s, op o, float80 r
 tr: *(float64 *) &$s $o $r;//*(float64 *) &$s $o $r---$s:ui64;$r:rfloat80;
+
+## IMM + VAR ###
+inst: *(uint64 *) ($s + $n + $t) $o $r
+in: int64 r, op o, int64 s, ii n, int64 t
+tr: *(uint64_t *) (((void*)$s) + $n + $t) $o $r; //*(uint64 *) ($s + $n + $t) $o $r---$r:rui64;$s:rui64p;$t:rui64;
+
+inst: *(uint64 *) ($s + $t * 8) = $r
+in: int64 s, int64 t, int64 r
+tr: $s[$t] = $r; //*(uint64 *) ($s + $t * 8) = $r---$s:rui64p;$t:rui64;$r:rui64;
+tr: $s[$t] = $r; //*(uint64 *) ($s + $t * 8) = $r---$s:rui64pp;$t:rui64;$r:rui64p;
 
 
 ##
@@ -188,27 +206,41 @@ tr: //DEFINE ME; //inplace $r bottom = $s---$r:ui64;$s:rui64
 ##
 ## POINTERS ARITHMETIC += -= ####################################################
 
+inst: $r <<= $n
+in: int64 r, ii n
+tr: $r <<= $n;//$r <<= $n---$r:rui64;
+tr: $r = (uint64_t*)(((uint64_t)$r) << $n);//NS $r <<= $n---$r:rui64p;
+
+inst: (uint64) $r >>= $n
+in: int64 r, ii n
+tr: $r >>= $n;//$r >>= $n---$r:rui64;
+tr: $r = (uint64_t*)(((uint64_t)$r) >> $n);//NS $r >>= $n---$r:rui64p;
+
 inst: $r += $n
 in: int64 r, ii n
 tr: $r += $n;//$r += $n---$r:rui64;
+tr: $r += $n;//$r += $n---$r:rui64p;
 tr: $r += $n;//$r += $n---$r:rui8p;
 tr: $r += $n;//$r += $n---$r:rvp;
 
 inst: $r += $s
 in: int64 r, int64 s
 tr: $r += $s;//$r += $s---$r:rui64;$s:rui64
+tr: $r += $s;//$r += $s---$r:rui64p;$s:rui64
 tr: $r += $s;//$r += $s---$r:rui8p;$s:rui64
 tr: $r += $s;//$r += $s---$r:rvp;$s:rui64
 
 inst: $r -= $n
 in: int64 r, ii n
 tr: $r -= $n;//$r -= $n---$r:rui64;
+tr: $r -= $n;//$r -= $n---$r:rui64p;
 tr: $r -= $n;//$r -= $n---$r:rui8p;
 tr: $r -= $n;//$r -= $n---$r:rvp;
 
 inst: $r -= $s
 in: int64 r, int64 s
 tr: $r -= $s;//$r -= $s---$r:rui64;$s:rui64
+tr: $r -= $s;//$r -= $s---$r:rui64p;$s:rui64
 tr: $r -= $s;//$r -= $s---$r:rui8p;$s:rui64
 tr: $r -= $s;//$r -= $s---$r:rvp;$s:rui64
 
@@ -320,10 +352,6 @@ inst: (uint128) $r $s = $t * *(uint64 *) &$n
 in: int64 r, int64 s, int64 t, iv n
 tr: multiply128($r, $s, $t, $n);//(uint128) $r $s = $t * *(uint64 *) &$n---$r:rui64;$s:rui64;$t:rui64;$n:ui64
 
-inst: $r = ($s.$t) << $n
-in: int64 r, int64 s, int64 t, ii n
-tr: shift_left128($r,$s,$t,$n);//$r = ($s.$t) << $n---$r:rui64;$s:rui64;$t:rui64;
-
 ##
 ##
 ## ADD-CARRY ###################################################################
@@ -360,6 +388,9 @@ inst: $r += $n + carry
 in: int64 r, ii n
 tr: add64_with_carry($r,$r,$n); // $r += $n + cf; ---$r:rui64;carry:rui64;
 
+inst: $r += *(uint64 *) ($s + $n) + carry
+in: int64 r, int64 s, ii n
+tr: add64_with_carry_and_set_carry($r,$r,$s[$p0]); //$r += *(uint64 *) ($s + $n) + cf;---$r:rui64;$s:rui64p;carry:rui64;---let $p0=$n/sizeof(uint64)
 
 ### SET-AND-USE ###
 inst: carry? $r += $n + carry
@@ -382,10 +413,12 @@ tr: add64_with_carry_and_set_carry($r,$r,$s); //cf? $r += $s + cf; ---$r:rui64;$
 inst: $r = $s if carry
 in: int64 r, int64 s
 tr: if(carry){$r = $s;} //$r = $s if carry; ---$r:rui64;$s:rui64;carry:rui64;
+tr: if(carry){$r = $s;} //$r = $s if carry; ---$r:rui64p;$s:rui64p;carry:rui64;
 
 inst: $r = $s if !carry
 in: int64 r, int64 s
 tr: if(!carry){$r = $s;} //$r = $s if !carry; ---$r:rui64;$s:rui64;carry:rui64;
+tr: if(!carry){$r = $s;} //$r = $s if !carry; ---$r:rui64p;$s:rui64p;carry:rui64;
 
 ##
 ##
@@ -396,6 +429,10 @@ tr: if(!carry){$r = $s;} //$r = $s if !carry; ---$r:rui64;$s:rui64;carry:rui64;
 inst: carry? $r -= $n
 in: int64 r, ii n
 tr: sub64_and_set_carry($r,$r,$n); //cf? $r -= $n---$r:rui64;carry:rui64;
+
+inst: carry? $r -= *(uint64 *) &$n
+in: int64 r, iv n
+tr: sub64_and_set_carry($r,$r,$n); //cf? $r -= *(uint64 *) &$n---$r:rui64;$n:ui64;carry:rui64;
 
 inst: carry? $r -= $s
 in: int64 r, int64 s
@@ -413,6 +450,24 @@ inst: carry? $r -= *(uint64 *) ($s + $n) - carry
 in: int64 r, int64 s, ii n
 tr: sub64_with_carry_and_set_carry($r,$r,$s[$p0]); // cf? $r -= *(uint64 *) ($s + $n) - cf; ---$r:rui64;$s:rui64p;carry:rui64;---let $p0=$n/sizeof(uint64)
 
+inst: carry? $r -= *(uint64 *) &$n - carry
+in: int64 r, iv n
+tr: sub64_with_carry_and_set_carry($r,$r,$n); // cf? $r -= *(uint64 *) &$n - cf; ---$r:rui64;$n:ui64;carry:rui64;
+
+### USE ###
+
+inst: $r -= $s - carry
+in: int64 r, int64 s
+tr: sub64_with_carry($r,$r,$s); // $r -= $s - cf; ---$r:rui64;$s:rui64;carry:rui64;
+
+inst: $r -= $s - carry
+in: int64 r, stack64 s
+tr: sub64_with_carry($r,$r,$s); // $r -= $s - cf; ---$r:rui64;$s:ui64;carry:rui64;
+
+inst: $r -= *(uint64 *) ($s + $n) - carry
+in: int64 r, int64 s, ii n
+tr: sub64_with_carry($r,$r,$s[$p0]); // cf? $r -= *(uint64 *) ($s + $n) - cf; ---$r:rui64;$s:rui64p;carry:rui64;---let $p0=$n/sizeof(uint64)
+
 ### SET-AND-USE ###
 inst: carry? $r -= $s - carry
 in: int64 r, int64 s
@@ -422,7 +477,6 @@ inst: carry? $r -= $s - carry
 in: int64 r, stack64 s
 tr: sub64_with_carry_and_set_carry($r,$r,$s); // cf? $r -= $s - cf; ---$r:rui64;$s:ui64;carry:rui64;
 
-
 ##
 ##
 ## SHIFTS ######################################################################
@@ -431,6 +485,13 @@ inst: (uint64) $r >>= $n
 in: int64 r, ii n
 tr: $r >>= $n;//(uint64) $r >>= $n---$r:rui64;
 
+inst: $r = ($s.$t) << $n
+in: int64 r, int64 s, int64 t, ii n
+tr: shift_left128($r,$s,$t,$n);//$r = ($s.$t) << $n---$r:rui64;$s:rui64;$t:rui64;
+
+inst: (int64) $r >>= $n
+in: int64 r, ii n
+tr: $r = (uint64_t)(((int64_t) $r) >> $n);  //(int64) $r >>= $n---$r:rui64;
 
 ##
 ##
@@ -473,6 +534,11 @@ in: int64 r, int64 s
 tr: //signed<? $r - $s---$r:rui64;$s:rui64
 ps: test;signed<;((int64_t)$r);((int64_t)$s)
 
+inst: signed<? $r - $n
+in: int64 r, ii n
+tr: //signed<? $r - $n---$r:rui64;
+ps: test;signed<;((int64_t)$r);((int64_t)$n)
+
 inst: $r = $s if signed<
 in: int64 r, int64 s
 tr: /*$r = $s if signed<*/if($w $cnd $z){$r=$s;}---$r:rui64;$s:rui64
@@ -487,6 +553,11 @@ inst: goto $f if $t
 in: it f, flg t
 tr: /*goto $f if $t*/if($w $cnd $z){goto $f;}
 ps: gotoif;$f;$t
+
+inst: goto $f if carry
+in: it f
+tr: /*goto $f if carry*/if(carry){goto $f;}
+ps: gotoif;$f;carry
 
 inst: $c? $r -= $n
 in: tflg c, int64 r, ii n
@@ -530,5 +601,15 @@ inst: return
 in: 
 tr: return;
 
-
-
+##
+##
+## CC DIRECTIVES ###############################################################
+inst: free $r
+in: int64 r
+tr: //free $r---$r:rui64;
+tr: //free $r---$r:rui64p;
+tr: //free $r---$r:rui8p;
+tr: //free $r---$r:ruip;
+tr: //free $r---$r:rusp;
+tr: //free $r---$r:rucp;
+tr: //free $r---$r:rvp;

@@ -1,0 +1,68 @@
+export fn crypto_sign_ed25519_amd64_64_heap_rootreplaced_2limbs(reg u64 hp, reg u64 hlen, reg u64 sp){
+	 reg u64 c0;
+	 reg u64 c1;
+	 reg bool cf;
+	 reg u64 pc;
+	 reg u64 pp;
+	 reg u64 prc;
+	 reg u64 spc;
+	 reg u64 spp;
+	 reg u64 sprc;
+
+	pp = 0;  //pp = 0
+	siftdownloop:
+	prc = pp;  //prc = pp
+	prc *= 2;  //prc *= 2
+	pc = prc;  //pc = prc
+	prc += 2;  //prc += 2
+	pc += 1;  //pc += 1
+	//unsigned>? hlen-prc
+	goto siftuploop if(hlen <= prc);  //goto siftuploop if !unsigned>
+	sprc = [hp + prc*8]; //sprc = *(uint64 *) (hp + prc * 8)
+	sprc <<= 5;  //NS sprc <<= 5
+	sprc += sp;  //sprc += sp
+	spc = [hp + pc*8]; //spc = *(uint64 *) (hp + pc * 8)
+	spc <<= 5;  //NS spc <<= 5
+	spc += sp;  //spc += sp
+	c0 = [spc + 0*8];  //c0 = *(uint64 *) (spc + 0)
+	c1 = [spc + 1*8];  //c1 = *(uint64 *) (spc + 8)
+	cf, c0 -= [sprc + 0*8];  //cf? c0 -= *(uint64 *) (sprc + 0)
+	cf, c1 -= [sprc + 1*8] - cf;  //cf? c1 -= *(uint64 *) (sprc + 8) - cf; 
+	pc = prc if cf;  //pc = prc if carry; 
+	spc = sprc if cf;  //spc = sprc if carry; 
+	spc -= sp;  //spc -= sp
+	spc >>= 5;  //NS spc >>= 5
+	spp = [hp + pp*8]; //spp = *(uint64 *) (hp + pp * 8)
+	[hp + pp*8] = spc; //*(uint64 *) (hp + pp * 8) = spc
+	[hp + pc*8] = spp; //*(uint64 *) (hp + pc * 8) = spp
+	pp = pc;  //pp = pc
+	goto siftdownloop;
+	siftuploop:
+	pc = pp;  //pc = pp
+	pp -= 1;  //pp -= 1
+	pp >>= 1;  //pp >>= 1
+	//unsigned>? pc-0
+	goto end if(pc <= 0);  //goto end if !unsigned>
+	spp = [hp + pp*8]; //spp = *(uint64 *) (hp + pp * 8)
+	spc = [hp + pc*8]; //spc = *(uint64 *) (hp + pc * 8)
+	spp <<= 5;  //NS spp <<= 5
+	spc <<= 5;  //NS spc <<= 5
+	spc += sp;  //spc += sp
+	spp += sp;  //spp += sp
+	c0 = [spc + 0*8];  //c0 = *(uint64 *) (spc + 0)
+	c1 = [spc + 1*8];  //c1 = *(uint64 *) (spc + 8)
+	cf, c0 -= [spp + 0*8];  //cf? c0 -= *(uint64 *) (spp + 0)
+	cf, c1 -= [spp + 1*8] - cf;  //cf? c1 -= *(uint64 *) (spp + 8) - cf; 
+	goto end if cf;
+	spc -= sp;  //spc -= sp
+	spc >>= 5;  //NS spc >>= 5
+	spp -= sp;  //spp -= sp
+	spp >>= 5;  //NS spp >>= 5
+	[hp + pp*8] = spc; //*(uint64 *) (hp + pp * 8) = spc
+	[hp + pc*8] = spp; //*(uint64 *) (hp + pc * 8) = spp
+	goto siftuploop;
+	end:
+	return;
+}
+
+
