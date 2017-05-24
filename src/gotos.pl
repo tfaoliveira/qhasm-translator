@@ -42,7 +42,7 @@ sub search_flow_control
 
   update_structures(\@tree, $stack_ref, $trans_ref, $label_index_ref, $goto_index_ref);
 
-  #DEBUG: print_tree(\@tree, $stack_ref, 0);
+  DEBUG: print_tree(\@tree, $stack_ref, 0);
 }
 
 sub search_structures

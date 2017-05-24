@@ -613,3 +613,36 @@ tr: //free $r---$r:ruip;
 tr: //free $r---$r:rusp;
 tr: //free $r---$r:rucp;
 tr: //free $r---$r:rvp;
+
+##
+##
+## AMD64-32 ####################################################################
+# stack32 # check me 
+inst: $r = $s
+in: int64 r, stack32 s
+tr: $r = $s;//$r = $s---$r:rui64;$s:ui64
+tr: $r = $s;//$r = $s---$r:rui64p;$s:ui64p
+tr: $r = $s;//$r = $s---$r:rui8p;$s:ui8p
+tr: $r = $s;//$r = $s---$r:ruip;$s:uip
+tr: $r = $s;//$r = $s---$r:rusp;$s:usp
+tr: $r = $s;//$r = $s---$r:rucp;$s:ucp
+tr: $r = $s;//$r = $s---$r:rvp;$s:vp
+
+inst: $r = $s
+in: stack32 r, int64 s
+tr: $r = $s;//$r = $s---$r:ui64;$s:rui64
+tr: $r = $s;//$r = $s---$r:ui64p;$s:rui64p
+tr: $r = $s;//$r = $s---$r:ui8p;$s:rui8p
+tr: $r = $s;//$r = $s---$r:uip;$s:ruip
+tr: $r = $s;//$r = $s---$r:usp;$s:rusp
+tr: $r = $s;//$r = $s---$r:ucp;$s:rucp
+tr: $r = $s;//$r = $s---$r:vp;$s:rvp
+
+(uint32) x00 ^= *(uint32 *) (in + 0)
+
+inst: (uint32) $r ^= *(uint32 *) ($s + $n)
+in: int64 r, op o, int64 s, ii n
+tr: $r = (uint32_t)$r ^ $s[$p0];  //$r $o *(uint32 *) ($s + $n)---$r:rui64;$s:rui32p;---let $p0=$n/sizeof(int)
+
+
+

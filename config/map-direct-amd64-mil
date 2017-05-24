@@ -320,15 +320,16 @@ tr: //DM $r $o -$s;  //$r $o -$s---$r:rfloat80;$s:rfloat80
 
 inst: $r = $s + $t
 in: int64 r, int64 s, int64 t
-tr: $r = $s + $t;  //$r = $s + $t---$r:rui64;$s:rui64;$t:rui64;
+  #tr: $r = $s + $t;  //$r = $s + $t---$r:rui64;$s:rui64;$t:rui64;
+tr: $r = $s; $r += $t;  //$r = $s + $t---$r:rui64;$s:rui64;$t:rui64;
 
 inst: (uint32) $r += $s
 in: int64 r, int64 s
-tr: x86_add_uint32($r, $s);  //(uint32) $r += $s---$r:rui64;$s:rui64;
+tr: _, _, _, _, _, $r = #x86_ADD32($r, $s);  //(uint32) $r += $s---$r:rui64;$s:rui64;
 
 inst: (uint32) $r += $s
 in: int64 r, stack64 s
-tr: x86_add_uint32($r, $s);  //(uint32) $r += $s---$r:rui64;$s:ui64;
+tr: _, _, _, _, _, $r = #x86_ADD32($r, $s);  //(uint32) $r += $s---$r:rui64;$s:ui64;
 
 
 ##
@@ -345,7 +346,7 @@ tr: x86_and_uint32($r,$n);  //(uint32) $r &= $n---$r:rui64;
 
 inst: (uint32) $r <<<= $n
 in: int64 r, ii n
-tr: $r <<<=32 $n;  //(uint32) $r <<<= $n---$r:rui64;
+tr: _, _, _, _, _, $r = #x86_ROL32($r, $n);  //(uint32) $r <<<= $n---$r:rui64;
 
 ##
 ##
@@ -607,7 +608,8 @@ ps: attr;($r = $s);$t
 
 inst: goto $f if $t
 in: it f, flg t
-tr: goto $f if($w $cnd $z);  //goto $f if $t
+# tr: goto $f if($w $cnd $z);  //goto $f if $t
+tr: if($w $cnd $z){goto $f;}  //goto $f if $t
 ps: gotoif;$f;$t
 
 inst: goto $f if carry

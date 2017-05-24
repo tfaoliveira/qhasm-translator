@@ -21,6 +21,74 @@ JASMINC=jasminc -o $@ $< 2> /dev/null
 
 ################################################################################
 ################################################################################
+## crypto_stream/salsa20/e/amd64-1-manual/
+################################################################################
+################################################################################
+crypto_stream/salsa20/e/amd64-1-manual/: crypto_stream/salsa20/e/amd64-1-manual/*.c crypto_stream/salsa20/e/amd64-1-manual/*.mil
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+################################################################################
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS)
+	$(REMCMT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS)
+	$(REMCMT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS)
+	$(REMCMT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "tmp:ui8x64"
+	$(REMCMT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "out:rui64p;m:rui64p;tmp:ui8x64"
+	$(REMCMT)
+
+crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.q
+	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "out:rui64p;m:rui64p;tmp:ui8x64"
+	$(REMCMT)
+
+################################################################################
+################################################################################
+## crypto_hash/cubehash512/amd64-32/
+################################################################################
+################################################################################
+
+crypto_hash/cubehash512/amd64-32/hash.c: crypto_hash/cubehash512/amd64-32/hash.q
+	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
+	$(INDENT)
+
+
+################################################################################
+################################################################################
 ## crypto_sign/ed25519/amd64-64-24k/
 ################################################################################
 ################################################################################
@@ -183,68 +251,6 @@ crypto_sign/ed25519/amd64-64-24k/sc25519_sub_nored.mil: crypto_sign/ed25519/amd6
 
 crypto_sign/ed25519/amd64-64-24k/ull4_mul.mil: crypto_sign/ed25519/amd64-64-24k/ull4_mul.q
 	../src/translate.pl -in $< -out $@ $(MILFLAGS)
-
-################################################################################
-################################################################################
-## crypto_stream/salsa20/e/amd64-1-manual/
-################################################################################
-################################################################################
-crypto_stream/salsa20/e/amd64-1-manual/: crypto_stream/salsa20/e/amd64-1-manual/*.c crypto_stream/salsa20/e/amd64-1-manual/*.mil
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.c: crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.q
-	../src/translate.pl -in $< -out $@ -map-file "../config/map-direct-amd64"
-	$(INDENT)
-
-################################################################################
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-init.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS)
-	$(REMCMT)
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-ivsetup.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS)
-	$(REMCMT)
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keysetup.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS)
-	$(REMCMT)
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-keystream-bytes.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "tmp:ui8x64"
-	$(REMCMT)
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-decrypt-bytes.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "out:rui64p;m:rui64p;tmp:ui8x64"
-	$(REMCMT)
-	$(INDENT)
-
-crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.mil: crypto_stream/salsa20/e/amd64-1-manual/salsa20-encrypt-bytes.q
-	../src/translate.pl -in $< -out $@ $(MILFLAGS) -in-variables "out:rui64p;m:rui64p;tmp:ui8x64"
-	$(REMCMT)
-	$(INDENT)
-
 
 ################################################################################
 ################################################################################
