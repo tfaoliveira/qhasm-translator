@@ -1,0 +1,55 @@
+inst: mov [ $x ][ $y ]($r) , $s [ $n ]
+in: ii x, ii y, int64 r, int64 s, ii n
+tr: $s[$n] = S($r,$x,$y);
+
+
+inst: mov $s [ $n ] , [ $x ][ $y ]($r)
+in: int64 s, ii n, ii x, ii y, int64 r
+tr: S($r,$x,$y) = $s[$n];
+
+inst: mov $r [ $x ] , $s [ $n ]
+in: int64 r, ii x, int64 s, ii n
+tr: $s[$n] = $r[$x];
+
+inst: lea $n($r), $r
+in: ii n, int64 r
+tr: $r += $n;
+
+inst: lea -$n($r), $r
+in: ii n, int64 r
+tr: $r -= $n;
+
+inst: xor [ $x ][ $y ]($r) , $s [ $n ]
+in: ii x, ii y, int64 r, int64 s, ii n
+tr: $s[$n] ^= S($r,$x,$y);
+
+inst: xor $r [ $x ] , $s [ $n ]
+in: int64 r, ii x, int64 s, ii n
+tr: $s[$n] ^= $r[$x];
+
+inst: xor ($r) , $s [ $n ]
+in: int64 r, int64 s, ii n
+tr: $s[$n] ^= B($r,0);
+
+inst: rol \$$x , $s [ $n ]
+in: ii x, int64 s, ii n
+tr: $s[$n] = ROL64($s[$n], $x);
+
+inst: or $r [ $x ] , $s [ $n ]
+in: int64 r, ii x, int64 s, ii n
+tr: $s[$n] |= $r[$x];
+
+inst: and $r [ $x ] , $s [ $n ]
+in: int64 r, ii x, int64 s, ii n
+tr: $s[$n] &= $r[$x];
+
+inst: not $r [ $x ]
+in: int64 r, ii x
+tr: $r[$x] = !$r[$x];
+
+inst: xchg $r, $s
+in: int64 r, int64 s
+tr: $s, $r = swap($s, $r);
+
+
+

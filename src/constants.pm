@@ -14,7 +14,7 @@ use constant RX_NAMES => '([a-zA-Z_][a-zA-Z0-9_]*)';
 use constant RX_DIGIT => '([0-9]+|0x[abcdef0-9]*)';
 use constant RX_SPACE => '[ \t]?';
 use constant RX_RESER => '(\?|\(|\)|\{|\}|\*|\+|\^|\|)';
-use constant RX_PV => '(r|n|f|s|t|y|x)'; 
+use constant RX_PV => '(r|n|f|s|t|y|x|z)'; 
 use constant RX_OPERAND => '(=|\+=|-=|\*=|/=|<<=|>>=|\|=|\^=|&=)';
 use constant RX_FLAGS => '(unsigned>|unsigned<|!unsigned>|!unsigned<|=|!=)';
 use constant RX_TEST_FLAGS => '(unsigned>|unsigned<|=)';
