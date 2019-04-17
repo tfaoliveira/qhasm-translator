@@ -85,18 +85,32 @@ tr: $s = #x86_VPERMQ($r[$x], (4u2)[$p0]);---$s:rui256;$r:rui256;---let $p0=_tr_4
 
 ################################################################################
 # vpblendd
+#
+#inst: vpblendd \$0b$n, $r[ $x ], $s[ $y ], $t[ $z ]
+#in: ii n, int256 r, ii x, int256 s, ii y, int256 t, ii z
+#tr: $t[$z] = #x86_VPBLENDD_256($s[$y], $r[$x], (4u2)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_4u2(0b$n)
+#
+#inst: vpblendd \$0b$n, $r[ $x ], $s, $t
+#in: ii n, int256 r, ii x, int256 s, int256 t
+#tr: $t = #x86_VPBLENDD_256($s, $r[$x], (4u2)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_4u2(0b$n)
+#
+#inst: vpblendd \$0b$n, $r, $s[ $y ], $t[ $z ]
+#in: ii n, int256 r, int256 s, ii y, int256 t, ii z
+#tr: $t[$z] = #x86_VPBLENDD_256($s[$y], $r, (4u2)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_4u2(0b$n)
+#
 
 inst: vpblendd \$0b$n, $r[ $x ], $s[ $y ], $t[ $z ]
 in: ii n, int256 r, ii x, int256 s, ii y, int256 t, ii z
-tr: $t[$z] = #x86_VPBLENDD_256($s[$y], $r[$x], (4u2)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_4u2(0b$n)
+tr: $t[$z] = #x86_VPBLENDD_256($s[$y], $r[$x], (8u1)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_8u1(0b$n)
 
 inst: vpblendd \$0b$n, $r[ $x ], $s, $t
 in: ii n, int256 r, ii x, int256 s, int256 t
-tr: $t = #x86_VPBLENDD_256($s, $r[$x], (4u2)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_4u2(0b$n)
+tr: $t = #x86_VPBLENDD_256($s, $r[$x], (8u1)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_8u1(0b$n)
 
 inst: vpblendd \$0b$n, $r, $s[ $y ], $t[ $z ]
 in: ii n, int256 r, int256 s, ii y, int256 t, ii z
-tr: $t[$z] = #x86_VPBLENDD_256($s[$y], $r, (4u2)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_4u2(0b$n)
+tr: $t[$z] = #x86_VPBLENDD_256($s[$y], $r, (8u1)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_8u1(0b$n)
+
 
 ################################################################################
 # for the following 2 translations we keep it simple, since vpsllvq/vpsrlvq
