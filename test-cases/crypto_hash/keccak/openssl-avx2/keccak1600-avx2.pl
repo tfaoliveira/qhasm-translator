@@ -62,7 +62,7 @@ my ($A00,    # [0][0] [0][0] [0][0] [0][0]  # %ymm0
     $A21,    # [3][4] [1][3] [4][2] [2][1]  # %ymm4
     $A41,    # [1][4] [2][3] [3][2] [4][1]  # %ymm5
     $A11) =  # [4][4] [3][3] [2][2] [1][1]  # %ymm6
-    map("A[$_]",(0..6));
+    map("state[$_]",(0..6));
 
 # We also need to map the magic order into offsets within structure:
 
@@ -87,7 +87,7 @@ my @A_jagged = (
        "(2,1)", "(5,0)", "(4,1)", "(3,2)", "(6,3)"     # [4][0..4]
 );
 
-@A_jagged = map {"A_jagged".$_} @A_jagged;
+@A_jagged = map {"a_jagged".$_} @A_jagged;
 
 # But on the other hand Chi is much better off if y indices were aligned
 # column-wise, not x. For this reason we have to shuffle data prior
@@ -138,22 +138,22 @@ my @A_jagged = (
 #    in addition vpblendd is reportedly bound to specific port.
 #    Obviously this code path should not be executed on Ryzen.
 
-my @T = map("T[$_]",((7-7)..(15-7)));
-my ($C14,$C00,$D00,$D14) = ("C14", "C00", "D00", "D14"); # @T[5..8];
+my @T = map("t[$_]",((7-7)..(15-7)));
+my ($C14,$C00,$D00,$D14) = ("c14", "c00", "d00", "d14"); # @T[5..8];
 
 $code.=<<___;
-int64 A_flat
-int64 A_stack
-int64 A_jagged
+int64 a_flat
+int64 a_stack
+int64 a_jagged
 int64 rhotates_left
 int64 rhotates_right
 int64 iotas
-int256 A
-int256 T
-int256 C14
-int256 C00
-int256 D00
-int256 D14
+int256 state
+int256 t
+int256 c14
+int256 c00
+int256 d00
+int256 d14
 
 enter __KeccakF1600
     lea        rhotates_left+96(%rip),%r8
@@ -307,7 +307,7 @@ $code =~ s/\%r8/rhotates_left/g;
 $code =~ s/\%r9/rhotates_right/g;
 $code =~ s/\%r10/iotas/g;
 
-my ($A_flat,$inp,$len,$bsz) = ("A_flat","inp","len","bsz"); #("%rdi","%rsi","%rdx","%rcx");
+my ($A_flat,$inp,$len,$bsz) = ("a_flat","inp","len","bsz"); #("%rdi","%rsi","%rdx","%rcx");
 
 $code.=<<___;
 enter SHA3_absorb
@@ -388,7 +388,7 @@ $code.=<<___;
 leave
 ___
 
-$code =~ s/\%r10/A_stack/g;
+$code =~ s/\%r10/a_stack/g;
 
 #my  $out = $inp;    # in squeeze
 
