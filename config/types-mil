@@ -23,6 +23,7 @@ rui8;reg u8 $s
 rui16;reg u16 $s
 rui32;reg u32 $s
 rui64;reg u64 $s
+rui256;reg u256 $s
 
 bool;stack bool $s
 

@@ -1,0 +1,384 @@
+export fn SHA3_absorb(){
+
+	// UNMATCHED: mov %rsp,%r11
+
+	// UNMATCHED: lea -240(%rsp),%rsp
+
+	// UNMATCHED: and $-32,%rsp
+
+	// UNMATCHED: lea 96(A_flat),A_flat
+
+	// UNMATCHED: lea 96(inp),inp
+
+	// UNMATCHED: lea 96(%rsp),A_stack
+
+	// UNMATCHED: vzeroupper
+
+	// UNMATCHED: vpbroadcastq -96(A_flat),A[0] 
+
+	A[1] = B256(A_flat,0,(96-8));
+	A[2] = B256(A_flat,1,(96-8));
+	A[3] = B256(A_flat,2,(96-8));
+	A[4] = B256(A_flat,3,(96-8));
+	A[5] = B256(A_flat,4,(96-8));
+	A[6] = B256(A_flat,5,(96-8));
+	T[0] = T[0] ^ T[0];
+	B256(A_stack,2,96) = T[0];
+	B256(A_stack,3,96) = T[0];
+	B256(A_stack,4,96) = T[0];
+	B256(A_stack,5,96) = T[0];
+	B256(A_stack,6,96) = T[0];
+	// UNMATCHED: .Loop_absorb_avx2:
+
+	// UNMATCHED: mov bsz,%rax
+
+	// UNMATCHED: sub bsz,len
+
+	// UNMATCHED: jc .Ldone_absorb_avx2
+
+	// UNMATCHED: shr $3,%eax
+
+	// UNMATCHED: vpbroadcastq 0-96(inp),T[0]
+
+	// UNMATCHED: vmovdqu 8-96(inp),T[1]
+
+	// UNMATCHED: sub $4,%eax
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*5-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(2,2)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*6-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(6,0)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*7-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(3,1)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*8-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(4,2)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*9-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(5,3)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*10-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(2,0)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*11-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(4,0)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*12-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(6,1)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*13-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(5,2)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*14-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(3,3)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*15-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(2,3)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*16-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(3,0)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*17-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(5,1)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*18-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(6,2)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*19-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(4,3)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*20-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(2,1)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*21-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(5,0)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*22-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(4,1)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*23-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(3,2)-96(A_stack)
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jz .Labsorved_avx2
+
+	// UNMATCHED: mov 8*24-96(inp),%r8
+
+	// UNMATCHED: mov %r8,A_jagged(6,3)-96(A_stack)
+
+	// UNMATCHED: .Labsorved_avx2:
+
+	// UNMATCHED: lea (inp,bsz),inp
+
+	A[0] = A[0] ^ T[0];
+	A[1] = A[1] ^ T[1];
+	A[2] = A[2] ^ B256(A_stack,2,96);
+	A[3] = A[3] ^ B256(A_stack,3,96);
+	A[4] = A[4] ^ B256(A_stack,4,96);
+	A[5] = A[5] ^ B256(A_stack,5,96);
+	A[6] = A[6] ^ B256(A_stack,6,96);
+	// UNMATCHED: call __KeccakF1600
+
+	// UNMATCHED: lea 96(%rsp),A_stack
+
+	// UNMATCHED: jmp .Loop_absorb_avx2
+
+	// UNMATCHED: .Ldone_absorb_avx2:
+
+	// UNMATCHED: vmovq %xmm0,-96(A_flat) 
+
+	B256(A_flat,0,(96-8)) = A[1];
+	B256(A_flat,1,(96-8)) = A[2];
+	B256(A_flat,2,(96-8)) = A[3];
+	B256(A_flat,3,(96-8)) = A[4];
+	B256(A_flat,4,(96-8)) = A[5];
+	B256(A_flat,5,(96-8)) = A[6];
+	// UNMATCHED: vzeroupper
+
+	// UNMATCHED: lea (%r11),%rsp
+
+	// UNMATCHED: lea (len,bsz),%rax 
+
+	return;
+}
+
+
+export fn __KeccakF1600(){
+	 reg u256 A;
+	 reg u256 C00;
+	 reg u256 C14;
+	 reg u256 D00;
+	 reg u256 D14;
+	 reg u256 T;
+
+	// UNMATCHED: lea rhotates_left+96(%rip),rhotates_left
+
+	// UNMATCHED: lea rhotates_right+96(%rip),rhotates_right
+
+	// UNMATCHED: lea iotas(%rip),iotas
+
+	// UNMATCHED: mov $24,%eax
+
+	// UNMATCHED: jmp .Loop_avx2
+
+	// UNMATCHED: .align 32
+
+	// UNMATCHED: .Loop_avx2:
+
+	//######################################## Theta
+	C00 = #x86_VPSHUFD_256(A[2], (4u2)[1,0,3,2]);
+	C14 = A[5] ^ A[3];
+	T[2] = A[4] ^ A[6];
+	C14 = C14 ^ A[1];
+	C14 = C14 ^ T[2];
+	T[4] = #x86_VPERMQ(C14, (4u2)[2,1,0,3]);
+	C00 = C00 ^ A[2];
+	T[0] = #x86_VPERMQ(C00, (4u2)[1,0,3,2]);
+	T[1] = C14 >>4u64 63;
+	T[2] = C14 +4u64 C14;
+	T[1] = T[1] | T[2];
+	D14 = #x86_VPERMQ(T[1], (4u2)[0,3,2,1]);
+	D00 = T[1] ^ T[4];
+	D00 = #x86_VPERMQ(D00, (4u2)[0,0,0,0]);
+	C00 = C00 ^ A[0];
+	C00 = C00 ^ T[0];
+	T[0] = C00 >>4u64 63;
+	T[1] = C00 +4u64 C00;
+	T[1] = T[1] | T[0];
+	A[2] = A[2] ^ D00;
+	A[0] = A[0] ^ D00;
+	D14 = #x86_VPBLENDD_256(D14, T[1], (4u2)[3,0,0,0]);
+	T[4] = #x86_VPBLENDD_256(T[4], C00, (4u2)[0,0,0,3]);
+	D14 = D14 ^ T[4];
+	//######################################## Rho + Pi + pre-Chi shuffle
+	T[3] = #x86_VPSLLV_4u64(A[2], B256(rhotates_left,0,96) );
+	A[2] = #x86_VPSRLV_4u64(A[2], B256(rhotates_right,0,96) );
+	A[2] = A[2] | T[3];
+	A[3] = A[3] ^ D14;
+	T[4] = #x86_VPSLLV_4u64(A[3], B256(rhotates_left,2,96) );
+	A[3] = #x86_VPSRLV_4u64(A[3], B256(rhotates_right,2,96) );
+	A[3] = A[3] | T[4];
+	A[4] = A[4] ^ D14;
+	T[5] = #x86_VPSLLV_4u64(A[4], B256(rhotates_left,3,96) );
+	A[4] = #x86_VPSRLV_4u64(A[4], B256(rhotates_right,3,96) );
+	A[4] = A[4] | T[5];
+	A[5] = A[5] ^ D14;
+	T[6] = #x86_VPSLLV_4u64(A[5], B256(rhotates_left,4,96) );
+	A[5] = #x86_VPSRLV_4u64(A[5], B256(rhotates_right,4,96) );
+	A[5] = A[5] | T[6];
+	A[6] = A[6] ^ D14;
+	T[3] = #x86_VPERMQ(A[2], (4u2)[2,0,3,1]);
+	T[4] = #x86_VPERMQ(A[3], (4u2)[2,0,3,1]);
+	T[7] = #x86_VPSLLV_4u64(A[6], B256(rhotates_left,5,96) );
+	T[1] = #x86_VPSRLV_4u64(A[6], B256(rhotates_right,5,96) );
+	T[1] = T[1] | T[7];
+	A[1] = A[1] ^ D14;
+	T[5] = #x86_VPERMQ(A[4], (4u2)[0,1,2,3]);
+	T[6] = #x86_VPERMQ(A[5], (4u2)[1,3,0,2]);
+	T[8] = #x86_VPSLLV_4u64(A[1], B256(rhotates_left,1,96) );
+	T[2] = #x86_VPSRLV_4u64(A[1], B256(rhotates_right,1,96) );
+	T[2] = T[2] | T[8];
+	//######################################## Chi
+	T[7] = #x86_VPSRLDQ_256(T[1], 8);
+	T[0] = !T[1] & T[7];
+	A[3] = #x86_VPBLENDD_256(T[2], T[6], (4u2)[0,0,3,0]);
+	T[8] = #x86_VPBLENDD_256(T[4], T[2], (4u2)[0,0,3,0]);
+	A[5] = #x86_VPBLENDD_256(T[3], T[4], (4u2)[0,0,3,0]);
+	T[7] = #x86_VPBLENDD_256(T[2], T[3], (4u2)[0,0,3,0]);
+	A[3] = #x86_VPBLENDD_256(A[3], T[4], (4u2)[0,3,0,0]);
+	T[8] = #x86_VPBLENDD_256(T[8], T[5], (4u2)[0,3,0,0]);
+	A[5] = #x86_VPBLENDD_256(A[5], T[2], (4u2)[0,3,0,0]);
+	T[7] = #x86_VPBLENDD_256(T[7], T[6], (4u2)[0,3,0,0]);
+	A[3] = #x86_VPBLENDD_256(A[3], T[5], (4u2)[3,0,0,0]);
+	T[8] = #x86_VPBLENDD_256(T[8], T[6], (4u2)[3,0,0,0]);
+	A[5] = #x86_VPBLENDD_256(A[5], T[6], (4u2)[3,0,0,0]);
+	T[7] = #x86_VPBLENDD_256(T[7], T[4], (4u2)[3,0,0,0]);
+	A[3] = !A[3] & T[8];
+	A[5] = !A[5] & T[7];
+	A[6] = #x86_VPBLENDD_256(T[5], T[2], (4u2)[0,0,3,0]);
+	T[8] = #x86_VPBLENDD_256(T[3], T[5], (4u2)[0,0,3,0]);
+	A[3] = A[3] ^ T[3];
+	A[6] = #x86_VPBLENDD_256(A[6], T[3], (4u2)[0,3,0,0]);
+	T[8] = #x86_VPBLENDD_256(T[8], T[4], (4u2)[0,3,0,0]);
+	A[5] = A[5] ^ T[5];
+	A[6] = #x86_VPBLENDD_256(A[6], T[4], (4u2)[3,0,0,0]);
+	T[8] = #x86_VPBLENDD_256(T[8], T[2], (4u2)[3,0,0,0]);
+	A[6] = !A[6] & T[8];
+	A[6] = A[6] ^ T[6];
+	A[4] = #x86_VPERMQ(T[1], (4u2)[0,1,3,2]);
+	T[8] = #x86_VPBLENDD_256(A[4], A[0], (4u2)[0,3,0,0]);
+	A[1] = #x86_VPERMQ(T[1], (4u2)[0,3,2,1]);
+	A[1] = #x86_VPBLENDD_256(A[1], A[0], (4u2)[3,0,0,0]);
+	A[1] = !A[1] & T[8];
+	A[2] = #x86_VPBLENDD_256(T[4], T[5], (4u2)[0,0,3,0]);
+	T[7] = #x86_VPBLENDD_256(T[6], T[4], (4u2)[0,0,3,0]);
+	A[2] = #x86_VPBLENDD_256(A[2], T[6], (4u2)[0,3,0,0]);
+	T[7] = #x86_VPBLENDD_256(T[7], T[3], (4u2)[0,3,0,0]);
+	A[2] = #x86_VPBLENDD_256(A[2], T[3], (4u2)[3,0,0,0]);
+	T[7] = #x86_VPBLENDD_256(T[7], T[5], (4u2)[3,0,0,0]);
+	A[2] = !A[2] & T[7];
+	A[2] = A[2] ^ T[2];
+	T[0] = #x86_VPERMQ(T[0], (4u2)[0,0,0,0]);
+	A[3] = #x86_VPERMQ(A[3], (4u2)[0,1,2,3]);
+	A[5] = #x86_VPERMQ(A[5], (4u2)[2,0,3,1]);
+	A[6] = #x86_VPERMQ(A[6], (4u2)[1,3,0,2]);
+	A[4] = #x86_VPBLENDD_256(T[6], T[3], (4u2)[0,0,3,0]);
+	T[7] = #x86_VPBLENDD_256(T[5], T[6], (4u2)[0,0,3,0]);
+	A[4] = #x86_VPBLENDD_256(A[4], T[5], (4u2)[0,3,0,0]);
+	T[7] = #x86_VPBLENDD_256(T[7], T[2], (4u2)[0,3,0,0]);
+	A[4] = #x86_VPBLENDD_256(A[4], T[2], (4u2)[3,0,0,0]);
+	T[7] = #x86_VPBLENDD_256(T[7], T[3], (4u2)[3,0,0,0]);
+	A[4] = !A[4] & T[7];
+	A[0] = A[0] ^ T[0];
+	A[1] = A[1] ^ T[1];
+	A[4] = A[4] ^ T[4];
+	//######################################## Iota
+	A[0] = A[0] ^ B256(iotas,0,0);
+	// UNMATCHED: lea 32(iotas),iotas
+
+	// UNMATCHED: dec %eax
+
+	// UNMATCHED: jnz .Loop_avx2
+
+	return;
+}
+
+

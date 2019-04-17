@@ -5,6 +5,7 @@ use warnings;
 
 require 'doc.pl';   # get_types_info
 require 'gotos.pl'; # search_flow_control
+require 'lets.pl';  # funtions that can be used in let's
 
 # Constants
 my $RX_NAMES  = '([a-zA-Z_][a-zA-Z0-9_]*)';

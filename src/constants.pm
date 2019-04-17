@@ -9,7 +9,7 @@ use warnings;
 use base 'Exporter';
 
 ######################################################################## DOC
-use constant RX_TYPES => '(it|iv|int3232|int32|int64|stack32|stack64|stack128|stack512|float80)';
+use constant RX_TYPES => '(it|iv|int3232|int32|int64|int256|stack32|stack64|stack128|stack512|float80)';
 use constant RX_NAMES => '([a-zA-Z_][a-zA-Z0-9_]*)';
 use constant RX_DIGIT => '([0-9]+|0x[abcdef0-9]*)';
 use constant RX_SPACE => '[ \t]?';
@@ -25,7 +25,7 @@ use constant RX_ASSIGN 	=> "(1|2|3|4|5|6|7)";
 use constant RX_11_15 	=> "(11|12|13|14|15)";
 use constant RX_NAME		=> "[a-zA-Z_][a-zA-Z0-9_]*";
 use constant RX_ARG  	  => "(stack32|stack64)";
-use constant RX_VART	 	=> "(stack32|stack64|stack128|stack512|int3232|int32|int64|float80)";
+use constant RX_VART	 	=> "(stack32|stack64|stack128|stack512|int3232|int32|int64|int256|float80)";
 
 # TODO : clear list -> in file
 use constant CL_FINAL   => "^[ \t]*(".

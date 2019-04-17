@@ -1,0 +1,170 @@
+# a little bit boring but there isn't a notion of array... perhaps it should be
+# refactored? ...for now copy paste solves the issue...
+
+################################################################################
+# vpshufd
+
+inst: vpshufd \$0b$n, $r[ $x ], $s
+in: ii n, int256 r, ii x, int256 s
+tr: $s = #x86_VPSHUFD_256($r[$x], (4u2)[$p0]);---$s:rui256;$r:rui256;---let $p0=_tr_4u2(0b$n)
+
+
+################################################################################
+# xor
+
+inst: vpxor $r, $s, $t
+in: int256 r, int256 s, int256 t
+tr: $t = $s ^ $r;
+
+inst: vpxor $r[ $x ], $s, $t
+in: int256 r, ii x, int256 s, int256 t
+tr: $t = $s ^ $r[$x];
+
+inst: vpxor $r[ $x ], $s[ $y ], $t
+in: int256 r, ii x, int256 s, ii y, int256 t
+tr: $t = $s[$y] ^ $r[$x];
+
+inst: vpxor $r[ $x ], $s[ $y ], $t[ $n ]
+in: int256 r, ii x, int256 s, ii y, int256 t, ii n
+tr: $t[$n] = $s[$y] ^ $r[$x];
+
+inst: vpxor $r, $s[ $y ], $t[ $n ]
+in: int256 r, int256 s, ii y, int256 t, ii n
+tr: $t[$n] = $s[$y] ^ $r;
+
+inst: vpxor ($r), $s[ $y ], $t[ $n ]
+in: int64 r, int256 s, ii y, int256 t, ii n
+tr: $t[$n] = $s[$y] ^ B256($r,0,0);
+
+inst: vpxor 32*$z-96($r), $s[ $y ], $t[ $n ]
+in: ii z, int64 r, int256 s, ii y, int256 t, ii n
+tr: $t[$n] = $s[$y] ^ B256($r,$z,96);
+
+
+################################################################################
+# or
+
+inst: vpor $r, $s, $t
+in: int256 r, int256 s, int256 t
+tr: $t = $s | $r;
+
+inst: vpor $r[ $x ], $s, $t
+in: int256 r, ii x, int256 s, int256 t
+tr: $t = $s | $r[$x];
+
+inst: vpor $r[ $x ], $s[ $y ], $t
+in: int256 r, ii x, int256 s, ii y, int256 t
+tr: $t = $s[$y] | $r[$x];
+
+inst: vpor $r[ $x ], $s[ $y ], $t[ $n ]
+in: int256 r, ii x, int256 s, ii y, int256 t, ii n
+tr: $t[$n] = $s[$y] | $r[$x];
+
+inst: vpor $r, $s[ $y ], $t[ $n ]
+in: int256 r, int256 s, ii y, int256 t, ii n
+tr: $t[$n] = $s[$y] | $r;
+
+################################################################################
+# vpermq
+
+inst: vpermq \$0b$n, $r, $s
+in: ii n, int256 r, int256 s
+tr: $s = #x86_VPERMQ($r, (4u2)[$p0]);---$s:rui256;$r:rui256;---let $p0=_tr_4u2(0b$n)
+
+inst: vpermq \$0b$n, $r, $s[ $y ]
+in: ii n, int256 r, int256 s, ii y
+tr: $s[$y] = #x86_VPERMQ($r, (4u2)[$p0]);---$s:rui256;$r:rui256;---let $p0=_tr_4u2(0b$n)
+
+inst: vpermq \$0b$n, $r[ $x ], $s[ $y ]
+in: ii n, int256 r, ii x, int256 s, ii y
+tr: $s[$y] = #x86_VPERMQ($r[$x], (4u2)[$p0]);---$s:rui256;$r:rui256;---let $p0=_tr_4u2(0b$n)
+
+inst: vpermq \$0b$n, $r[ $x ], $s
+in: ii n, int256 r, ii x, int256 s
+tr: $s = #x86_VPERMQ($r[$x], (4u2)[$p0]);---$s:rui256;$r:rui256;---let $p0=_tr_4u2(0b$n)
+
+################################################################################
+# vpblendd
+
+inst: vpblendd \$0b$n, $r[ $x ], $s[ $y ], $t[ $z ]
+in: ii n, int256 r, ii x, int256 s, ii y, int256 t, ii z
+tr: $t[$z] = #x86_VPBLENDD_256($s[$y], $r[$x], (4u2)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_4u2(0b$n)
+
+inst: vpblendd \$0b$n, $r[ $x ], $s, $t
+in: ii n, int256 r, ii x, int256 s, int256 t
+tr: $t = #x86_VPBLENDD_256($s, $r[$x], (4u2)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_4u2(0b$n)
+
+inst: vpblendd \$0b$n, $r, $s[ $y ], $t[ $z ]
+in: ii n, int256 r, int256 s, ii y, int256 t, ii z
+tr: $t[$z] = #x86_VPBLENDD_256($s[$y], $r, (4u2)[$p0]);---$s:rui256;$r:rui256;$t:rui256;---let $p0=_tr_4u2(0b$n)
+
+################################################################################
+# for the following 2 translations we keep it simple, since vpsllvq/vpsrlvq
+# are always used like this: $n*32-96
+
+# vpsllvq
+
+inst: vpsllvq $n*32-96($r), $s[ $y ], $t[ $z ]
+in: ii n, int64 r, int256 s, ii y, int256 t, ii z
+tr: $t[$z] = #x86_VPSLLV_4u64($s[$y], B256($r,$n,96) );
+
+# vpsrlvq
+
+inst: vpsrlvq $n*32-96($r), $s[ $y ], $t[ $z ]
+in: ii n, int64 r, int256 s, ii y, int256 t, ii z
+tr: $t[$z] = #x86_VPSRLV_4u64($s[$y], B256($r,$n,96) );
+
+
+#	vpsrldq $8,T[1],T[7]
+
+inst: vpsrldq \$$n, $s[ $y ], $t[ $z ]
+in: ii n, int256 s, ii y, int256 t, ii z
+tr: $t[$z] = #x86_VPSRLDQ_256($s[$y], $n);
+
+
+################################################################################
+# vpsrlq 
+
+inst: vpsrlq \$$n, $s, $r[ $x ]
+in: ii n, int256 s, int256 r, ii x
+tr: $r[$x] = $s >>4u64 $n;
+
+################################################################################
+# vpaddq
+
+inst: vpaddq $t, $s, $r[ $x ]
+in: int256 t, int256 s, int256 r, ii x
+tr: $r[$x] = $s +4u64 $t;
+
+################################################################################
+# vpandn
+
+inst: vpandn $r[ $x ], $s[ $y ], $t[ $n ]
+in: int256 r, ii x, int256 s, ii y, int256 t, ii n
+tr: $t[$n] = !$s[$y] & $r[$x];
+
+################################################################################
+# vmovdqu
+
+inst: vmovdqu 8+32*$n-96($r), $s[ $y ]
+in: ii n, int64 r, int256 s, ii y
+tr: $s[$y] = B256($r,$n,(96-8));
+
+inst: vmovdqu $s[ $y ], 8+32*$n-96($r)
+in: int256 s, ii y, ii n, int64 r
+tr: B256($r,$n,(96-8)) = $s[$y];
+
+# vmovdqa
+
+inst: vmovdqa $s[ $y ], 32*$n-96($r)
+in: int256 s, ii y, ii n, int64 r
+tr: B256($r,$n,96) = $s[$y];
+
+
+
+
+
+
+
+
+
