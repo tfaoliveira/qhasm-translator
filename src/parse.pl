@@ -51,7 +51,7 @@ sub get_functions
         $temp_name = $1;
         @temp_inst = ();
     }
-    elsif($line =~ m/^leave$/)
+    elsif($line =~ m/^leave$/ || $line =~ m/^return$/)
     {
       $in_func = 0;
       chomp @temp_inst;

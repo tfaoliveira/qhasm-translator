@@ -1,0 +1,86 @@
+### params #####################################################################
+# only for printing ; do not use these types as input to translator.pl
+puc;param u8 $s
+pus;param u16 $s
+pui;param u32 $s
+pul;param int $s
+pull;param u64 $s
+pui8;param u8 $s
+pui16;param u16 $s
+pui32;param u32 $s
+pui64;param int $s
+
+### non-pointers ###############################################################
+
+rbool;reg bool $s
+
+ruc;reg u8 $s
+rus;reg u16 $s
+rui;reg u32 $s
+rul;reg u64 $s
+rull;reg u64 $s
+rui8;reg u8 $s
+rui16;reg u16 $s
+rui32;reg u32 $s
+rui64;reg u64 $s
+rui128;reg u128 $s
+rui256;reg u256 $s
+
+bool;stack bool $s
+
+uc;stack u8 $s
+us;stack u16 $s
+ui;stack u32 $s
+ul;stack u64 $s
+ull;stack u64 $s
+ui8;stack u8 $s
+ui16;stack u16 $s
+ui32;stack u32 $s
+ui64;stack u64 $s
+
+## TODO : CHECKME 
+rfloat64; double $s
+float64; double $s
+rfloat80; double $s
+float80; double $s
+
+### pointers ###################################################################
+
+rboolp;reg bool $s
+
+rucp;reg u8 $s
+rusp;reg u16 $s
+ruip;reg u32 $s
+rulp;reg u64 $s
+rullp;reg u64 $s
+rui8p;reg u8 $s
+rui16p;reg u16 $s
+rui32p;reg u32 $s
+rui64p;reg u64 $s
+rui64pp;reg u64 $s
+
+boolp;reg bool $s
+
+ucp;stack u8 $s
+usp;stack u16 $s
+uip;stack u32 $s
+ulp;stack u64 $s
+ullp;stack u64 $s
+ui8p;stack u8 $s
+ui16p;stack u16 $s
+ui32p;stack u32 $s
+ui64p;stack u64 $s
+ui64pp;stack u64 $s
+
+## TODO : CHECKME
+rfloat64p; double $s
+float64p; double $s
+rfloat80p; double $s
+float80p; double $s
+
+ui64x8; u64[8] $s
+ui8x64; u8[64] $s
+
+su256x19;stack u256[19] $s
+pu256x19;reg ptr u256[19] $s
+
