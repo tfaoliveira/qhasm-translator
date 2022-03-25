@@ -9,6 +9,8 @@ pui8;param u8 $s
 pui16;param u16 $s
 pui32;param u32 $s
 pui64;param int $s
+pui128;u128 $s
+pui256;u256 $s
 
 ### non-pointers ###############################################################
 
@@ -37,6 +39,8 @@ ui8;stack u8 $s
 ui16;stack u16 $s
 ui32;stack u32 $s
 ui64;stack u64 $s
+ui128;stack u128 $s
+ui256;stack u256 $s
 
 ## TODO : CHECKME 
 rfloat64; double $s

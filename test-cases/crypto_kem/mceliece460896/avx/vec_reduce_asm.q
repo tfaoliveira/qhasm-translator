@@ -3,6 +3,11 @@ int64 t1
 int64 c
 int64 r
 
+## FIX
+int64 input_0
+input input_0
+## FIX
+
 enter vec_reduce_asm
 
 r = 0
@@ -97,4 +102,5 @@ c = count(t0)
 (uint32) c &= 1
 r <<= 1
 r |= c
-return r
+#return r
+return

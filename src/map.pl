@@ -551,12 +551,19 @@ sub find_mapping
         for (@inp)
         {
           my ($t,$n) = split ' ', $_;
+
+          #print "1: $cline\n" if (!defined $mat[$c]);
+          #print "2: $cline --  $mat[$c] ---\n" if (!defined $t);
+          #print "3: $cline --- $mat[$c] --- $t ---\n" if ($alltypes_ref->{$mat[$c]} eq $t);
           if ( ($t =~ m/(ii|it|op|flg|tflg)/) ||
                ($t !~ m/(ii|it|op|flg|tflg)/ &&
                 $alltypes_ref->{$mat[$c]} eq $t) )
           {
             for (@$alltrans_ref)
-            { #print $cline if (!defined $mat[$c]);
+            { 
+              #print "1: $cline\n" if (!defined $mat[$c]);
+              #print "2: $cline --  $mat[$c] ---\n" if (!defined $t);
+              #print "3: $cline --- $mat[$c] --- $t ---\n" if (!defined $alltypes_ref->{$mat[$c]});
               s/\$$n/$mat[$c]/g; 
             }
             $ps =~ s/\$$n/$mat[$c]/g unless $ps eq "";

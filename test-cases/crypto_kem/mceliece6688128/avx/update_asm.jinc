@@ -1,0 +1,116 @@
+//# FIX
+//# FIX
+export fn update_asm(reg u64 input_0, reg u64 input_1, reg u64 input_2){
+	 reg u64 s0;
+	 reg u64 s1;
+	 reg u64 s2;
+
+	s2 = input_1;  //s2 = input_1
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	s0 = (u64)[input_0 + 0];
+	s1 = (u64)[input_0 + 8];
+	_,_,_,_,_,s0 = #SHRD(s0, s1, 1);
+	_,_,_,_,_,s1 = #SHRD(s1, s2, 1);
+	s2 >>= 1;  //s2 >>= 1
+	(u64)[input_0 + 0] = s0;
+	(u64)[input_0 + 8] = s1;
+	input_0 += input_2;  //input_0 += input_2
+	return;
+}
+
+

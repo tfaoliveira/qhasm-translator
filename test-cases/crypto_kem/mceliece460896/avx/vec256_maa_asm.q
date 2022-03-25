@@ -39,6 +39,17 @@ reg256 r22
 reg256 r23
 reg256 r24
 reg256 r
+
+## FIX
+int64 input_0
+int64 input_1
+int64 input_2
+
+input input_0
+input input_1
+input input_2
+## FIX
+
 enter vec256_maa_asm
 b0 = mem256[ input_2 + 0 ]
 a12 = mem256[ input_1 + 384 ]

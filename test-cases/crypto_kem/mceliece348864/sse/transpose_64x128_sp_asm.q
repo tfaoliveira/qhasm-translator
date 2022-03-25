@@ -19,6 +19,11 @@ reg128 mask3
 reg128 mask4
 reg128 mask5
 
+## FIX
+int64 input_0
+input input_0
+## FIX
+
 enter transpose_64x128_sp_asm
 
 mask0 aligned= mem128[ MASK5_0 ]

@@ -26,7 +26,11 @@ tr: (u128)[$t + $n] = $r;---$t:rui64p;$r:rui128;
 
 inst: $r = mem128\[ $t + $n \]
 in: reg128 r, ptr4864 t, ii n
-tr: $r = $t.[u128 $p0];---$t:pu256x19;$r:rui128;---let $p0=$n/16
+tr: $r = $t.[u128 $p0];---$t:pu256x19;$r:rui128;---let $p0=$n
+
+inst: $r aligned= mem128\[ $n \]
+in: reg128 r, iv n
+tr: $r = $n;---$r:rui128;$n:ui128
 
 #
 
@@ -46,8 +50,90 @@ inst: mem256\[ $t + $n \] = $r
 in: ptr4864 t, ii n, reg256 r
 tr: $t[$p0] = $r;---$t:pu256x19;$r:rui256;---let $p0=$n/32
 
+inst: $r aligned= mem256\[ $n \]
+in: reg256 r, iv n
+tr: $r = $n;---$r:rui256;$n:ui256
 
-## BITWISE #####################################################################
+
+#######################################################################
+
+## SHL/SHR 128 #####################
+
+inst: 2x $r = $s << $n
+in: reg128 r, reg128 s, ii n
+tr: $r = $s <<2u64 $n;---$r:rui128;$s:rui128;
+
+inst: 2x $r = $s unsigned>> $n
+in: reg128 r, reg128 s, ii n
+tr: $r = $s >>2u64 $n;---$r:rui128;$s:rui128;
+
+
+inst: 4x $r = $s << $n
+in: reg128 r, reg128 s, ii n
+tr: $r = $s <<4u32 $n;---$r:rui128;$s:rui128;
+
+inst: 4x $r = $s unsigned>> $n
+in: reg128 r, reg128 s, ii n
+tr: $r = $s >>4u32 $n;---$r:rui128;$s:rui128;
+
+
+inst: 8x $r = $s << $n
+in: reg128 r, reg128 s, ii n
+tr: $r = $s <<8u16 $n;---$r:rui128;$s:rui128;
+
+inst: 8x $r = $s unsigned>> $n
+in: reg128 r, reg128 s, ii n
+tr: $r = $s >>8u16 $n;---$r:rui128;$s:rui128;
+
+## SHL/SHR inplace
+
+inst: 2x $r <<= $n
+in: reg128 r, ii n
+tr: $r <<2u64= $n;---$r:rui128;
+
+inst: 2x $r unsigned>>= $n
+in: reg128 r, ii n
+tr: $r >>2u64= $n;---$r:rui128;
+
+## SHL/SHR 256 #####################
+
+inst: 4x $r = $s << $n
+in: reg256 r, reg256 s, ii n
+tr: $r = $s <<4u64 $n;---$r:rui256;$s:rui256;
+
+inst: 4x $r = $s unsigned>> $n
+in: reg256 r, reg256 s, ii n
+tr: $r = $s >>4u64 $n;---$r:rui256;$s:rui256;
+
+#
+
+inst: 8x $r = $s << $n
+in: reg256 r, reg256 s, ii n
+tr: $r = $s <<8u32 $n;---$r:rui256;$s:rui256;
+
+inst: 8x $r = $s unsigned>> $n
+in: reg256 r, reg256 s, ii n
+tr: $r = $s >>8u32 $n;---$r:rui256;$s:rui256;
+
+#
+
+inst: 16x $r = $s << $n
+in: reg256 r, reg256 s, ii n
+tr: $r = $s <<16u16 $n;---$r:rui256;$s:rui256;
+
+inst: 16x $r = $s unsigned>> $n
+in: reg256 r, reg256 s, ii n
+tr: $r = $s >>16u16 $n;---$r:rui256;$s:rui256;
+
+## SHL/SHR inplace
+
+inst: 4x $r <<= $n
+in: reg256 r, ii n
+tr: $r <<4u64= $n;---$r:rui256;
+
+inst: 4x $r unsigned>>= $n
+in: reg256 r, ii n
+tr: $r >>4u64= $n;---$r:rui256;
 
 ## XOR #########################
 
@@ -69,7 +155,7 @@ tr: $r = $s ^ (u128)[$t + $n];---$r:rui128;$s:rui128;$t:rui64p;
 
 inst: $r = $s ^ mem128\[ $t + $n \]
 in: reg128 r, reg128 s, ptr4864 t, ii n
-tr: $r = $s ^ $t.[u128 $p0];---$r:rui128;$s:rui128;$t:pu256x19;---let $p0=$n/16
+tr: $r = $s ^ $t.[u128 $p0];---$r:rui128;$s:rui128;$t:pu256x19;---let $p0=$n
 
 
 #
@@ -96,9 +182,37 @@ inst: $r = $s & $t
 in: reg128 r, reg128 s, reg128 t
 tr: $r = $s & $t;---$r:rui128;$s:rui128;$t:rui128;
 
+#
+
 inst: $r = $s & $t
 in: reg256 r, reg256 s, reg256 t
 tr: $r = $s & $t;---$r:rui256;$s:rui256;$t:rui256;
+
+inst: $r &= $s
+in: reg256 r, reg256 s
+tr: $r &= $s;---$r:rui256;$s:rui256;
+
+
+inst: $r = $s & mem256\[ $t + $n \]
+in: reg256 r, reg256 s, int64 t, ii n
+tr: $r = $s & (u256)[$t + $n];---$r:rui256;$s:rui256;$t:rui64p;
+
+## OR #########################
+
+inst: $r = $s | $t
+in: reg128 r, reg128 s, reg128 t
+tr: $r = $s | $t;---$r:rui128;$s:rui128;$t:rui128;
+
+#
+
+inst: $r = $s | $t
+in: reg256 r, reg256 s, reg256 t
+tr: $r = $s | $t;---$r:rui256;$s:rui256;$t:rui256;
+
+inst: $r = $s | mem256\[ $t + $n \]
+in: reg256 r, reg256 s, int64 t, ii n
+tr: $r = $s | (u256)[$t + $n];---$r:rui256;$s:rui256;$t:rui64p;
+
 
 ## BROADCAST #########################
 
@@ -115,6 +229,30 @@ tr: $r = #VINSERTI128($r, (u128)[$t + $n], 0);
 inst: $r\[1\] = mem128\[ $t + $n \]
 in: reg256 r, int64 t, ii n
 tr: $r = #VINSERTI128($r, (u128)[$t + $n], 1);
+
+################################################################################
+################################################################################
+################################################################################
+
+inst: $r $o mem64\[ $s + $n \]
+in: int64 r, op o, int64 s, ii n
+tr: $r $o (u64)[$s + $n];---$r:rui64;$s:rui64p;
+
+inst: mem64\[ $s + $n \] = $r
+in: int64 s, ii n, int64 r
+tr: (u64)[$s + $n] = $r;---$s:rui64p;$r:rui64;
+
+inst: $r = ($s $t) >> $n
+in: int64 r, int64 s, int64 t, ii n
+tr: _,_,_,_,_,$r = #SHRD($t, $s, $n);---$r:rui64;$s:rui64;$t:rui64;
+
+
+################################################################################
+# MISC
+
+inst: $r = count($s)
+in: int64 r, int64 s
+tr: _, _, _, _, _, $r = #POPCNT_64($s);//$r = count($s)---$r:rui64;$s:rui64
 
 ################################################################################
 ################################################################################
@@ -458,9 +596,10 @@ tr: _, _, _, _, _, $r = #x86_ADD32($r, $s);  //(uint32) $r += $s---$r:rui64;$s:u
 ##
 ## AND/MASKS ###################################################################
 
-inst: (uint32) $r &= $n
-in: int64 r, ii n
-tr: x86_and_uint32($r,$n);  //(uint32) $r &= $n---$r:rui64;
+###not for Jasmin
+###inst: (uint32) $r &= $n
+###in: int64 r, ii n
+###tr: x86_and_uint32($r,$n);  //(uint32) $r &= $n---$r:rui64;
 
 ##
 ##

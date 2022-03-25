@@ -1,0 +1,180 @@
+//# FIX
+//# FIX
+export fn syndrome_asm(reg u64 input_0, reg u64 input_1, reg u64 input_2){
+	 ;
+	 reg u64 b64;
+	 reg u64 buf_ptr;
+	 reg u64 c;
+	 reg u64 c_all;
+	 reg u64 e;
+	 reg u256 ee;
+	 reg bool eqf;
+	 reg u64 p;
+	 reg u256 pp;
+	 reg u64 row;
+	 reg u64 s;
+	 reg u256 ss;
+	 reg u64 synd;
+
+	//input_1 += 1044364 # FIXME
+	// UNMATCHED: buf_ptr = &buf
+
+	row = 1664;  //row = 1664
+	do{
+	row -= 1;  //row -= 1
+	ss = (u256)[input_1 + 0];
+	ee = (u256)[input_2 + 208];
+	ss &= ee;
+	pp = (u256)[input_1 + 32];
+	ee = (u256)[input_2 + 240];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 64];
+	ee = (u256)[input_2 + 272];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 96];
+	ee = (u256)[input_2 + 304];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 128];
+	ee = (u256)[input_2 + 336];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 160];
+	ee = (u256)[input_2 + 368];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 192];
+	ee = (u256)[input_2 + 400];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 224];
+	ee = (u256)[input_2 + 432];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 256];
+	ee = (u256)[input_2 + 464];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 288];
+	ee = (u256)[input_2 + 496];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 320];
+	ee = (u256)[input_2 + 528];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 352];
+	ee = (u256)[input_2 + 560];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 384];
+	ee = (u256)[input_2 + 592];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 416];
+	ee = (u256)[input_2 + 624];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 448];
+	ee = (u256)[input_2 + 656];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 480];
+	ee = (u256)[input_2 + 688];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 512];
+	ee = (u256)[input_2 + 720];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 544];
+	ee = (u256)[input_2 + 752];
+	pp &= ee;
+	ss ^= pp;
+	pp = (u256)[input_1 + 576];
+	ee = (u256)[input_2 + 784];
+	pp &= ee;
+	ss ^= pp;
+	// UNMATCHED: buf = ss
+
+	s = (u64)[input_1 + 608];
+	e = (u64)[input_2 + 816];
+	s &= e;  //s &= e
+	p = (u64)[input_1 + 616];
+	e = (u64)[input_2 + 824];
+	p &= e;  //p &= e
+	s ^= p;  //s ^= p
+	//p = *(uint32 *)(input_1 + 624) #FIXME
+	//e = *(uint32 *)(input_2 + 832) #FIXME
+	p &= e;  //p &= e
+	s ^= p;  //s ^= p
+	// UNMATCHED: c_all = count(s)
+
+	b64 = (u64)[buf_ptr + 0];
+	// UNMATCHED: c = count(b64)
+
+	c_all ^= c;  //c_all ^= c
+	b64 = (u64)[buf_ptr + 8];
+	// UNMATCHED: c = count(b64)
+
+	c_all ^= c;  //c_all ^= c
+	b64 = (u64)[buf_ptr + 16];
+	// UNMATCHED: c = count(b64)
+
+	c_all ^= c;  //c_all ^= c
+	b64 = (u64)[buf_ptr + 24];
+	// UNMATCHED: c = count(b64)
+
+	c_all ^= c;  //c_all ^= c
+	//Not enough possible translations to meet the resolved types : var name (addr); var type: (rvp); line (105); 
+//  edit the map file in config folder.
+
+	//Not enough possible translations to meet the resolved types : var name (addr); var type: (rvp); line (106); 
+//  edit the map file in config folder.
+
+	//addr += input_0 #FIXME
+	//DM synd = *(uint8_t *) (addr + 0);  //synd = *(uint8 *) (addr + 0)
+	synd <<= 1;  //synd <<= 1
+	x86_and_uint32(c_all,1);  //(uint32) c_all &= 1
+	synd |= c_all;  //synd |= c_all
+	//DM *(uint8_t *) (addr + 0) = synd;  //*(uint8 *) (addr + 0) = synd
+	//input_1 -= 628 #FIXME
+	}while(row != 0);
+	ss = (u256)[input_0 + 0];
+	ee = (u256)[input_2 + 0];
+	ss ^= ee;
+	(u256)[input_0 + 0] = ss;
+	ss = (u256)[input_0 + 32];
+	ee = (u256)[input_2 + 32];
+	ss ^= ee;
+	(u256)[input_0 + 32] = ss;
+	ss = (u256)[input_0 + 64];
+	ee = (u256)[input_2 + 64];
+	ss ^= ee;
+	(u256)[input_0 + 64] = ss;
+	ss = (u256)[input_0 + 96];
+	ee = (u256)[input_2 + 96];
+	ss ^= ee;
+	(u256)[input_0 + 96] = ss;
+	ss = (u256)[input_0 + 128];
+	ee = (u256)[input_2 + 128];
+	ss ^= ee;
+	(u256)[input_0 + 128] = ss;
+	ss = (u256)[input_0 + 160];
+	ee = (u256)[input_2 + 160];
+	ss ^= ee;
+	(u256)[input_0 + 160] = ss;
+	s = (u64)[input_0 + 192];
+	e = (u64)[input_2 + 192];
+	s ^= e;  //s ^= e
+	(u64)[input_0 + 192] = s;
+	s = (u64)[input_0 + 200];
+	e = (u64)[input_2 + 200];
+	s ^= e;  //s ^= e
+	(u64)[input_0 + 200] = s;
+	return;
+}
+
+

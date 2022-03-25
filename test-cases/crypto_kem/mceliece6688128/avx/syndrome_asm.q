@@ -12,8 +12,19 @@ reg256 ee
 reg256 ss
 int64 buf_ptr
 stack256 buf
+
+## FIX
+int64 input_0
+int64 input_1
+int64 input_2
+
+input input_0
+input input_1
+input input_2
+## FIX
+
 enter syndrome_asm
-input_1 += 1044364
+#input_1 += 1044364 # FIXME
 buf_ptr = &buf
 row = 1664
 
@@ -104,8 +115,8 @@ p = mem64[input_1 + 616]
 e = mem64[input_2 + 824]
 p &= e
 s ^= p
-p = *(uint32 *)(input_1 + 624)
-e = *(uint32 *)(input_2 + 832)
+#p = *(uint32 *)(input_1 + 624) #FIXME
+#e = *(uint32 *)(input_2 + 832) #FIXME
 p &= e
 s ^= p
 c_all = count(s)
@@ -124,13 +135,13 @@ c_all ^= c
 
 addr = row
 (uint64) addr >>= 3
-addr += input_0
+#addr += input_0 #FIXME
 synd = *(uint8  *) (addr + 0)
 synd <<= 1
 (uint32) c_all &= 1
 synd |= c_all
 *(uint8  *) (addr + 0) = synd
-input_1 -= 628
+#input_1 -= 628 #FIXME
 =? row-0
 
 goto loop if !=
